@@ -2,9 +2,13 @@ import Vue from "vue";
 import Component from "vue-class-component";
 import { Canvas3d } from "../../components";
 
-@Component
+@Component({
+  components: {
+    Canvas3d,
+  },
+})
 export class PlaygroundPage extends Vue {
   render() {
-    return <Canvas3d />;
+    return <Canvas-3d />;
   }
 }
