@@ -1,29 +1,29 @@
-import * as THREE from "three";
+import * as THREE from 'three'
 
-import { initCamera } from "./entities/camera";
-import { initRenderer } from "./engine-settings/renderer";
-import { initLight } from "./entities/light";
-import { initWorld } from "./engine-settings/world";
+import { initCamera } from './entities/camera'
+import { initRenderer } from './engine-settings/renderer'
+import { initLight } from './entities/light'
+import { initWorld } from './engine-settings/world'
 
-import { createArea } from "./entities/area";
-import { createMap } from "./entities/map";
-import { createCar } from "./entities/car";
+import { createArea } from './entities/area'
+import { createMap } from './entities/map'
+import { createCar } from './entities/car'
 
-import { runEngineLoop } from "./controllers/engine-loop";
-import { initButtonControls } from "./controllers/button-controls";
+import { runEngineLoop } from './controllers/engine-loop'
+import { initButtonControls } from './controllers/button-controls'
 
 export function init3DRenderer(container) {
   //THREE JS
-  const scene = new THREE.Scene();
-  const renderer = initRenderer(container);
-  const { camera, controls } = initCamera(renderer, container);
+  const scene = new THREE.Scene()
+  const renderer = initRenderer(container)
+  const { camera, controls } = initCamera(renderer, container)
 
-  initLight(scene);
+  initLight(scene)
 
   //CANNON JS
-  const world = initWorld();
+  const world = initWorld()
 
-  createArea(scene, world);
+  createArea(scene, world)
 
   const MAP = {
     walls: [
@@ -66,9 +66,9 @@ export function init3DRenderer(container) {
     endPoint: {
       position: [0, 0, 15],
     },
-  };
+  }
 
-  createMap(scene, world, MAP);
+  createMap(scene, world, MAP)
 
   // const helper = new THREE.DirectionalLightHelper(light);
   // scene.add(helper);
@@ -77,7 +77,7 @@ export function init3DRenderer(container) {
   // const stats = Stats()
   // container.appendChild(stats.dom)
 
-  const { vehicle, vehicleBody, vehicleMesh } = createCar(scene, world);
+  const { vehicle, vehicleBody, vehicleMesh } = createCar(scene, world)
 
   runEngineLoop(
     scene,
@@ -89,9 +89,9 @@ export function init3DRenderer(container) {
     vehicleBody,
     vehicle,
     MAP.endPoint
-  );
+  )
 
-  initButtonControls(vehicle);
+  initButtonControls(vehicle)
 
   // CannonDebugRenderer
   // const cannonDebugRenderer = new CannonDebugRenderer(scene, world);

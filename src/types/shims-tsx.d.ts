@@ -1,4 +1,4 @@
-import Vue, { VNode } from "vue";
+import Vue, { VNode } from 'vue'
 
 declare global {
   namespace JSX {
@@ -7,10 +7,10 @@ declare global {
 
     interface ElementAttributesProperty {
       // eslint-disable-next-line
-      $props: {};
+      $props: {}
     }
     interface IntrinsicElements {
-      [elem: string]: any;
+      [elem: string]: any
     }
   }
 }

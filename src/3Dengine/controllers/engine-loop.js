@@ -1,4 +1,4 @@
-let END_GAME = false;
+let END_GAME = false
 
 export function runEngineLoop(
   scene,
@@ -11,30 +11,30 @@ export function runEngineLoop(
   vehicle,
   endPoint
 ) {
-  animate();
+  animate()
 
   function animate() {
-    requestAnimationFrame(animate);
-    controls.update();
+    requestAnimationFrame(animate)
+    controls.update()
     // stats.update()
 
     //Всё что связанно с cannon js
-    world.step(1 / 60);
+    world.step(1 / 60)
     // update the chassis position
-    vehicleMesh.position.copy(vehicleBody.position);
-    vehicleMesh.quaternion.copy(vehicleBody.quaternion);
+    vehicleMesh.position.copy(vehicleBody.position)
+    vehicleMesh.quaternion.copy(vehicleBody.quaternion)
 
-    const END_POINT_X = endPoint.position[0];
-    const END_POINT_Z = endPoint.position[2];
-    const VEHICLE_POSITION = vehicle.chassisBody.position;
+    const END_POINT_X = endPoint.position[0]
+    const END_POINT_Z = endPoint.position[2]
+    const VEHICLE_POSITION = vehicle.chassisBody.position
 
     if (
       Math.abs(VEHICLE_POSITION.x - END_POINT_X) < 1 &&
       Math.abs(VEHICLE_POSITION.z - END_POINT_Z) < 1 &&
       !END_GAME
     ) {
-      END_GAME = true;
-      alert("Карта пройдена!");
+      END_GAME = true
+      alert('Карта пройдена!')
     }
 
     //camera
@@ -52,7 +52,7 @@ export function runEngineLoop(
     //Конец всё что связанно с cannon js
 
     // stats.begin()
-    renderer.render(scene, camera);
+    renderer.render(scene, camera)
     // stats.end()
   }
 }

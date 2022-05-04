@@ -1,8 +1,8 @@
-import Vue from "vue";
-import Component from "vue-class-component";
+import Vue from 'vue'
+import Component from 'vue-class-component'
 
 @Component({
-  name: "App",
+  name: 'App',
 })
 export default class App extends Vue {
   render() {
@@ -10,6 +10,6 @@ export default class App extends Vue {
       <div id="app">
         <router-view></router-view>
       </div>
-    );
+    )
   }
 }
