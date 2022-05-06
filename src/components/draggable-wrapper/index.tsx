@@ -41,16 +41,16 @@ export class DraggableWrapper extends Vue {
 
     this.list1 = this.list1.map((item, index) => {
       if (index === newPositionElement) {
-        return (item = {
+        return {
           ...item,
           id: this.list1.length - newPositionElement,
-        })
+        }
       }
       if (index === oldPositionElement) {
-        return (item = {
+        return {
           ...item,
           id: this.list1.length - oldPositionElement,
-        })
+        }
       }
       return item
     })
