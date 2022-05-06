@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import { Canvas3d } from '../../components'
+import { Canvas3d, DraggableWrapper } from '../../components'
 
 @Component({
   components: {
@@ -9,6 +9,20 @@ import { Canvas3d } from '../../components'
 })
 export class PlaygroundPage extends Vue {
   render() {
-    return <Canvas-3d />
+    return (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+        }}
+      >
+        <DraggableWrapper
+          style={{
+            width: '536px',
+          }}
+        />
+        <Canvas-3d />
+      </div>
+    )
   }
 }
