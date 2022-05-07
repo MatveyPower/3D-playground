@@ -12,7 +12,7 @@ import { createCar } from './entities/car'
 import { runEngineLoop } from './controllers/engine-loop'
 import { initButtonControls } from './controllers/button-controls'
 
-export function init3DRenderer(container) {
+export function init3DRenderer(container, store) {
   //THREE JS
   const scene = new THREE.Scene()
   const renderer = initRenderer(container)
@@ -88,7 +88,8 @@ export function init3DRenderer(container) {
     vehicleMesh,
     vehicleBody,
     vehicle,
-    MAP.endPoint
+    MAP.endPoint,
+    store
   )
 
   initButtonControls(vehicle)
