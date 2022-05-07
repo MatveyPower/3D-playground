@@ -1,0 +1,8 @@
+.playgroundPageContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dropdownWrapper {
+    width: 536px;
+}

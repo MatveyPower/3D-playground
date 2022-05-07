@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import { Canvas3d, DraggableWrapper } from '../../components'
 
+import styles from './style.module.css'
+
 @Component({
   components: {
     Canvas3d,
@@ -10,17 +12,8 @@ import { Canvas3d, DraggableWrapper } from '../../components'
 export class PlaygroundPage extends Vue {
   render() {
     return (
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-        }}
-      >
-        <DraggableWrapper
-          style={{
-            width: '536px',
-          }}
-        />
+      <div class={styles.playgroundPageContainer}>
+        <DraggableWrapper class={styles.dropdownWrapper} />
         <Canvas-3d />
       </div>
     )

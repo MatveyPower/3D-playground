@@ -4,11 +4,19 @@ import draggable from 'vuedraggable'
 import {
   DraggableItemComponentsParts,
   DraggableItemEnum,
+  DraggableItemType,
 } from '../draggable-item'
 
 import { DraggableItem } from '@/components'
 
 import styles from './style.module.css'
+
+type CodeBlockType = {
+  //TODO добавить необязательные поля для инпута и селекта
+  name: string
+  id: number
+  type: DraggableItemType
+}
 
 interface DraggableWrapperProps {
   whenDrag: () => void
@@ -22,34 +30,32 @@ export class DraggableWrapper extends Vue {
   @Prop()
   items: DraggableWrapperProps['items']
 
-  draggable = true
-
-  list1 = [
+  codeBlocks: CodeBlockType[] = [
     { name: 'Начало', id: 1, type: DraggableItemEnum.start },
     { name: 'Условие', id: 2, type: DraggableItemEnum.condition },
-    { name: 'lorem', id: 3, type: DraggableItemEnum.action },
-    { name: 'Условие', id: 5, type: DraggableItemEnum.condition },
+    { name: 'Ехать', id: 3, type: DraggableItemEnum.action },
+    { name: 'Конец', id: 5, type: DraggableItemEnum.finish },
   ]
 
   updateDraggableList(e: any) {
-    const newPositionElement = this.list1.findIndex(
+    const newPositionElement = this.codeBlocks.findIndex(
       (item, index) => index === e.newIndex
     )
-    const oldPositionElement = this.list1.findIndex(
+    const oldPositionElement = this.codeBlocks.findIndex(
       (item, index) => index === e.oldIndex
     )
 
-    this.list1 = this.list1.map((item, index) => {
+    this.codeBlocks = this.codeBlocks.map((item, index) => {
       if (index === newPositionElement) {
         return {
           ...item,
-          id: this.list1.length - newPositionElement,
+          id: this.codeBlocks.length - newPositionElement,
         }
       }
       if (index === oldPositionElement) {
         return {
           ...item,
-          id: this.list1.length - oldPositionElement,
+          id: this.codeBlocks.length - oldPositionElement,
         }
       }
       return item
@@ -60,19 +66,19 @@ export class DraggableWrapper extends Vue {
     return (
       <div>
         <draggable
-          list={this.list1}
+          list={this.codeBlocks}
           onUpdate={this.updateDraggableList}
           animation={150}
           draggable={'.drag'}
         >
-          {this.list1.map((item, index) => {
+          {this.codeBlocks.map((item, index) => {
             return (
               <DraggableItem
                 style={{
                   zIndex:
                     item.type === DraggableItemEnum.start
                       ? '100'
-                      : this.list1.length - index,
+                      : this.codeBlocks.length - index,
                 }}
                 item={item}
                 id={index}

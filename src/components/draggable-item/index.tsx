@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue, { VNode } from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
 import { DropdownSelect } from '@/components'
 import styles from './style.module.css'
@@ -29,28 +29,43 @@ export class DraggableItem extends Vue {
   @Prop()
   item: DraggableItemProps['item']
 
-  colorStyleName(type: DraggableItemType) {
-    return `${type.split('')[0].toUpperCase()}${type.slice(1)}`
+  get draggableItem(): Record<DraggableItemType, VNode> {
+    return {
+      start: (
+        <div class={[styles.dragItem, styles.start, styles.colorStart]}>
+          {this.item.name}
+          <div class={[styles.rectangle, styles.colorStart]}></div>
+        </div>
+      ),
+
+      action: (
+        <div class={[styles.dragItem, styles.action, styles.colorAction]}>
+          {this.item.name}
+          {/* TODO сделать отедльным компонентом инпут и стилизовать */}
+          <input />
+          <div class={[styles.rectangle, styles.colorAction]}></div>
+        </div>
+      ),
+
+      condition: (
+        <div class={[styles.dragItem, styles.condition, styles.colorCondition]}>
+          {this.item.name}
+          <DropdownSelect />
+          <DropdownSelect />
+          <div class={[styles.rectangle, styles.colorCondition]}></div>
+        </div>
+      ),
+
+      finish: (
+        <div class={[styles.dragItem, styles.finish, styles.colorFinish]}>
+          {this.item.name}
+          <div class={[styles.rectangle, styles.colorFinish]}></div>
+        </div>
+      ),
+    }
   }
 
   render() {
-    return (
-      <div
-        class={[
-          styles.dragItem,
-          styles[this.item.type],
-          styles[`color${this.colorStyleName(this.item.type)}`],
-        ]}
-      >
-        {this.item.name}
-        <DropdownSelect />
-        <div
-          class={[
-            styles.rectangle,
-            styles[`color${this.colorStyleName(this.item.type)}`],
-          ]}
-        ></div>
-      </div>
-    )
+    return this.draggableItem[this.item.type]
   }
 }
