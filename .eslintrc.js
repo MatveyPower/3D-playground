@@ -25,6 +25,5 @@ module.exports = {
         endOfLine: 'auto',
       },
     ],
-    'no-inferrable-types': false
   },
 }
