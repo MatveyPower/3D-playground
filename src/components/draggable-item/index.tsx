@@ -10,13 +10,12 @@ export enum DraggableItemEnum {
   finish = 'finish',
 }
 
-export type DraggableItemType = keyof typeof DraggableItemEnum
 
 export type DraggableItemComponentsParts = {
   name: string
   order: number
   fixable: boolean
-  type: DraggableItemType
+  type: DraggableItemEnum
   id: number
 }
 
@@ -29,7 +28,7 @@ export class DraggableItem extends Vue {
   @Prop()
   item: DraggableItemProps['item']
 
-  get draggableItem(): Record<DraggableItemType, VNode> {
+  get draggableItem(): Record<DraggableItemEnum, VNode> {
     return {
       start: (
         <div class={[styles.dragItem, styles.start, styles.colorStart]}>

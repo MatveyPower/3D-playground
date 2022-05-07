@@ -4,7 +4,6 @@ import draggable from 'vuedraggable'
 import {
   DraggableItemComponentsParts,
   DraggableItemEnum,
-  DraggableItemType,
 } from '../draggable-item'
 
 import { DraggableItem } from '@/components'
@@ -15,7 +14,7 @@ type CodeBlockType = {
   //TODO добавить необязательные поля для инпута и селекта
   name: string
   id: number
-  type: DraggableItemType
+  type: DraggableItemEnum
 }
 
 interface DraggableWrapperProps {
