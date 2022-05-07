@@ -1,0 +1,61 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.dragItem {
+  position: relative;
+  box-shadow: 0px 0px 6px 2px #000000;
+  border-radius: 8px;
+  z-index: 1;
+}
+
+.start {
+  width: 382px;
+  height: 48px;
+}
+
+.condition {
+  width: 536px;
+  height: 224px;
+}
+
+.action {
+  width: 382px;
+  height: 100px;
+  margin-right: 0;
+  margin-left: auto;
+}
+
+.finish {
+  width: 300px;
+  height: 128px;
+}
+
+.colorStart {
+  background-color: #e18976;
+}
+
+.colorCondition {
+  background-color: #e1dd76;
+}
+.colorAction {
+  background-color: #9fe176;
+}
+.colorFinish {
+  background-color: black;
+  
+}
+
+.rectangle {
+  position: absolute;
+  z-index: 1;
+  right: 26px;
+  bottom: -18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 11px;
+  transform: rotate(45deg);
+  box-shadow: 5px 5px 5px -2px rgb(0 0 0 / 60%);
+}

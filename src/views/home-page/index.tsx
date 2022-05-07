@@ -6,6 +6,10 @@ import styles from './style.module.css'
 @Component
 export class HomePage extends Vue {
   render() {
-    return <h1 class={styles.heading}>home!</h1>
+    return (
+      <div>
+        <h1 class={styles.heading}>home!</h1>
+      </div>
+    )
   }
 }
