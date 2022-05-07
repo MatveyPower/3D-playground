@@ -18,7 +18,8 @@
     "vue-property-decorator": "^9.1.2",
     "vue-router": "^3.5.1",
     "vuedraggable": "^2.24.3",
-    "vuex": "^3.6.2"
+    "vuex": "^3.6.2",
+    "vuex-simple": "^2.2.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.4.0",
