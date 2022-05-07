@@ -1,3 +1,26 @@
-.heading {
-    background-color: red;
+.page {
+    min-height: 100%;
+  margin-top: 177px;
+  background-image: url('../../static/robot.png');
+  height: 688px;
+  background-position: right;
+  background-repeat: no-repeat;
+}
+
+.title {
+  max-width: 768px;
+  font-weight: 900;
+  font-size: 64px;
+  line-height: 78px;
+  color: #ffffff;
+}
+
+.description {
+  margin-top: 33px;
+  max-width: 471px;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 39px;
+
+  color: #ffffff;
 }

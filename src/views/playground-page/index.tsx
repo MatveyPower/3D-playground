@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import { Canvas3d, DraggableWrapper } from '../../components'
+import { Canvas3d, DefaultLayout, DraggableWrapper } from '../../components'
 
 import styles from './style.module.css'
 
@@ -12,10 +12,12 @@ import styles from './style.module.css'
 export class PlaygroundPage extends Vue {
   render() {
     return (
-      <div class={styles.playgroundPageContainer}>
-        <DraggableWrapper class={styles.dropdownWrapper} />
-        <Canvas-3d />
-      </div>
+      <DefaultLayout>
+        <div class={styles.playgroundPageContainer}>
+          <DraggableWrapper class={styles.dropdownWrapper} />
+          <Canvas-3d />
+        </div>
+      </DefaultLayout>
     )
   }
 }
