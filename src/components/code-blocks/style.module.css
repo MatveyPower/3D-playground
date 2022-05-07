@@ -1,0 +1,18 @@
+.dragItem {
+    position: relative;
+    box-shadow: 0px 0px 6px 2px #000000;
+    border-radius: 8px;
+    z-index: 1;
+}
+
+.rectangle {
+    position: absolute;
+    z-index: 1;
+    right: 26px;
+    bottom: -18px;
+    width: 36px;
+    height: 36px;
+    border-radius: 11px;
+    transform: rotate(45deg);
+    box-shadow: 5px 5px 5px -2px rgb(0 0 0 / 60%);
+}

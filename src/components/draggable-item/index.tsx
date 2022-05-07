@@ -2,6 +2,7 @@ import Vue, { VNode } from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
 import { DropdownSelect } from '@/components'
 import styles from './style.module.css'
+import { ActionBlock } from '../code-blocks/action'
 
 export enum DraggableItemEnum {
   condition = 'condition',
@@ -22,7 +23,9 @@ interface DraggableItemProps {
   item: DraggableItemComponentsParts
 }
 
-@Component
+@Component({
+  components: { ActionBlock },
+})
 export class DraggableItem extends Vue {
   @Prop()
   item: DraggableItemProps['item']
@@ -36,14 +39,7 @@ export class DraggableItem extends Vue {
         </div>
       ),
 
-      action: (
-        <div class={[styles.dragItem, styles.action, styles.colorAction]}>
-          {this.item.name}
-          {/* TODO сделать отедльным компонентом инпут и стилизовать */}
-          <input />
-          <div class={[styles.rectangle, styles.colorAction]}></div>
-        </div>
-      ),
+      action: <ActionBlock item={this.item} />,
 
       condition: (
         <div class={[styles.dragItem, styles.condition, styles.colorCondition]}>

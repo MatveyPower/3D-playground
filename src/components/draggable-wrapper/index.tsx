@@ -8,8 +8,6 @@ import {
 
 import { DraggableItem } from '@/components'
 
-import styles from './style.module.css'
-
 type CodeBlockType = {
   //TODO добавить необязательные поля для инпута и селекта
   name: string
