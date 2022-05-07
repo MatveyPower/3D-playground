@@ -10,7 +10,6 @@ export enum DraggableItemEnum {
   finish = 'finish',
 }
 
-
 export type DraggableItemComponentsParts = {
   name: string
   order: number
