@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 
+import { Button } from '@/components'
+
 import styles from './style.module.css'
 
 @Component
@@ -8,35 +10,17 @@ export class TopMenu extends Vue {
   render() {
     return (
       <div class={styles.buttonsWrapper}>
-        <button
-          class={styles.button}
-          onClick={() => this.$router.push('/')}
-          type="button"
-        >
-          <img
-            src={require('../../static/home-icon.svg')}
-            alt="Страница игры"
-          />
-        </button>
+        <Button whenClick={() => this.$router.push('/')} imgSrc={'home-icon'} />
 
-        <button
-          class={styles.button}
-          onClick={() => this.$router.push('/playground')}
-          type="button"
-        >
-          <img src={require('../../static/maps-icon.svg')} alt="Карты" />
-        </button>
+        <Button
+          whenClick={() => this.$router.push('/playground')}
+          imgSrc={'maps-icon'}
+        />
 
-        <button
-          class={styles.button}
-          onClick={() => this.$router.push('/settings')}
-          type="button"
-        >
-          <img
-            src={require('../../static/settings-icon.svg')}
-            alt="Настройки"
-          />
-        </button>
+        <Button
+          whenClick={() => this.$router.push('/settings')}
+          imgSrc={'settings-icon'}
+        />
       </div>
     )
   }
