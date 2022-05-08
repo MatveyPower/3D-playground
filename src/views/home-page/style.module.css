@@ -24,3 +24,14 @@
 
   color: #ffffff;
 }
+
+.buttonStart {
+  margin-top: 96px;
+  color: #ffffff;
+  background-color: #fa8e2c;
+  border-radius: 8px;
+  padding: 12px 33px;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 39px;
+}

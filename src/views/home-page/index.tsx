@@ -1,3 +1,4 @@
+import { Button } from '@/components'
 import { DefaultLayout } from '@/components/default-layout'
 import Vue from 'vue'
 import Component from 'vue-class-component'
@@ -16,6 +17,11 @@ export class HomePage extends Vue {
           <div class={styles.description}>
             Начни прямо сейчас программировать робота и проходить карты
           </div>
+          <Button
+            class={styles.buttonStart}
+            whenClick={() => this.$router.push('/playground')}
+            text={'Начать'}
+          />
         </div>
       </DefaultLayout>
     )
