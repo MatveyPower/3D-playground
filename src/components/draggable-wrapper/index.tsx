@@ -29,7 +29,7 @@ export class DraggableWrapper extends Vue {
 
   codeBlocks: CodeBlockType[] = [
     { name: 'Начало', id: 1, type: DraggableItemEnum.start },
-    { name: 'Условие', id: 2, type: DraggableItemEnum.condition },
+    { name: 'Условие', id: 2, type: DraggableItemEnum.if },
     { name: 'Ехать', id: 3, type: DraggableItemEnum.action },
     { name: 'Конец', id: 5, type: DraggableItemEnum.finish },
   ]
