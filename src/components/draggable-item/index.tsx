@@ -1,8 +1,11 @@
 import Vue, { VNode } from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
-import { DropdownSelect } from '@/components'
-import styles from './style.module.css'
-import { ActionBlock } from '../code-blocks/action'
+import {
+  ActionBlock,
+  ConditionBlock,
+  StartBlock,
+  FinishBlock,
+} from '@/components'
 
 export enum DraggableItemEnum {
   condition = 'condition',
@@ -23,39 +26,20 @@ interface DraggableItemProps {
   item: DraggableItemComponentsParts
 }
 
-@Component({
-  components: { ActionBlock },
-})
+@Component
 export class DraggableItem extends Vue {
   @Prop()
   item: DraggableItemProps['item']
 
   get draggableItem(): Record<DraggableItemEnum, VNode> {
     return {
-      start: (
-        <div class={[styles.dragItem, styles.start, styles.colorStart]}>
-          {this.item.name}
-          <div class={[styles.rectangle, styles.colorStart]}></div>
-        </div>
-      ),
+      start: <StartBlock item={this.item} />,
 
       action: <ActionBlock item={this.item} />,
 
-      condition: (
-        <div class={[styles.dragItem, styles.condition, styles.colorCondition]}>
-          {this.item.name}
-          <DropdownSelect />
-          <DropdownSelect />
-          <div class={[styles.rectangle, styles.colorCondition]}></div>
-        </div>
-      ),
+      condition: <ConditionBlock item={this.item} />,
 
-      finish: (
-        <div class={[styles.dragItem, styles.finish, styles.colorFinish]}>
-          {this.item.name}
-          <div class={[styles.rectangle, styles.colorFinish]}></div>
-        </div>
-      ),
+      finish: <FinishBlock item={this.item} />,
     }
   }
 
