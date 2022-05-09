@@ -8,7 +8,7 @@ export class CodeBlock extends Vue {
     return <div />
   }
 
-  blockStyle: Record<'block' | 'rhombus', string[] | [null]> = {
+  blockStyle: Record<'block' | 'rhombus', string[] | []> = {
     block: [],
     rhombus: [],
   }
