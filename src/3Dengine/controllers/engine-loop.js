@@ -38,17 +38,17 @@ export function runEngineLoop(
       alert('Карта пройдена!')
     }
 
-    if (store.game.play) {
-      vehicle.applyEngineForce(400, 2)
-      vehicle.applyEngineForce(400, 3)
-      vehicle.setSteeringValue(200, 2)
-      vehicle.setSteeringValue(200, 3)
-    } else {
-      vehicle.applyEngineForce(0, 2)
-      vehicle.applyEngineForce(0, 3)
-      vehicle.setSteeringValue(0, 2)
-      vehicle.setSteeringValue(0, 3)
-    }
+    // if (store.game.play) {
+    //   vehicle.applyEngineForce(400, 2)
+    //   vehicle.applyEngineForce(400, 3)
+    //   vehicle.setSteeringValue(200, 2)
+    //   vehicle.setSteeringValue(200, 3)
+    // } else {
+    //   vehicle.applyEngineForce(0, 2)
+    //   vehicle.applyEngineForce(0, 3)
+    //   vehicle.setSteeringValue(0, 2)
+    //   vehicle.setSteeringValue(0, 3)
+    // }
     //camera
 
     // camera.position.x = box.position.x + 0

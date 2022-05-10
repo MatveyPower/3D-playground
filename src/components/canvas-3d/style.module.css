@@ -1,0 +1,32 @@
+.popupBG {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+
+  background-color: rgba(0, 0, 0, .5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 999;
+}
+
+.container {
+  position: relative;
+
+  padding: 16px;
+  background-color: #383538;
+
+  border-radius: 8px;
+}
+
+.fullScreenBtn {
+  position: absolute;
+  right: 32px;
+  top: 32px;
+
+  cursor: pointer;
+}

@@ -5,7 +5,10 @@ export function initRenderer(container) {
 
   renderer.shadowMap.enabled = true
   renderer.shadowMap.type = THREE.PCFSoftShadowMap
-  renderer.setSize(container.clientWidth, container.clientHeight)
+  renderer.setSize(
+    container.clientWidth - 16 * 2,
+    container.clientHeight - 16 * 2
+  )
   container.appendChild(renderer.domElement)
   renderer.shadowMap.enabled = true
 

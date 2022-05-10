@@ -96,4 +96,5 @@ export function init3DRenderer(container, store) {
 
   // CannonDebugRenderer
   // const cannonDebugRenderer = new CannonDebugRenderer(scene, world);
+  return renderer
 }
