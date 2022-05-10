@@ -1,6 +1,8 @@
+import * as THREE from 'three'
 import { DraggableItemEnum } from '@/components/draggable-item'
 
 // let END_GAME = false
+let peresech = false
 
 export function runEngineLoop(
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -32,12 +34,18 @@ export function runEngineLoop(
   endPoint,
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
+  sensorMesh,
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  wallsArr,
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
   store
 ) {
-  const PROGRAM = store.game.programBlocks
-  let DOING_NOW = false
+  // const PROGRAM = store.game.programBlocks
+  // let DOING_NOW = false
 
-  let FORWARD = false
+  // let FORWARD = false
 
   animate()
 
@@ -77,24 +85,37 @@ export function runEngineLoop(
     //   vehicle.setSteeringValue(0, 3)
     // }
 
-    if (!DOING_NOW) {
-      const block = PROGRAM.shift()
-      DOING_NOW = true
+    // if (!DOING_NOW) {
+    //   const block = PROGRAM.shift()
+    //   DOING_NOW = true
 
-      if (block.type === DraggableItemEnum.action) {
-        if (block.action === 'forward') {
-          FORWARD = true
-          setTimeout(() => {
-            FORWARD = false
-          }, block.duration * 1000)
-        }
+    //   if (block.type === DraggableItemEnum.action) {
+    //     if (block.action === 'forward') {
+    //       FORWARD = true
+    //       setTimeout(() => {
+    //         FORWARD = false
+    //       }, block.duration * 1000)
+    //     }
+    //   }
+    // }
+
+    // if (FORWARD) {
+    //   vehicle.applyEngineForce(-100, 2)
+    //   vehicle.applyEngineForce(-100, 3)
+    // }
+
+    peresech = false
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    wallsArr.forEach((wall) => {
+      if (checkTouching(sensorMesh, wall)) {
+        peresech = true
       }
-    }
+    })
 
-    if (FORWARD) {
-      vehicle.applyEngineForce(-100, 2)
-      vehicle.applyEngineForce(-100, 3)
-    }
+    console.log(peresech)
+
     //camera
 
     // camera.position.x = box.position.x + 0
@@ -113,4 +134,43 @@ export function runEngineLoop(
     renderer.render(scene, camera)
     // stats.end()
   }
+}
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+function checkTouching(_a, d) {
+  // const p = v.chassisBody.position
+  // const q = v.chassisBody.quaternion
+  // const sensorGeometry = new THREE.BoxGeometry(2, 2, 2)
+  // const sensorMaterial = new THREE.MeshBasicMaterial({
+  //   color: 0xffff00,
+  //   side: THREE.DoubleSide,
+  // })
+  // const sensorMesh = new THREE.Mesh(sensorGeometry, sensorMaterial)
+  // sensorMesh.quaternion.copy(q)
+  // sensorMesh.position.set(p.x, p.y, p.z + 10)
+  // const a = sensorMesh
+  // console.log(a.position)
+  const target = new THREE.Vector3()
+  _a.getWorldPosition(target)
+  const a = {
+    position: target,
+    geometry: _a.geometry,
+  }
+  // console.log(a)
+  const b1 = a.position.y - a.geometry.parameters.height / 2
+  const t1 = a.position.y + a.geometry.parameters.height / 2
+  const r1 = a.position.x + a.geometry.parameters.width / 2
+  const l1 = a.position.x - a.geometry.parameters.width / 2
+  const f1 = a.position.z - a.geometry.parameters.depth / 2
+  const B1 = a.position.z + a.geometry.parameters.depth / 2
+  const b2 = d.position.y - d.geometry.parameters.height / 2
+  const t2 = d.position.y + d.geometry.parameters.height / 2
+  const r2 = d.position.x + d.geometry.parameters.width / 2
+  const l2 = d.position.x - d.geometry.parameters.width / 2
+  const f2 = d.position.z - d.geometry.parameters.depth / 2
+  const B2 = d.position.z + d.geometry.parameters.depth / 2
+  if (t1 < b2 || r1 < l2 || b1 > t2 || l1 > r2 || f1 > B2 || B1 < f2) {
+    return false
+  }
+  return true
 }
