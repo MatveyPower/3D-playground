@@ -62,7 +62,7 @@ export class Canvas3d extends Vue {
             <img
               onClick={this.openFullScreen}
               src={require('../../static/fullScreen.svg')}
-              alt="full-screen button"
+              alt="open full-screen button"
               width="32"
               height="32"
               class={styles.fullScreenBtn}
@@ -71,7 +71,7 @@ export class Canvas3d extends Vue {
             <img
               onClick={this.closeFullScreen}
               src={require('../../static/close.svg')}
-              alt="full-screen button"
+              alt="close full-screen button"
               width="32"
               height="32"
               class={styles.fullScreenBtn}
