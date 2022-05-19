@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { DraggableItemEnum } from '@/components/draggable-item'
 
-// let END_GAME = false
+let END_GAME = false
 let peresech = false
 
 export function runEngineLoop(
@@ -42,10 +42,13 @@ export function runEngineLoop(
   // @ts-expect-error
   store
 ) {
-  // const PROGRAM = store.game.programBlocks
-  // let DOING_NOW = false
+  const PROGRAM = store.game.programBlocks
+  let DOING_NOW = false
 
-  // let FORWARD = false
+  let FORWARD = false
+  let BACK = false
+  let RIGHT = false
+  let LEFT = false
 
   animate()
 
@@ -60,18 +63,18 @@ export function runEngineLoop(
     vehicleMesh.position.copy(vehicleBody.position)
     vehicleMesh.quaternion.copy(vehicleBody.quaternion)
 
-    // const END_POINT_X = endPoint.position[0]
-    // const END_POINT_Z = endPoint.position[2]
-    // const VEHICLE_POSITION = vehicle.chassisBody.position
+    const END_POINT_X = endPoint.position[0]
+    const END_POINT_Z = endPoint.position[2]
+    const VEHICLE_POSITION = vehicle.chassisBody.position
 
-    // if (
-    //   Math.abs(VEHICLE_POSITION.x - END_POINT_X) < 1 &&
-    //   Math.abs(VEHICLE_POSITION.z - END_POINT_Z) < 1 &&
-    //   !END_GAME
-    // ) {
-    //   END_GAME = true
-    //   alert('Карта пройдена!')
-    // }
+    if (
+      Math.abs(VEHICLE_POSITION.x - END_POINT_X) < 1 &&
+      Math.abs(VEHICLE_POSITION.z - END_POINT_Z) < 1 &&
+      !END_GAME
+    ) {
+      END_GAME = true
+      alert('Карта пройдена!')
+    }
 
     // if (store.game.play) {
     //   vehicle.applyEngineForce(400, 2)
@@ -85,24 +88,112 @@ export function runEngineLoop(
     //   vehicle.setSteeringValue(0, 3)
     // }
 
-    // if (!DOING_NOW) {
-    //   const block = PROGRAM.shift()
-    //   DOING_NOW = true
+    if (!DOING_NOW && PROGRAM.length > 0) {
+      const block = PROGRAM.shift()
+      console.log(block)
 
-    //   if (block.type === DraggableItemEnum.action) {
-    //     if (block.action === 'forward') {
-    //       FORWARD = true
-    //       setTimeout(() => {
-    //         FORWARD = false
-    //       }, block.duration * 1000)
-    //     }
-    //   }
-    // }
+      DOING_NOW = true
 
-    // if (FORWARD) {
-    //   vehicle.applyEngineForce(-100, 2)
-    //   vehicle.applyEngineForce(-100, 3)
-    // }
+      // forward = 'forward',
+      // back = 'back',
+      // right = 'right',
+      // left = 'left',
+
+      if (block.type === DraggableItemEnum.action) {
+        switch (block.action) {
+          case 'forward':
+            FORWARD = true
+
+            setTimeout(() => {
+              FORWARD = false
+              DOING_NOW = false
+            }, block.duration * 1000)
+            break
+
+          case 'back':
+            BACK = true
+
+            setTimeout(() => {
+              BACK = false
+              DOING_NOW = false
+            }, block.duration * 1000)
+            break
+
+          case 'right':
+            RIGHT = true
+            DOING_NOW = false
+
+            setTimeout(() => {
+              RIGHT = false
+            }, block.duration * 1000)
+            break
+
+          case 'left':
+            LEFT = true
+            DOING_NOW = false
+
+            setTimeout(() => {
+              LEFT = false
+            }, block.duration * 1000)
+            break
+
+          default:
+            break
+        }
+      }
+    }
+
+    // const t = 1
+
+    // vehicle.setBrake(t, 0)
+    // vehicle.setBrake(t, 1)
+    // vehicle.setBrake(t, 2)
+    // vehicle.setBrake(t, 3)
+
+    if (!FORWARD && !BACK) {
+      vehicle.applyEngineForce(0, 2)
+      vehicle.applyEngineForce(0, 3)
+    }
+
+    if (!RIGHT && !LEFT) {
+      vehicle.setSteeringValue(0, 2)
+      vehicle.setSteeringValue(0, 3)
+    }
+
+    const speed = 100
+    const r = 200
+
+    if (FORWARD) {
+      let actualSpeed = speed
+
+      if (RIGHT || LEFT) {
+        actualSpeed *= 4
+      }
+
+      vehicle.applyEngineForce(actualSpeed * -1, 2)
+      vehicle.applyEngineForce(actualSpeed * -1, 3)
+    }
+
+    if (BACK) {
+      let actualSpeed = speed
+
+      if (RIGHT || LEFT) {
+        actualSpeed *= 4
+      }
+
+      vehicle.applyEngineForce(actualSpeed, 2)
+      vehicle.applyEngineForce(actualSpeed, 3)
+    }
+
+    if (RIGHT) {
+      vehicle.setSteeringValue(r, 2)
+      vehicle.setSteeringValue(r, 3)
+    }
+
+    if (LEFT) {
+      vehicle.setSteeringValue(r * -1, 2)
+      vehicle.setSteeringValue(r * -1, 3)
+    }
 
     peresech = false
 

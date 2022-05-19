@@ -48,28 +48,76 @@ export class GameModule {
     {
       id: String(Number(new Date())),
       type: DraggableItemEnum.action,
-      action: Action.forward,
+      action: Action.back,
       duration: 2,
     },
+    // {
+    //   id: String(Number(new Date()) + 1),
+    //   type: DraggableItemEnum.if,
+    //   position: Position.front,
+    //   condition: Condition.barrier,
+    //   insertedBlocks: [
+    //     {
+    //       id: String(Number(new Date())),
+    //       type: DraggableItemEnum.action,
+    //       action: Action.back,
+    //       duration: 3,
+    //     },
+    //   ],
+    // },
     {
-      id: String(Number(new Date()) + 1),
-      type: DraggableItemEnum.if,
-      position: Position.front,
-      condition: Condition.barrier,
-      insertedBlocks: [
-        {
-          id: String(Number(new Date())),
-          type: DraggableItemEnum.action,
-          action: Action.back,
-          duration: 3,
-        },
-      ],
+      id: String(Number(new Date())),
+      type: DraggableItemEnum.action,
+      action: Action.right,
+      duration: 3.2,
+    },
+    {
+      id: String(Number(new Date())),
+      type: DraggableItemEnum.action,
+      action: Action.back,
+      duration: 3.2,
+    },
+    {
+      id: String(Number(new Date())),
+      type: DraggableItemEnum.action,
+      action: Action.forward,
+      duration: 3,
     },
     {
       id: String(Number(new Date())),
       type: DraggableItemEnum.action,
       action: Action.right,
-      duration: 4,
+      duration: 3,
+    },
+    {
+      id: String(Number(new Date())),
+      type: DraggableItemEnum.action,
+      action: Action.forward,
+      duration: 3,
+    },
+    {
+      id: String(Number(new Date())),
+      type: DraggableItemEnum.action,
+      action: Action.forward,
+      duration: 2.9,
+    },
+    {
+      id: String(Number(new Date())),
+      type: DraggableItemEnum.action,
+      action: Action.right,
+      duration: 2.7,
+    },
+    {
+      id: String(Number(new Date())),
+      type: DraggableItemEnum.action,
+      action: Action.forward,
+      duration: 2.7,
+    },
+    {
+      id: String(Number(new Date())),
+      type: DraggableItemEnum.action,
+      action: Action.forward,
+      duration: 1,
     },
   ]
 

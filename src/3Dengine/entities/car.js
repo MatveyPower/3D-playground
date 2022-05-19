@@ -33,15 +33,34 @@ export function createCar(scene, world) {
     vehicleMesh.add(object)
   })
 
-  const sensorGeometry = new THREE.BoxGeometry(2, 2, 2) // double chasis shape
+  // SENSORS
+
+  const sensorGeometry1 = new THREE.BoxGeometry(2, 2, 2) // double chasis shape
+  const sensorGeometry2 = new THREE.BoxGeometry(2, 2, 2) // double chasis shape
   const sensorMaterial = new THREE.MeshBasicMaterial({
     color: 0xffff00,
     side: THREE.DoubleSide,
   })
-  const sensorMesh = new THREE.Mesh(sensorGeometry, sensorMaterial)
-  sensorMesh.position.z = 10
-  sensorMesh.visible = true
-  vehicleMesh.add(sensorMesh)
+
+  const sensor_F_Mesh = new THREE.Mesh(sensorGeometry1, sensorMaterial)
+  sensor_F_Mesh.position.z = 10
+  sensor_F_Mesh.visible = true
+  vehicleMesh.add(sensor_F_Mesh)
+
+  const sensor_B_Mesh = new THREE.Mesh(sensorGeometry1, sensorMaterial)
+  sensor_B_Mesh.position.z = -10
+  sensor_B_Mesh.visible = true
+  vehicleMesh.add(sensor_B_Mesh)
+
+  const sensor_R_Mesh = new THREE.Mesh(sensorGeometry2, sensorMaterial)
+  sensor_R_Mesh.position.x = -10
+  sensor_R_Mesh.visible = true
+  vehicleMesh.add(sensor_R_Mesh)
+
+  const sensor_L_Mesh = new THREE.Mesh(sensorGeometry2, sensorMaterial)
+  sensor_L_Mesh.position.x = 10
+  sensor_L_Mesh.visible = true
+  vehicleMesh.add(sensor_L_Mesh)
 
   vehicleMesh.castShadow = true
   scene.add(vehicleMesh)
@@ -158,6 +177,6 @@ export function createCar(scene, world) {
     vehicle,
     vehicleBody,
     vehicleMesh,
-    sensorMesh,
+    sensorMesh: sensor_F_Mesh,
   }
 }
