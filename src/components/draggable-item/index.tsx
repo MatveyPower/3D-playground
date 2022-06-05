@@ -8,7 +8,7 @@ import {
 } from '@/components'
 
 export enum DraggableItemEnum {
-  condition = 'condition',
+  if = 'if',
   action = 'action',
   start = 'start',
   finish = 'finish',
@@ -37,7 +37,7 @@ export class DraggableItem extends Vue {
 
       action: <ActionBlock item={this.item} />,
 
-      condition: <ConditionBlock item={this.item} />,
+      if: <ConditionBlock item={this.item} />,
 
       finish: <FinishBlock item={this.item} />,
     }
