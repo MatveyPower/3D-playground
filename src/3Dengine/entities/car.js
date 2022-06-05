@@ -99,10 +99,12 @@ export function createCar(scene, world) {
   options.chassisConnectionPointLocal.set(-axlewidth - 0.4, top, -1.7)
   vehicle.addWheel(options)
 
-  options.chassisConnectionPointLocal.set(axlewidth, top, 1.4)
+  // options.chassisConnectionPointLocal.set(axlewidth, top, 1.4)
+  options.chassisConnectionPointLocal.set(0, top, 1.4)
   vehicle.addWheel(options)
 
-  options.chassisConnectionPointLocal.set(-axlewidth - 0.4, top, 1.4)
+  // options.chassisConnectionPointLocal.set(-axlewidth - 0.4, top, 1.4)
+  options.chassisConnectionPointLocal.set(0, top, 1.4)
   vehicle.addWheel(options)
 
   vehicle.addToWorld(world)

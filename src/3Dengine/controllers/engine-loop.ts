@@ -50,6 +50,12 @@ export function runEngineLoop(
   let RIGHT = false
   let LEFT = false
 
+  let TIME = 0
+  const TICK_BY_SECOND = 75
+
+  let STOP_BLOCK = 0
+  let STOP_TURN_BLOCK = 0
+
   animate()
 
   function animate() {
@@ -66,6 +72,8 @@ export function runEngineLoop(
     const END_POINT_X = endPoint.position[0]
     const END_POINT_Z = endPoint.position[2]
     const VEHICLE_POSITION = vehicle.chassisBody.position
+
+    TIME += 1
 
     if (
       Math.abs(VEHICLE_POSITION.x - END_POINT_X) < 1 &&
@@ -90,7 +98,7 @@ export function runEngineLoop(
 
     if (!DOING_NOW && PROGRAM.length > 0) {
       const block = PROGRAM.shift()
-      console.log(block)
+      console.log(block.action)
 
       DOING_NOW = true
 
@@ -103,38 +111,24 @@ export function runEngineLoop(
         switch (block.action) {
           case 'forward':
             FORWARD = true
-
-            setTimeout(() => {
-              FORWARD = false
-              DOING_NOW = false
-            }, block.duration * 1000)
+            STOP_BLOCK = Math.ceil(block.duration * TICK_BY_SECOND) + TIME
             break
 
           case 'back':
             BACK = true
-
-            setTimeout(() => {
-              BACK = false
-              DOING_NOW = false
-            }, block.duration * 1000)
+            STOP_BLOCK = Math.ceil(block.duration * TICK_BY_SECOND) + TIME
             break
 
           case 'right':
             RIGHT = true
             DOING_NOW = false
-
-            setTimeout(() => {
-              RIGHT = false
-            }, block.duration * 1000)
+            STOP_TURN_BLOCK = Math.ceil(block.duration * TICK_BY_SECOND) + TIME
             break
 
           case 'left':
             LEFT = true
             DOING_NOW = false
-
-            setTimeout(() => {
-              LEFT = false
-            }, block.duration * 1000)
+            STOP_TURN_BLOCK = Math.ceil(block.duration * TICK_BY_SECOND) + TIME
             break
 
           default:
@@ -143,16 +137,31 @@ export function runEngineLoop(
       }
     }
 
-    // const t = 1
+    if (STOP_BLOCK === TIME) {
+      console.log('Стоп движение')
+      DOING_NOW = false
 
-    // vehicle.setBrake(t, 0)
-    // vehicle.setBrake(t, 1)
-    // vehicle.setBrake(t, 2)
-    // vehicle.setBrake(t, 3)
+      FORWARD = false
+      BACK = false
+
+      STOP_BLOCK = 5 + TIME
+    }
+
+    if (STOP_TURN_BLOCK === TIME) {
+      console.log('Стоп поворот')
+      RIGHT = false
+      LEFT = false
+    }
 
     if (!FORWARD && !BACK) {
       vehicle.applyEngineForce(0, 2)
       vehicle.applyEngineForce(0, 3)
+      const t = 1
+
+      vehicle.setBrake(t, 0)
+      vehicle.setBrake(t, 1)
+      vehicle.setBrake(t, 2)
+      vehicle.setBrake(t, 3)
     }
 
     if (!RIGHT && !LEFT) {
@@ -160,14 +169,21 @@ export function runEngineLoop(
       vehicle.setSteeringValue(0, 3)
     }
 
+    const t = 0
+
+    vehicle.setBrake(t, 0)
+    vehicle.setBrake(t, 1)
+    vehicle.setBrake(t, 2)
+    vehicle.setBrake(t, 3)
+
     const speed = 100
-    const r = 200
+    const r = 100
 
     if (FORWARD) {
       let actualSpeed = speed
 
       if (RIGHT || LEFT) {
-        actualSpeed *= 4
+        actualSpeed *= 0.1
       }
 
       vehicle.applyEngineForce(actualSpeed * -1, 2)
@@ -178,7 +194,7 @@ export function runEngineLoop(
       let actualSpeed = speed
 
       if (RIGHT || LEFT) {
-        actualSpeed *= 4
+        actualSpeed *= 0.1
       }
 
       vehicle.applyEngineForce(actualSpeed, 2)
@@ -204,8 +220,6 @@ export function runEngineLoop(
         peresech = true
       }
     })
-
-    console.log(peresech)
 
     //camera
 

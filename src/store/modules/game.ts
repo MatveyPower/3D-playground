@@ -69,56 +69,50 @@ export class GameModule {
       id: String(Number(new Date())),
       type: DraggableItemEnum.action,
       action: Action.right,
-      duration: 3.2,
+      duration: 2.6,
     },
     {
       id: String(Number(new Date())),
       type: DraggableItemEnum.action,
       action: Action.back,
-      duration: 3.2,
+      duration: 2.6,
     },
     {
       id: String(Number(new Date())),
       type: DraggableItemEnum.action,
       action: Action.forward,
-      duration: 3,
+      duration: 6,
     },
     {
       id: String(Number(new Date())),
       type: DraggableItemEnum.action,
       action: Action.right,
-      duration: 3,
+      duration: 1.15,
     },
     {
       id: String(Number(new Date())),
       type: DraggableItemEnum.action,
       action: Action.forward,
-      duration: 3,
-    },
-    {
-      id: String(Number(new Date())),
-      type: DraggableItemEnum.action,
-      action: Action.forward,
-      duration: 2.9,
+      duration: 3.7,
     },
     {
       id: String(Number(new Date())),
       type: DraggableItemEnum.action,
       action: Action.right,
-      duration: 2.7,
-    },
-    {
-      id: String(Number(new Date())),
-      type: DraggableItemEnum.action,
-      action: Action.forward,
-      duration: 2.7,
-    },
-    {
-      id: String(Number(new Date())),
-      type: DraggableItemEnum.action,
-      action: Action.forward,
       duration: 1,
     },
+    {
+      id: String(Number(new Date())),
+      type: DraggableItemEnum.action,
+      action: Action.forward,
+      duration: 2.7,
+    },
+    // {
+    //   id: String(Number(new Date())),
+    //   type: DraggableItemEnum.action,
+    //   action: Action.forward,
+    //   duration: 1,
+    // },
   ]
 
   @Mutation()
