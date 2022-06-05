@@ -29,14 +29,14 @@ export class Button extends Vue {
 
     return (
       <button class={styles.button} onClick={this.whenClick} type="button">
-        {this.text ? this.text : undefined}
+        {this.text}
 
-        {this.imgSrc ? (
+        {this.imgSrc && (
           <img
             src={require(`../../static/${this.imgSrc}.svg`)}
             alt={this.alt}
           />
-        ) : undefined}
+        )}
       </button>
     )
   }

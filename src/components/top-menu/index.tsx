@@ -21,6 +21,11 @@ export class TopMenu extends Vue {
           whenClick={() => this.$router.push('/settings')}
           imgSrc={'settings-icon'}
         />
+
+        <Button
+          whenClick={() => this.$router.push('/info')}
+          imgSrc={'info-icon'}
+        />
       </div>
     )
   }

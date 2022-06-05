@@ -1,13 +1,17 @@
 .page {
-  min-height: 100%;
-  margin-top: 177px;
-  background-image: url('../../static/robot-car.svg');
-  height: 688px;
+  height: 100%;
+  background-image: url('../../static/img/code-blocks.png');
   background-position: right;
   background-repeat: no-repeat;
+  background-position-x: 300px;
+  background-position-y: 120px;
+
+  box-sizing: border-box;
+  padding-top: 150px;
 }
 
 .title {
+  font-family: Montserrat ExtraBold;
   max-width: 768px;
   font-weight: 900;
   font-size: 64px;
@@ -16,22 +20,27 @@
 }
 
 .description {
-  margin-top: 33px;
-  max-width: 471px;
+  font-family: Montserrat Regular;
+  margin-top: 16px;
+  max-width: 515px;
   font-weight: 400;
-  font-size: 32px;
+  font-size: 24px;
   line-height: 39px;
 
   color: #ffffff;
 }
 
 .buttonStart {
-  margin-top: 96px;
-  color: #ffffff;
-  background-color: #fa8e2c;
+  font-family: Montserrat Medium;
+  margin-top: 32px;
+  color: #000;
+  background-color: #D576E1;
   border-radius: 8px;
-  padding: 12px 33px;
-  font-weight: 500;
-  font-size: 32px;
-  line-height: 39px;
+  padding: 8px 16px;
+  font-size: 14px;
+  transition: .3s;
+}
+
+.buttonStart:hover {
+  background-color: #FA17FF;
 }
