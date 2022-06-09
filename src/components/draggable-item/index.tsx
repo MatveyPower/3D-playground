@@ -11,7 +11,7 @@ import {
 import styles from './style.module.css'
 
 export enum DraggableItemEnum {
-  condition = 'condition',
+  if = 'if',
   action = 'action',
   start = 'start',
   finish = 'finish',
@@ -65,20 +65,8 @@ export class DraggableItem extends Vue {
         />
       ),
 
-      condition: (
-        <ConditionBlock
-          whenClick={this.whenClick}
-          whenMouseOver={() => (this.showDescriptionIf = true)}
-          whenMouseOut={() => (this.showDescriptionIf = false)}
-          class={{
-            [styles.chooseIf]: this.dragIteminChoose,
-          }}
-          item={this.item}
-          showDescription={this.showDescriptionIf && this.dragIteminChoose}
-        />
-      ),
-
       IfEnd: <IfEndBlock item={this.item} />,
+      if: <ConditionBlock item={this.item} />,
 
       finish: <FinishBlock item={this.item} />,
     }

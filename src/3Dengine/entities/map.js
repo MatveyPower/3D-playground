@@ -2,6 +2,8 @@ import * as THREE from 'three'
 import * as CANNON from 'cannon'
 
 export function createMap(scene, world, MAP) {
+  let wallsArr = []
+
   if (MAP.walls) {
     const WALLS = MAP.walls
 
@@ -9,6 +11,8 @@ export function createMap(scene, world, MAP) {
       const geometryWall = new THREE.BoxGeometry(...wall.size)
       const materialWall = new THREE.MeshPhongMaterial({ color: 0xffffff })
       let wallMesh = new THREE.Mesh(geometryWall, materialWall)
+
+      wallsArr.push(wallMesh)
 
       wallMesh.receiveShadow = true
       wallMesh.castShadow = true
@@ -41,4 +45,6 @@ export function createMap(scene, world, MAP) {
     wallMesh.position.set(...END_POINT.position)
     scene.add(wallMesh)
   }
+
+  return wallsArr
 }

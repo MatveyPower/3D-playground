@@ -68,7 +68,7 @@ export function init3DRenderer(container, store) {
     },
   }
 
-  createMap(scene, world, MAP)
+  const wallsArr = createMap(scene, world, MAP)
 
   // const helper = new THREE.DirectionalLightHelper(light);
   // scene.add(helper);
@@ -77,7 +77,10 @@ export function init3DRenderer(container, store) {
   // const stats = Stats()
   // container.appendChild(stats.dom)
 
-  const { vehicle, vehicleBody, vehicleMesh } = createCar(scene, world)
+  const { vehicle, vehicleBody, vehicleMesh, sensorMesh } = createCar(
+    scene,
+    world
+  )
 
   runEngineLoop(
     scene,
@@ -89,6 +92,8 @@ export function init3DRenderer(container, store) {
     vehicleBody,
     vehicle,
     MAP.endPoint,
+    sensorMesh,
+    wallsArr,
     store
   )
 
