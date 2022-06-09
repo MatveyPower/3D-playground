@@ -25,8 +25,6 @@ export class Button extends Vue {
   text?: ButtonProps['text']
 
   render() {
-    console.log(this.imgSrc)
-
     return (
       <button class={styles.button} onClick={this.whenClick} type="button">
         {this.text ? this.text : undefined}

@@ -3,14 +3,15 @@ import styles from './style.module.css'
 import { CodeBlock } from '../code-block'
 import { DraggableItemComponentsParts } from '@/components/draggable-item'
 
-interface FinishBlockProps {
+interface IfEndBlockProps {
   item: DraggableItemComponentsParts
+  dragIteminChoose?: boolean
 }
 
 @Component
-export class FinishBlock extends CodeBlock {
+export class IfEndBlock extends CodeBlock {
   @Prop()
-  item: FinishBlockProps['item']
+  item: IfEndBlockProps['item']
 
   blockStyle = {
     block: [styles.block, styles.color],

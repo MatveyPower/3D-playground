@@ -1,0 +1,23 @@
+.drag {
+  display: none;
+  visibility: hidden;
+}
+
+.drag2 {
+  display: block;
+  visibility: visible;
+  animation: slidegdz 1s;
+}
+
+.showDrag {
+  color: red;
+}
+
+@keyframes slidegdz {
+  0% {
+    transform: translateY(-30%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

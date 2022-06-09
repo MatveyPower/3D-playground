@@ -8,6 +8,8 @@ import {
 
 import { DraggableItem } from '@/components'
 
+import styles from './style.module.css'
+
 type CodeBlockType = {
   //TODO добавить необязательные поля для инпута и селекта
   name: string
@@ -16,7 +18,6 @@ type CodeBlockType = {
 }
 
 interface DraggableWrapperProps {
-  whenDrag: () => void
   items: DraggableItemComponentsParts[]
 }
 
@@ -31,43 +32,20 @@ export class DraggableWrapper extends Vue {
     { name: 'Начало', id: 1, type: DraggableItemEnum.start },
     { name: 'Условие', id: 2, type: DraggableItemEnum.condition },
     { name: 'Ехать', id: 3, type: DraggableItemEnum.action },
-    { name: 'Конец', id: 5, type: DraggableItemEnum.finish },
+    { name: 'Конец условия', id: 4, type: DraggableItemEnum.ifEnd },
   ]
 
-  updateDraggableList(e: any) {
-    const newPositionElement = this.codeBlocks.findIndex(
-      (item, index) => index === e.newIndex
-    )
-    const oldPositionElement = this.codeBlocks.findIndex(
-      (item, index) => index === e.oldIndex
-    )
+  codeBlocks1: CodeBlockType[] = [
+    { name: 'Условие', id: 5, type: DraggableItemEnum.condition },
+    { name: 'Ехать', id: 6, type: DraggableItemEnum.action },
+  ]
 
-    this.codeBlocks = this.codeBlocks.map((item, index) => {
-      if (index === newPositionElement) {
-        return {
-          ...item,
-          id: this.codeBlocks.length - newPositionElement,
-        }
-      }
-      if (index === oldPositionElement) {
-        return {
-          ...item,
-          id: this.codeBlocks.length - oldPositionElement,
-        }
-      }
-      return item
-    })
-  }
+  showDrag = false
 
   render() {
     return (
       <div>
-        <draggable
-          list={this.codeBlocks}
-          onUpdate={this.updateDraggableList}
-          animation={150}
-          draggable={'.drag'}
-        >
+        <draggable list={this.codeBlocks} animation={150} draggable={'.drag'}>
           {this.codeBlocks.map((item, index) => {
             return (
               <DraggableItem
@@ -84,6 +62,41 @@ export class DraggableWrapper extends Vue {
             )
           })}
         </draggable>
+
+        <div
+          class={styles.showDrag}
+          onClick={() => (this.showDrag = !this.showDrag)}
+        >
+          {this.showDrag ? 'Добавление блока кода' : 'Добавить блок +'}
+        </div>
+
+        <div class={[styles.drag, { [styles.drag2]: this.showDrag }]}>
+          <draggable
+            style={{
+              marginTop: '20px',
+            }}
+            list={this.codeBlocks1}
+          >
+            {this.codeBlocks1.map((item, index) => {
+              return (
+                <DraggableItem
+                  whenClick={() => {
+                    this.codeBlocks.push({
+                      ...item,
+                      id: this.codeBlocks.length + 1,
+                    })
+                  }}
+                  dragIteminChoose={true}
+                  style={{
+                    zIndex: this.codeBlocks1.length - index,
+                  }}
+                  item={item}
+                  id={index}
+                />
+              )
+            })}
+          </draggable>
+        </div>
       </div>
     )
   }

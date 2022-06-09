@@ -5,13 +5,17 @@ import {
   ConditionBlock,
   StartBlock,
   FinishBlock,
+  IfEndBlock,
 } from '@/components'
+
+import styles from './style.module.css'
 
 export enum DraggableItemEnum {
   condition = 'condition',
   action = 'action',
   start = 'start',
   finish = 'finish',
+  ifEnd = 'IfEnd',
 }
 
 export type DraggableItemComponentsParts = {
@@ -24,6 +28,8 @@ export type DraggableItemComponentsParts = {
 
 interface DraggableItemProps {
   item: DraggableItemComponentsParts
+  dragIteminChoose?: boolean
+  whenClick?: (item: any) => void
 }
 
 @Component
@@ -31,13 +37,48 @@ export class DraggableItem extends Vue {
   @Prop()
   item: DraggableItemProps['item']
 
+  @Prop({
+    default: false,
+  })
+  dragIteminChoose: DraggableItemProps['dragIteminChoose']
+
+  @Prop()
+  whenClick: DraggableItemProps['whenClick']
+
+  showDescriptionAction = false
+  showDescriptionIf = false
+
   get draggableItem(): Record<DraggableItemEnum, VNode> {
     return {
       start: <StartBlock item={this.item} />,
 
-      action: <ActionBlock item={this.item} />,
+      action: (
+        <ActionBlock
+          whenClick={this.whenClick}
+          whenMouseOver={() => (this.showDescriptionAction = true)}
+          whenMouseOut={() => (this.showDescriptionAction = false)}
+          class={{
+            [styles.chooseAction]: this.dragIteminChoose,
+          }}
+          item={this.item}
+          showDescription={this.showDescriptionAction && this.dragIteminChoose}
+        />
+      ),
 
-      condition: <ConditionBlock item={this.item} />,
+      condition: (
+        <ConditionBlock
+          whenClick={this.whenClick}
+          whenMouseOver={() => (this.showDescriptionIf = true)}
+          whenMouseOut={() => (this.showDescriptionIf = false)}
+          class={{
+            [styles.chooseIf]: this.dragIteminChoose,
+          }}
+          item={this.item}
+          showDescription={this.showDescriptionIf && this.dragIteminChoose}
+        />
+      ),
+
+      IfEnd: <IfEndBlock item={this.item} />,
 
       finish: <FinishBlock item={this.item} />,
     }

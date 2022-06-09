@@ -1,6 +1,6 @@
 .block {
   width: 536px;
-  height: 224px;
+  height: 55px;
 }
 
 .color {
@@ -9,4 +9,6 @@
 
 .rhombus {
   background-color: inherit;
+  top: 67%;
+  left: 50%;
 }

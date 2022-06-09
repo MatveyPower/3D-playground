@@ -1,5 +1,5 @@
 import { Button } from '@/components'
-import { DefaultLayout } from '@/components/default-layout'
+import { DefaultLayout } from '@/components'
 import Vue from 'vue'
 import Component from 'vue-class-component'
 
