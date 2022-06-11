@@ -20,8 +20,8 @@ export class Canvas3d extends Vue {
   store = useModule<MyStore>(this.$store)
 
   defaultStyle = {
-    width: '750px',
-    height: '600px',
+    width: '620px',
+    height: '400px',
   }
 
   style = this.defaultStyle
@@ -78,8 +78,6 @@ export class Canvas3d extends Vue {
             />
           )}
         </div>
-        {/* <button onClick={() => this.store?.game.startProgram()}>start</button>
-        <button onClick={() => this.store?.game.stopProgram()}>stop</button> */}
       </div>
     )
   }

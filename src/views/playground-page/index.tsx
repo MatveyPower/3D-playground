@@ -1,6 +1,13 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import { Canvas3d, DefaultLayout, DraggableWrapper } from '../../components'
+import {
+  Canvas3d,
+  DefaultLayout,
+  DraggableWrapper,
+  ControlButtons,
+} from '../../components'
+import { MyStore } from '@/store'
+import { useModule } from 'vuex-simple'
 
 import styles from './style.module.css'
 
@@ -10,12 +17,21 @@ import styles from './style.module.css'
   },
 })
 export class PlaygroundPage extends Vue {
+  store = useModule<MyStore>(this.$store) as MyStore
+
   render() {
     return (
       <DefaultLayout>
         <div class={styles.playgroundPageContainer}>
           <DraggableWrapper class={styles.dropdownWrapper} />
-          <Canvas-3d />
+          <div class={styles.rightBlock}>
+            <Canvas-3d />
+            <ControlButtons
+              whenClickRestart={() => console.log('123')}
+              whenClickPlay={this.store.game.startProgram}
+              whenClickStop={this.store.game.stopProgram}
+            />
+          </div>
         </div>
       </DefaultLayout>
     )

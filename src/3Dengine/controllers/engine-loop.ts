@@ -59,6 +59,8 @@ export function runEngineLoop(
   animate()
 
   function animate() {
+    const PLAY = store.game.play
+
     requestAnimationFrame(animate)
     controls.update()
     // stats.update()
@@ -73,7 +75,9 @@ export function runEngineLoop(
     const END_POINT_Z = endPoint.position[2]
     const VEHICLE_POSITION = vehicle.chassisBody.position
 
-    TIME += 1
+    if (PLAY) {
+      TIME += 1
+    }
 
     if (
       Math.abs(VEHICLE_POSITION.x - END_POINT_X) < 1 &&
@@ -96,7 +100,7 @@ export function runEngineLoop(
     //   vehicle.setSteeringValue(0, 3)
     // }
 
-    if (!DOING_NOW && PROGRAM.length > 0) {
+    if (!DOING_NOW && PROGRAM.length > 0 && PLAY) {
       const block = PROGRAM.shift()
       console.log(block.action)
 
