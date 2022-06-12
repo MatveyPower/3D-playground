@@ -71,8 +71,8 @@ export function runEngineLoop(
     vehicleMesh.position.copy(vehicleBody.position)
     vehicleMesh.quaternion.copy(vehicleBody.quaternion)
 
-    const END_POINT_X = endPoint.position[0]
-    const END_POINT_Z = endPoint.position[2]
+    const END_POINT_X = endPoint?.position?.[0] || -1000
+    const END_POINT_Z = endPoint?.position?.[2] || -1000
     const VEHICLE_POSITION = vehicle.chassisBody.position
 
     if (PLAY) {

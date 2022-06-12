@@ -1,0 +1,32 @@
+.root {
+  width: 652px;
+  background-color: #383538;
+  padding: 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  color: #fff;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.mapCard:hover {
+  background-color: #383538;
+}
+
+.buttonsStart {
+  width: 151px;
+  color: #000;
+  background-color: #09c6fd;
+  margin-left: 16px;
+  transition: 0.3s;
+}
+
+.buttonsStart:hover {
+  background-color: #00f0ff;
+}

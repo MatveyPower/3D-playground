@@ -12,7 +12,7 @@ import { createCar } from './entities/car'
 import { runEngineLoop } from './controllers/engine-loop'
 import { initButtonControls } from './controllers/button-controls'
 
-export function init3DRenderer(container, store) {
+export function init3DRenderer(container, store, MAP) {
   //THREE JS
   const scene = new THREE.Scene()
   const renderer = initRenderer(container)
@@ -24,49 +24,6 @@ export function init3DRenderer(container, store) {
   const world = initWorld()
 
   createArea(scene, world)
-
-  const MAP = {
-    walls: [
-      {
-        size: [20, 5, 0.5],
-        position: [0, 2, 0],
-        mass: 0,
-      },
-      {
-        size: [0.5, 5, 20],
-        position: [10, 2, 0],
-        mass: 0,
-      },
-      {
-        size: [0.5, 5, 20],
-        position: [-10, 2, 0],
-        mass: 0,
-      },
-      {
-        size: [0.5, 5, 50],
-        position: [-25, 2, 0],
-        mass: 0,
-      },
-      {
-        size: [0.5, 5, 50],
-        position: [25, 2, 0],
-        mass: 0,
-      },
-      {
-        size: [50, 5, 0.5],
-        position: [0, 2, 25],
-        mass: 0,
-      },
-      {
-        size: [50, 5, 0.5],
-        position: [0, 2, -25],
-        mass: 0,
-      },
-    ],
-    endPoint: {
-      position: [0, 0, 15],
-    },
-  }
 
   const wallsArr = createMap(scene, world, MAP)
 

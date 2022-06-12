@@ -8,6 +8,7 @@ interface ButtonProps {
   whenClick: () => void
   alt?: string
   text?: string
+  disabled?: boolean
 }
 
 @Component
@@ -24,11 +25,17 @@ export class Button extends Vue {
   @Prop()
   text?: ButtonProps['text']
 
-  render() {
-    console.log(this.imgSrc)
+  @Prop()
+  disabled?: ButtonProps['disabled']
 
+  render() {
     return (
-      <button class={styles.button} onClick={this.whenClick} type="button">
+      <button
+        class={[styles.button, this.disabled && styles.disabled]}
+        onClick={this.whenClick}
+        type="button"
+        disabled={Boolean(this.disabled)}
+      >
         {this.text}
 
         {this.imgSrc && (
