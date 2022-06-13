@@ -7,6 +7,7 @@ import { directive } from 'vue/types/umd'
 import { useModule } from 'vuex-simple'
 //@ts-expect-error  // eslint-disable-next-line
 import { init3DRenderer } from '../../3Dengine'
+// import gif from
 
 import styles from './style.module.css'
 
@@ -17,15 +18,41 @@ export class Canvas3d extends Vue {
 
   @Watch('map', { immediate: true, deep: true })
   updatePlayground() {
-    console.log('aaaaa')
+    this.store?.game.removeProgram()
+
+    const imgLoading = document.createElement('img')
+    imgLoading.src = require('@/static/loading.gif')
+    imgLoading.style.margin = '50px 150px 0 150px'
+
     this.container = this.$refs.container as HTMLElement
-    this.container.innerHTML = ''
-    this.renderer = init3DRenderer(this.container, this.store, this.map || [])
+    if (!this.container) {
+      this.store?.game.stopRemoveProgram()
+      return
+    }
+    const canvas = this.container?.children?.[1]
+    if (canvas) {
+      this.container.removeChild(canvas)
+    }
+
+    this.container.appendChild(imgLoading)
+
+    setTimeout(() => {
+      this.store?.game.stopRemoveProgram()
+
+      const img = this.container.children[1]
+      this.container.removeChild(img)
+    }, 2000)
+
+    setTimeout(() => {
+      this.renderer = init3DRenderer(this.container, this.store, this.map || [])
+    }, 2010)
   }
 
   mounted() {
     this.container = this.$refs.container as HTMLElement
+    console.log(this.container)
     this.renderer = init3DRenderer(this.container, this.store, this.map || [])
+    console.log(this.renderer)
   }
   container: HTMLElement = this.$refs.container as HTMLElement
   renderer = null

@@ -22,10 +22,6 @@ export class MapsPage extends Vue {
   store = useModule<MyStore>(this.$store) as MyStore
   mapsArr = store
 
-  mounted() {
-    console.log(this.store.maps.maps)
-  }
-
   maps: Array<Map> = this.store.maps.maps
 
   selectedMap: Map = this.maps[0]

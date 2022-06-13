@@ -60,6 +60,23 @@ export function runEngineLoop(
 
   function animate() {
     const PLAY = store.game.play
+    const REMOVE = store.game.removeCanvas
+
+    if (REMOVE) {
+      scene = null
+      camera = null
+      renderer = null
+      world = null
+      controls = null
+      vehicleMesh = null
+      vehicleBody = null
+      vehicle = null
+      endPoint = null
+      sensorMesh = null
+      wallsArr = null
+
+      return
+    }
 
     requestAnimationFrame(animate)
     controls.update()
