@@ -1,50 +1,58 @@
 import { DraggableItemEnum } from '@/components/draggable-item'
+import { Action, CodeBlockType } from '@/components/draggable-wrapper'
+// import {
+// Action,
+// CodeBlockType,
+// If,
+// Position,
+// } from '@/components/draggable-wrapper'
 import { Mutation, State } from 'vuex-simple'
 
-interface ActionBlock {
-  id: string
-  type: DraggableItemEnum.action
-  action: Action
-  duration: number
-}
+// interface ActionBlock {
+//   id: string
+//   type: DraggableItemEnum.action
+//   action: Action
+//   duration: number
+// }
 
-interface IfBlock {
-  id: string
-  type: DraggableItemEnum.if
-  position: Position
-  condition: Condition
-  insertedBlocks: Array<ActionBlock | IfBlock>
-}
+// interface IfBlock {
+//   id: string
+//   type: DraggableItemEnum.if
+//   position: Position
+//   If: If
+//   insertedBlocks: Array<ActionBlock | IfBlock>
+// }
 
-// Блок действие
+// // Блок действие
 
-enum Action { // первый dropdown
-  forward = 'forward',
-  back = 'back',
-  right = 'right',
-  left = 'left',
-}
+// enum Action { // первый dropdown
+//   forward = 'forward',
+//   back = 'back',
+//   right = 'right',
+//   left = 'left',
+// }
 
-// Блок условие
+// // Блок условие
 
-enum Position { // первый dropdown
-  front = 'front',
-  behind = 'behind',
-  right = 'right',
-  left = 'left',
-}
+// enum Position { // первый dropdown
+//   front = 'front',
+//   behind = 'behind',
+//   right = 'right',
+//   left = 'left',
+// }
 
-enum Condition { // второй dropdown
-  barrier = 'barrier', // препятствие
-  empty = 'empty', // пустота
-}
+// enum If { // второй dropdown
+//   barrier = 'barrier', // препятствие
+//   empty = 'empty', // пустота
+// }
 
 export class GameModule {
   @State()
   play = false
 
   @State()
-  programBlocks: Array<ActionBlock | IfBlock> = [
+  // programBlocks: Array<ActionBlock | IfBlock> = [
+  programBlocks: CodeBlockType[] = [
     {
       id: String(Number(new Date())),
       type: DraggableItemEnum.action,
@@ -55,7 +63,7 @@ export class GameModule {
     //   id: String(Number(new Date()) + 1),
     //   type: DraggableItemEnum.if,
     //   position: Position.front,
-    //   condition: Condition.barrier,
+    //   If: If.barrier,
     //   insertedBlocks: [
     //     {
     //       id: String(Number(new Date())),
@@ -114,6 +122,13 @@ export class GameModule {
     //   duration: 1,
     // },
   ]
+
+  @Mutation()
+  setCodeBlocks(programBlocks: CodeBlockType[]) {
+    console.log(programBlocks)
+
+    // this.programBlocks = programBlocks
+  }
 
   @Mutation()
   startProgram() {

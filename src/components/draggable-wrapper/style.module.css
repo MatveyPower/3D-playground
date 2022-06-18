@@ -21,3 +21,15 @@
     transform: translateY(0);
   }
 }
+
+.draggableWrapper {
+  width: 536px;
+  height: fit-content;
+  background-color: #383538;
+  padding: 48px 16px 32px;
+  border-radius: 8px;
+}
+
+.draggableItemWrapper {
+  padding: 0 16px;
+}
