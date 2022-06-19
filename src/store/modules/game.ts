@@ -53,12 +53,12 @@ export class GameModule {
   @State()
   // programBlocks: Array<ActionBlock | IfBlock> = [
   programBlocks: CodeBlockType[] = [
-    {
-      id: String(Number(new Date())),
-      type: DraggableItemEnum.action,
-      action: Action.back,
-      duration: 2,
-    },
+    // {
+    //   id: String(Number(new Date())),
+    //   type: DraggableItemEnum.action,
+    //   action: Action.back,
+    //   duration: 2,
+    // },
     // {
     //   id: String(Number(new Date()) + 1),
     //   type: DraggableItemEnum.if,
@@ -73,48 +73,48 @@ export class GameModule {
     //     },
     //   ],
     // },
-    {
-      id: String(Number(new Date())),
-      type: DraggableItemEnum.action,
-      action: Action.right,
-      duration: 2.6,
-    },
-    {
-      id: String(Number(new Date())),
-      type: DraggableItemEnum.action,
-      action: Action.back,
-      duration: 2.6,
-    },
-    {
-      id: String(Number(new Date())),
-      type: DraggableItemEnum.action,
-      action: Action.forward,
-      duration: 6,
-    },
-    {
-      id: String(Number(new Date())),
-      type: DraggableItemEnum.action,
-      action: Action.right,
-      duration: 1.15,
-    },
-    {
-      id: String(Number(new Date())),
-      type: DraggableItemEnum.action,
-      action: Action.forward,
-      duration: 3.7,
-    },
-    {
-      id: String(Number(new Date())),
-      type: DraggableItemEnum.action,
-      action: Action.right,
-      duration: 1,
-    },
-    {
-      id: String(Number(new Date())),
-      type: DraggableItemEnum.action,
-      action: Action.forward,
-      duration: 2.7,
-    },
+    // {
+    //   id: String(Number(new Date())),
+    //   type: DraggableItemEnum.action,
+    //   action: Action.right,
+    //   duration: 2.6,
+    // },
+    // {
+    //   id: String(Number(new Date())),
+    //   type: DraggableItemEnum.action,
+    //   action: Action.back,
+    //   duration: 2.6,
+    // },
+    // {
+    //   id: String(Number(new Date())),
+    //   type: DraggableItemEnum.action,
+    //   action: Action.forward,
+    //   duration: 6,
+    // },
+    // {
+    //   id: String(Number(new Date())),
+    //   type: DraggableItemEnum.action,
+    //   action: Action.right,
+    //   duration: 1.15,
+    // },
+    // {
+    //   id: String(Number(new Date())),
+    //   type: DraggableItemEnum.action,
+    //   action: Action.forward,
+    //   duration: 3.7,
+    // },
+    // {
+    //   id: String(Number(new Date())),
+    //   type: DraggableItemEnum.action,
+    //   action: Action.right,
+    //   duration: 1,
+    // },
+    // {
+    //   id: String(Number(new Date())),
+    //   type: DraggableItemEnum.action,
+    //   action: Action.forward,
+    //   duration: 2.7,
+    // },
     // {
     //   id: String(Number(new Date())),
     //   type: DraggableItemEnum.action,
@@ -127,7 +127,7 @@ export class GameModule {
   setCodeBlocks(programBlocks: CodeBlockType[]) {
     console.log(programBlocks)
 
-    // this.programBlocks = programBlocks
+    this.programBlocks = programBlocks
   }
 
   @Mutation()

@@ -147,7 +147,7 @@ export class DraggableWrapper extends Vue {
       if (block.id === item.id) {
         return (block = {
           ...block,
-          duration: value,
+          duration: +value,
         })
       }
       return block
@@ -235,7 +235,6 @@ export class DraggableWrapper extends Vue {
           text={'Запустить'}
           whenClick={
             () => this.store?.setCodeBlocks(this.normalize(this.codeBlocks))
-            // console.log(this.normalize(this.codeBlocks))
           }
         />
       </div>
