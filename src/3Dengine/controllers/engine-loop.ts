@@ -102,7 +102,7 @@ export function runEngineLoop(
       !END_GAME
     ) {
       END_GAME = true
-      alert('Карта пройдена!')
+      // alert('Карта пройдена!')
     }
 
     // if (store.game.play) {

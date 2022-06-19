@@ -1,0 +1,35 @@
+.drag {
+  display: none;
+  visibility: hidden;
+}
+
+.drag2 {
+  display: block;
+  visibility: visible;
+  animation: slidegdz 1s;
+}
+
+.showDrag {
+  color: red;
+}
+
+@keyframes slidegdz {
+  0% {
+    transform: translateY(-30%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.draggableWrapper {
+  width: 536px;
+  height: fit-content;
+  background-color: #383538;
+  padding: 48px 16px 32px;
+  border-radius: 8px;
+}
+
+.draggableItemWrapper {
+  padding: 0 16px;
+}

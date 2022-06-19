@@ -1,10 +1,20 @@
 .block {
-  width: 382px;
-  height: 100px;
-  margin-right: 0;
-  margin-left: auto;
+  width: 195px;
+  height: 82px;
+  /* margin-right: 0;
+  margin-left: auto; */
 }
 
 .color {
-  background-color: #9fe176;
+  background-color: #99E497;
+}
+
+.rhombus {
+  background-color: inherit;
+}
+
+.input {
+  width: 100%;
+  border: none;
+  outline: none;
 }

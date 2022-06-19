@@ -14,7 +14,7 @@ export class FinishBlock extends CodeBlock {
 
   blockStyle = {
     block: [styles.block, styles.color],
-    rhombus: [styles.color],
+    rhombus: [styles.rhombus],
   }
 
   renderContent() {

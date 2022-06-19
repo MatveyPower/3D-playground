@@ -2,29 +2,23 @@ import { Component, Prop } from 'vue-property-decorator'
 import styles from './style.module.css'
 import { CodeBlock } from '../code-block'
 import { DraggableItemComponentsParts } from '@/components/draggable-item'
-import { DropdownSelect } from '@/components'
 
-interface ConditionBlockProps {
+interface IfEndBlockProps {
   item: DraggableItemComponentsParts
+  dragIteminChoose?: boolean
 }
 
 @Component
-export class ConditionBlock extends CodeBlock {
+export class IfEndBlock extends CodeBlock {
   @Prop()
-  item: ConditionBlockProps['item']
+  item: IfEndBlockProps['item']
 
   blockStyle = {
     block: [styles.block, styles.color],
-    rhombus: [styles.color],
+    rhombus: [styles.rhombus],
   }
 
   renderContent() {
-    return (
-      <div>
-        {this.item.name}
-        <DropdownSelect />
-        <DropdownSelect />
-      </div>
-    )
+    return <div>{this.item.name}</div>
   }
 }

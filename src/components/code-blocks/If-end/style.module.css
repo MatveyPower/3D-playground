@@ -1,0 +1,14 @@
+.block {
+  width: 241px;
+  height: 38px;
+}
+
+.color {
+  background-color: #E2E497;
+}
+
+.rhombus {
+  background-color: inherit;
+  top: 67%;
+  left: 50%;
+}
