@@ -44,6 +44,9 @@ export class GameModule {
   play = false
 
   @State()
+  removeCanvas = false
+
+  @State()
   programBlocks: Array<ActionBlock | IfBlock> = [
     {
       id: String(Number(new Date())),
@@ -123,5 +126,15 @@ export class GameModule {
   @Mutation()
   stopProgram() {
     this.play = false
+  }
+
+  @Mutation()
+  removeProgram() {
+    this.removeCanvas = true
+  }
+
+  @Mutation()
+  stopRemoveProgram() {
+    this.removeCanvas = false
   }
 }
