@@ -8,12 +8,14 @@ export class DefaultLayout extends Vue {
   render() {
     return (
       <div class={styles.defaultPageWrapper}>
-        <TopMenu />
+        <div class={styles.container}>
+          <TopMenu />
 
-        {this.$slots.default}
+          <div class={styles.defaultSlot}>{this.$slots.default}</div>
 
-        <div class={styles.footer}>
-          <div class={styles.footerText}>Московский Политех</div>
+          <div class={styles.footer}>
+            <div class={styles.footerText}>Московский Политех</div>
+          </div>
         </div>
       </div>
     )

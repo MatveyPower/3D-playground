@@ -59,6 +59,25 @@ export function runEngineLoop(
   animate()
 
   function animate() {
+    const PLAY = store.game.play
+    const REMOVE = store.game.removeCanvas
+
+    if (REMOVE) {
+      scene = null
+      camera = null
+      renderer = null
+      world = null
+      controls = null
+      vehicleMesh = null
+      vehicleBody = null
+      vehicle = null
+      endPoint = null
+      sensorMesh = null
+      wallsArr = null
+
+      return
+    }
+
     requestAnimationFrame(animate)
     controls.update()
     // stats.update()
@@ -69,11 +88,13 @@ export function runEngineLoop(
     vehicleMesh.position.copy(vehicleBody.position)
     vehicleMesh.quaternion.copy(vehicleBody.quaternion)
 
-    const END_POINT_X = endPoint.position[0]
-    const END_POINT_Z = endPoint.position[2]
+    const END_POINT_X = endPoint?.position?.[0] || -1000
+    const END_POINT_Z = endPoint?.position?.[2] || -1000
     const VEHICLE_POSITION = vehicle.chassisBody.position
 
-    TIME += 1
+    if (PLAY) {
+      TIME += 1
+    }
 
     if (
       Math.abs(VEHICLE_POSITION.x - END_POINT_X) < 1 &&
@@ -96,7 +117,7 @@ export function runEngineLoop(
     //   vehicle.setSteeringValue(0, 3)
     // }
 
-    if (!DOING_NOW && PROGRAM.length > 0) {
+    if (!DOING_NOW && PROGRAM.length > 0 && PLAY) {
       const block = PROGRAM.shift()
       console.log(block.action)
 

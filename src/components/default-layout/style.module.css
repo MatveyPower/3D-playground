@@ -5,9 +5,26 @@
 }
 
 .defaultPageWrapper {
-  padding: 36px 64px;
+  /* padding: 36px 64px; */
   background-color: #272528;
   min-height: 100vh;
+}
+
+.container {
+  max-width: 1440px;
+  height: 100vh;
+  margin: 0 auto;
+
+  padding: 32px 64px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.defaultSlot {
+  flex: 1;
 }
 
 .footerText {

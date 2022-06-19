@@ -2,3 +2,13 @@
     display: flex;
     justify-content: space-between;
 }
+
+.dropdownWrapper {
+    width: 536px;
+}
+
+.rightBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}

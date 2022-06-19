@@ -1,0 +1,22 @@
+.root {
+  width: 100%;
+
+  background-color:#383538;
+
+  padding: 16px 0;
+
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+
+  border-radius: 8px;
+}
+
+.icon {
+  fill: #656366;
+  transition: .3s;
+}
+
+.icon:hover {
+  fill: #fff;
+}
