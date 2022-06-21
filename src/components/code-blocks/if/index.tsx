@@ -41,9 +41,12 @@ export class IfBlock extends CodeBlock {
   renderContent() {
     return (
       <div>
-        <CodeBlockSettings type={'action'} />
-        {this.item.name}
+        <div class={styles.nameActionWrapper}>
+          {this.item.name}
+          <CodeBlockSettings type={'action'} />
+        </div>
         <DropdownSelect
+          class={styles.dropdownSelect}
           whenClick={this.whenClickDropdownSelect}
           options={options}
           selected={this.selected}

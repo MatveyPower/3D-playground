@@ -1,6 +1,13 @@
 .drag {
-  display: none;
+  display: block;
   visibility: hidden;
+  position: absolute;
+  background-color: #454246;
+  padding: 40px 40px;
+  border-radius: 16px;
+  left: 551px;
+  bottom: 1px;
+  z-index: 1;
 }
 
 .drag2 {
@@ -9,20 +16,17 @@
   animation: slidegdz 1s;
 }
 
-.showDrag {
-  color: red;
-}
-
 @keyframes slidegdz {
   0% {
-    transform: translateY(-30%);
+    opacity: 0;
   }
   100% {
-    transform: translateY(0);
+    opacity: 1;
   }
 }
 
 .draggableWrapper {
+  position: relative;
   width: 536px;
   height: fit-content;
   background-color: #383538;
@@ -32,4 +36,25 @@
 
 .draggableItemWrapper {
   padding: 0 16px;
+}
+
+.draggableItemWrapper {
+  display: flex;
+  background-color: #383538;
+  justify-content: space-between;
+}
+
+.draggableItemWrapperContent {
+  display: flex;
+  column-gap: 30px;
+  align-items: center;
+}
+
+.itemIndex {
+  color: #fff;
+}
+
+.addBlocksButton {
+  margin: 20px 0 0 52px !important;
+  background-color: #fa8e2c !important;
 }

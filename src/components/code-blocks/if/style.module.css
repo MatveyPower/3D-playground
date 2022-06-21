@@ -4,9 +4,19 @@
 }
 
 .color {
-  background-color: #E2E497;
+  background-color: #e2e497;
 }
 
 .rhombus {
   background-color: inherit;
+}
+
+.nameActionWrapper {
+  display: flex;
+  padding: 12px 10px;
+  justify-content: space-between;
+}
+
+.dropdownSelect {
+  padding: 0 12px;
 }
