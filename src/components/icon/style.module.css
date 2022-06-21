@@ -1,3 +1,17 @@
-.icon {
+.root {
   cursor: pointer;
+
+  width: 24px;
+  height: 24px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  fill: #49474a;
+  transition: 0.2s;
+}
+
+.root:hover {
+  fill: #939095;
 }

@@ -42,7 +42,6 @@ export function runEngineLoop(
   // @ts-expect-error
   store
 ) {
-  const PROGRAM = store.game.programBlocks
   let DOING_NOW = false
 
   let FORWARD = false
@@ -92,7 +91,12 @@ export function runEngineLoop(
     const END_POINT_Z = endPoint?.position?.[2] || -1000
     const VEHICLE_POSITION = vehicle.chassisBody.position
 
+    let PROGRAM = []
     if (PLAY) {
+      if (PROGRAM.length === 0) {
+        PROGRAM = store.game.programBlocks
+        console.log('programm =', store.game.programBlocks)
+      }
       TIME += 1
     }
 
@@ -119,7 +123,7 @@ export function runEngineLoop(
 
     if (!DOING_NOW && PROGRAM.length > 0 && PLAY) {
       const block = PROGRAM.shift()
-      console.log(block.action)
+      console.log('block =', block)
 
       DOING_NOW = true
 
@@ -159,7 +163,6 @@ export function runEngineLoop(
     }
 
     if (STOP_BLOCK === TIME) {
-      console.log('Стоп движение')
       DOING_NOW = false
 
       FORWARD = false
@@ -169,7 +172,6 @@ export function runEngineLoop(
     }
 
     if (STOP_TURN_BLOCK === TIME) {
-      console.log('Стоп поворот')
       RIGHT = false
       LEFT = false
     }
@@ -275,14 +277,12 @@ function checkTouching(_a, d) {
   // sensorMesh.quaternion.copy(q)
   // sensorMesh.position.set(p.x, p.y, p.z + 10)
   // const a = sensorMesh
-  // console.log(a.position)
   const target = new THREE.Vector3()
   _a.getWorldPosition(target)
   const a = {
     position: target,
     geometry: _a.geometry,
   }
-  // console.log(a)
   const b1 = a.position.y - a.geometry.parameters.height / 2
   const t1 = a.position.y + a.geometry.parameters.height / 2
   const r1 = a.position.x + a.geometry.parameters.width / 2
