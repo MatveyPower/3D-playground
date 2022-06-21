@@ -44,27 +44,33 @@ export class ActionBlock extends CodeBlock {
   renderContent() {
     return (
       <div>
-        <CodeBlockSettings type={'action'} />
-        {this.item.name}
-        <DropdownSelect
-          whenClick={this.whenClickDropdownSelect}
-          options={options}
-          selected={this.selected}
-          values={optionsRusForAction}
-        />
-        <input
-          value={this.inputValue}
-          class={styles.input}
-          type="text"
-          onInput={(value: any) => {
-            if (value.data) {
-              this.inputValue = this.inputValue += value.data
-              this.whenChangeInput?.(this.inputValue)
-            } else {
-              this.inputValue = this.inputValue.slice(0, -1)
-            }
-          }}
-        />
+        <div class={styles.nameActionWrapper}>
+          {this.item.name}
+          <CodeBlockSettings type={'action'} />
+        </div>
+        <div class={styles.dropdowSelectInput}>
+          <DropdownSelect
+            class={styles.dropdownSelect}
+            whenClick={this.whenClickDropdownSelect}
+            options={options}
+            selected={this.selected}
+            values={optionsRusForAction}
+          />
+          <input
+            value={this.inputValue}
+            class={styles.input}
+            type="text"
+            onInput={(value: any) => {
+              if (value.data) {
+                this.inputValue = this.inputValue += value.data
+                this.whenChangeInput?.(this.inputValue)
+              } else {
+                this.inputValue = this.inputValue.slice(0, -1)
+              }
+            }}
+          />
+          сек
+        </div>
       </div>
     )
   }

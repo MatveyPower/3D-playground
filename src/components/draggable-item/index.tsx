@@ -65,8 +65,6 @@ export class DraggableItem extends Vue {
 
   get draggableItem(): Record<DraggableItemEnum, VNode> {
     return {
-      // start: <StartBlock item={this.item} />,
-
       action: (
         <ActionBlock
           whenClick={() => this.whenClick?.(this.item)}
@@ -102,8 +100,6 @@ export class DraggableItem extends Vue {
           }}
         />
       ),
-
-      // finish: <FinishBlock item={this.item} />,
     }
   }
 

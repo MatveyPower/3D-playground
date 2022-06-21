@@ -15,6 +15,7 @@ import { v4 as uuidv4 } from 'uuid'
 import styles from './style.module.css'
 import { useModule } from 'vuex-simple'
 import { CodeBlockSettings } from '../code-block-settings'
+import { Icon } from '../icon'
 
 export enum Action { // первый dropdown
   forward = 'forward',
@@ -63,18 +64,25 @@ export class DraggableWrapper extends Vue {
 
   store = this.root?.game
 
+  @Watch('store.play')
+  pushBlocsInStore() {
+    if (this.store?.play) {
+      this.store?.setCodeBlocks(this.normalize(this.codeBlocks))
+    }
+    console.log(this.store?.programBlocks)
+  }
+
   codeBlocks: CodeBlockType[] = [
-    // { name: 'Начало', id: 1, type: DraggableItemEnum.start },
-    // {
-    //   name: 'Условие',
-    //   id: uuidv4(),
-    //   type: DraggableItemEnum.if,
-    // },
-    // { name: 'Ехать', id: uuidv4(), type: DraggableItemEnum.action },
-    // { name: 'Условие', id: uuidv4(), type: DraggableItemEnum.if },
-    // { name: 'Ехать', id: uuidv4(), type: DraggableItemEnum.action },
-    // { name: 'Конец условия', id: uuidv4(), type: DraggableItemEnum.ifEnd },
-    // { name: 'Конец условия', id: uuidv4(), type: DraggableItemEnum.ifEnd },
+    {
+      name: 'Условие',
+      id: uuidv4(),
+      type: DraggableItemEnum.if,
+    },
+    { name: 'Ехать', id: uuidv4(), type: DraggableItemEnum.action },
+    { name: 'Условие', id: uuidv4(), type: DraggableItemEnum.if },
+    { name: 'Ехать', id: uuidv4(), type: DraggableItemEnum.action },
+    { name: 'Конец условия', id: uuidv4(), type: DraggableItemEnum.ifEnd },
+    { name: 'Конец условия', id: uuidv4(), type: DraggableItemEnum.ifEnd },
   ]
 
   codeBlocks1: CodeBlockType[] = [
@@ -164,35 +172,39 @@ export class DraggableWrapper extends Vue {
         >
           {this.codeBlocks.map((item, index) => {
             return (
-              <div class={['draggable']} style={{ 'background-color': 'red' }}>
-                {index}
-                <DraggableItem
-                  whenClick={this.whenClick}
-                  style={{
-                    zIndex:
-                      // item.type === DraggableItemEnum.start
-                      //   ? '100'
-                      //   :
-                      this.codeBlocks.length - index,
+              <div class={['draggable', styles.draggableItemWrapper]}>
+                <div class={styles.draggableItemWrapperContent}>
+                  <span class={styles.itemIndex}>{index + 1}</span>
+                  <DraggableItem
+                    whenClick={this.whenClick}
+                    style={{
+                      zIndex: this.codeBlocks.length - index,
+                    }}
+                    item={item}
+                    id={index}
+                    whenClickDropdownSelect={this.whenClickDropdownSelect}
+                    whenChangeInput={this.whenChangeInput}
+                  />
+                </div>
+                <Icon
+                  imgSrc={'delete-icon'}
+                  whenClick={() => {
+                    this.codeBlocks = [
+                      ...this.codeBlocks.slice(0, index),
+                      ...this.codeBlocks.slice(index + 1),
+                    ]
                   }}
-                  item={item}
-                  id={index}
-                  // class={['draggable']}
-                  whenClickDropdownSelect={this.whenClickDropdownSelect}
-                  whenChangeInput={this.whenChangeInput}
                 />
-                <div>удалить</div>
               </div>
             )
           })}
         </draggable>
 
-        <div
-          class={styles.showDrag}
-          onClick={() => (this.showDrag = !this.showDrag)}
-        >
-          {this.showDrag ? 'Добавление блока кода' : 'Добавить блок +'}
-        </div>
+        <Button
+          whenClick={() => (this.showDrag = !this.showDrag)}
+          class={styles.addBlocksButton}
+          text={this.showDrag ? 'Убрать добавление' : 'Добавить блок'}
+        />
 
         <div class={[styles.drag, { [styles.drag2]: this.showDrag }]}>
           <draggable
@@ -230,13 +242,6 @@ export class DraggableWrapper extends Vue {
             })}
           </draggable>
         </div>
-
-        <Button
-          text={'Запустить'}
-          whenClick={
-            () => this.store?.setCodeBlocks(this.normalize(this.codeBlocks))
-          }
-        />
       </div>
     )
   }

@@ -3,6 +3,7 @@ import { Component, Prop } from 'vue-property-decorator'
 import { Button } from '../button'
 
 import { DraggableItemEnum } from '../draggable-item'
+import { Icon } from '../icon'
 
 export type SettingsType = keyof Pick<typeof DraggableItemEnum, 'action' | 'if'>
 
@@ -19,7 +20,7 @@ export class CodeBlockSettings extends Vue {
 
   renderActionsByType(): VNode {
     return (
-      <Button
+      <Icon
         whenClick={() => {
           console.log('ddddd')
         }}
