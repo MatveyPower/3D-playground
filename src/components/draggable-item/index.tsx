@@ -24,7 +24,8 @@ export type DraggableItemComponentsParts = {
   order: number
   fixable: boolean
   position?: Position
-  duration?: number
+  duration?: string
+  condition?: Action
   action?: Action
   type: DraggableItemEnum
   id: number
@@ -67,6 +68,8 @@ export class DraggableItem extends Vue {
     return {
       action: (
         <ActionBlock
+          inputValue={this.item.duration}
+          selectValue={this.item.action}
           whenClick={() => this.whenClick?.(this.item)}
           whenMouseOver={() => (this.showDescriptionAction = true)}
           whenMouseOut={() => (this.showDescriptionAction = false)}
@@ -87,6 +90,7 @@ export class DraggableItem extends Vue {
       IfEnd: <IfEndBlock item={this.item} />,
       if: (
         <IfBlock
+          selectValue={this.item.position}
           whenClick={() => this.whenClick?.(this.item)}
           whenMouseOver={() => (this.showDescriptionIf = true)}
           whenMouseOut={() => (this.showDescriptionIf = false)}

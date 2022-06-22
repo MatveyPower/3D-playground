@@ -10,6 +10,8 @@ interface ActionBlockProps {
   dragIteminChoose?: boolean
   whenClickDropdownSelect?: (item: any, value: any) => void
   whenChangeInput?: (value: string) => void
+  inputValue: string
+  selectValue: string
 }
 
 const options = [Action.forward, Action.back, Action.left, Action.right]
@@ -32,14 +34,20 @@ export class ActionBlock extends CodeBlock {
   @Prop()
   whenChangeInput: ActionBlockProps['whenChangeInput']
 
+  @Prop({
+    default: '0',
+  })
+  inputValue: ActionBlockProps['inputValue']
+
+  @Prop()
+  selectValue: ActionBlockProps['selectValue']
+
   selected = options[0]
 
   blockStyle = {
     block: [styles.block, styles.color],
     rhombus: [styles.rhombus],
   }
-
-  inputValue = ''
 
   renderContent() {
     return (
@@ -53,7 +61,7 @@ export class ActionBlock extends CodeBlock {
             class={styles.dropdownSelect}
             whenClick={this.whenClickDropdownSelect}
             options={options}
-            selected={this.selected}
+            selected={this.selectValue}
             values={optionsRusForAction}
           />
           <input
@@ -62,10 +70,7 @@ export class ActionBlock extends CodeBlock {
             type="text"
             onInput={(value: any) => {
               if (value.data) {
-                this.inputValue = this.inputValue += value.data
-                this.whenChangeInput?.(this.inputValue)
-              } else {
-                this.inputValue = this.inputValue.slice(0, -1)
+                this.whenChangeInput?.(value.data)
               }
             }}
           />

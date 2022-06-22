@@ -74,12 +74,12 @@ export class DraggableWrapper extends Vue {
 
   codeBlocks: CodeBlockType[] = [
     {
-      name: 'Условие',
+      name: 'Если',
       id: uuidv4(),
       type: DraggableItemEnum.if,
     },
     { name: 'Ехать', id: uuidv4(), type: DraggableItemEnum.action },
-    { name: 'Условие', id: uuidv4(), type: DraggableItemEnum.if },
+    { name: 'Если', id: uuidv4(), type: DraggableItemEnum.if },
     { name: 'Ехать', id: uuidv4(), type: DraggableItemEnum.action },
     { name: 'Конец условия', id: uuidv4(), type: DraggableItemEnum.ifEnd },
     { name: 'Конец условия', id: uuidv4(), type: DraggableItemEnum.ifEnd },
@@ -87,7 +87,7 @@ export class DraggableWrapper extends Vue {
 
   codeBlocks1: CodeBlockType[] = [
     {
-      name: 'Условие',
+      name: 'Если',
       id: uuidv4(),
       type: DraggableItemEnum.if,
       // action: Action.back,
@@ -144,6 +144,7 @@ export class DraggableWrapper extends Vue {
         return (block = {
           ...block,
           position: value,
+          action: block.type === DraggableItemEnum.action ? value : undefined,
         })
       }
       return block

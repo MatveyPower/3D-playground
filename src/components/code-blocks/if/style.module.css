@@ -20,3 +20,9 @@
 .dropdownSelect {
   padding: 0 12px;
 }
+
+.dropdowSelectInput {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+}
