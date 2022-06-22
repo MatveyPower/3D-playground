@@ -9,15 +9,16 @@ interface IfBlockProps {
   item: DraggableItemComponentsParts
   dragIteminChoose?: boolean
   whenClickDropdownSelect?: (item: any, value: any) => void
+  selectValue: string
 }
 
 const options = [Position.front, Position.behind, Position.left, Position.right]
 
 export const optionsRusForIf: Record<Position, string> = {
-  [Position.front]: 'Вперед',
-  [Position.behind]: 'Назад',
-  [Position.left]: 'Влево',
-  [Position.right]: 'Вправо',
+  [Position.front]: 'Впереди',
+  [Position.behind]: 'Сзади',
+  [Position.left]: 'Слева',
+  [Position.right]: 'Справа',
 }
 
 @Component
@@ -30,6 +31,9 @@ export class IfBlock extends CodeBlock {
 
   @Prop()
   whenClickDropdownSelect: IfBlockProps['whenClickDropdownSelect']
+
+  @Prop()
+  selectValue: IfBlockProps['selectValue']
 
   blockStyle = {
     block: [styles.block, styles.color],
@@ -45,13 +49,16 @@ export class IfBlock extends CodeBlock {
           {this.item.name}
           <CodeBlockSettings type={'action'} />
         </div>
-        <DropdownSelect
-          class={styles.dropdownSelect}
-          whenClick={this.whenClickDropdownSelect}
-          options={options}
-          selected={this.selected}
-          values={optionsRusForIf}
-        />
+        <div class={styles.dropdowSelectInput}>
+          <DropdownSelect
+            class={styles.dropdownSelect}
+            whenClick={this.whenClickDropdownSelect}
+            options={options}
+            selected={this.selectValue}
+            values={optionsRusForIf}
+          />
+          препятствие
+        </div>
       </div>
     )
   }
