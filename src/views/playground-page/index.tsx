@@ -20,48 +20,7 @@ import { MapStructure } from '@/store/modules/maps'
 export class PlaygroundPage extends Vue {
   store = useModule<MyStore>(this.$store) as MyStore
 
-  selectedMap: MapStructure = {
-    walls: [
-      {
-        size: [20, 5, 0.5],
-        position: [0, 2, 0],
-        mass: 0,
-      },
-      {
-        size: [0.5, 5, 20],
-        position: [10, 2, 0],
-        mass: 0,
-      },
-      {
-        size: [0.5, 5, 20],
-        position: [-10, 2, 0],
-        mass: 0,
-      },
-      {
-        size: [0.5, 5, 50],
-        position: [-25, 2, 0],
-        mass: 0,
-      },
-      {
-        size: [0.5, 5, 50],
-        position: [25, 2, 0],
-        mass: 0,
-      },
-      {
-        size: [50, 5, 0.5],
-        position: [0, 2, 25],
-        mass: 0,
-      },
-      {
-        size: [50, 5, 0.5],
-        position: [0, 2, -25],
-        mass: 0,
-      },
-    ],
-    endPoint: {
-      position: [0, 0, 15],
-    },
-  }
+  selectedMap = this.store.maps.selectedMap.structure
 
   render() {
     return (
