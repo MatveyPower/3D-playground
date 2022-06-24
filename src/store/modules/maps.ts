@@ -78,13 +78,13 @@ export class MapsModule {
       structure: {
         walls: [
           {
-            size: [20, 5, 0.5],
-            position: [0, 2, 0],
+            size: [0.5, 5, 50],
+            position: [-25, 2, 0],
             mass: 0,
           },
           {
-            size: [0.5, 5, 20],
-            position: [-10, 2, 0],
+            size: [0.5, 5, 50],
+            position: [25, 2, 0],
             mass: 0,
           },
           {
@@ -92,9 +92,29 @@ export class MapsModule {
             position: [0, 2, 25],
             mass: 0,
           },
+          {
+            size: [50, 5, 0.5],
+            position: [0, 2, -25],
+            mass: 0,
+          },
+          {
+            size: [40, 5, 0.5],
+            position: [-5, 2, 0],
+            mass: 0,
+          },
+          {
+            size: [0.5, 5, 20],
+            position: [15, 2, 0],
+            mass: 0,
+          },
+          {
+            size: [0.5, 5, 15],
+            position: [0, 2, 17.5],
+            mass: 0,
+          },
         ],
         endPoint: {
-          position: [0, 0, 15],
+          position: [-15, 0, 15],
         },
       },
     },
@@ -106,13 +126,13 @@ export class MapsModule {
       structure: {
         walls: [
           {
-            size: [20, 5, 0.5],
-            position: [0, 2, 0],
+            size: [0.5, 5, 50],
+            position: [-25, 2, 0],
             mass: 0,
           },
           {
-            size: [0.5, 5, 20],
-            position: [-10, 2, 0],
+            size: [0.5, 5, 50],
+            position: [25, 2, 0],
             mass: 0,
           },
           {
@@ -120,9 +140,44 @@ export class MapsModule {
             position: [0, 2, 25],
             mass: 0,
           },
+          {
+            size: [50, 5, 0.5],
+            position: [0, 2, -25],
+            mass: 0,
+          },
+          {
+            size: [20, 5, 0.5],
+            position: [5, 2, 15],
+            mass: 0,
+          },
+          {
+            size: [10, 5, 0.5],
+            position: [-10, 2, -5],
+            mass: 0,
+          },
+          {
+            size: [0.5, 5, 30],
+            position: [15, 2, 0],
+            mass: 0,
+          },
+          {
+            size: [0.5, 5, 20],
+            position: [-15, 2, 5],
+            mass: 0,
+          },
+          {
+            size: [0.5, 5, 20],
+            position: [5, 2, -15],
+            mass: 0,
+          },
+          {
+            size: [0.5, 5, 40],
+            position: [-5, 2, -5],
+            mass: 0,
+          },
         ],
         endPoint: {
-          position: [0, 0, 15],
+          position: [-15, 0, -15],
         },
       },
     },
@@ -134,13 +189,13 @@ export class MapsModule {
       structure: {
         walls: [
           {
-            size: [20, 5, 0.5],
-            position: [0, 2, 0],
+            size: [0.5, 5, 50],
+            position: [-25, 2, 0],
             mass: 0,
           },
           {
-            size: [0.5, 5, 20],
-            position: [-10, 2, 0],
+            size: [0.5, 5, 50],
+            position: [25, 2, 0],
             mass: 0,
           },
           {
@@ -148,11 +203,49 @@ export class MapsModule {
             position: [0, 2, 25],
             mass: 0,
           },
+          {
+            size: [50, 5, 0.5],
+            position: [0, 2, -25],
+            mass: 0,
+          },
+          {
+            size: [30, 5, 0.5],
+            position: [10, 2, 15],
+            mass: 0,
+          },
+          {
+            size: [30, 5, 0.5],
+            position: [0, 2, -5],
+            mass: 0,
+          },
+          {
+            size: [0.5, 5, 30],
+            position: [15, 2, -10],
+            mass: 0,
+          },
+          {
+            size: [0.5, 5, 30],
+            position: [-15, 2, 0],
+            mass: 0,
+          },
+          {
+            size: [0.5, 5, 10],
+            position: [5, 2, 10],
+            mass: 0,
+          },
         ],
         endPoint: {
-          position: [0, 0, 15],
+          position: [20, 0, -20],
         },
       },
     },
   ]
+
+  @State()
+  selectedMap = this.maps[0]
+
+  @Mutation()
+  setSelectionMap(map: Map) {
+    this.selectedMap = map
+  }
 }

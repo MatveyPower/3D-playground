@@ -31,8 +31,8 @@ export class MapsPage extends Vue {
   }
 
   clickOnMap(map: Map) {
-    console.log(map)
     this.selectedMap = map
+    this.store.maps.setSelectionMap(map)
   }
 
   render() {

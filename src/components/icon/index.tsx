@@ -1,28 +1,27 @@
 import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
+import { VNode } from 'vue/types/umd'
 
 import styles from './style.module.css'
 
 interface IconProps {
-  imgSrc: string
+  svg: VNode
   whenClick: (item: any) => void
 }
 
 @Component
 export class Icon extends Vue {
   @Prop()
-  imgSrc: IconProps['imgSrc']
+  svg: IconProps['svg']
 
   @Prop()
   whenClick: IconProps['whenClick']
 
   render() {
     return (
-      <img
-        onClick={this.whenClick}
-        class={styles.icon}
-        src={require(`../../static/${this.imgSrc}.svg`)}
-      />
+      <div class={styles.root} onclick={this.whenClick}>
+        {this.svg}
+      </div>
     )
   }
 }

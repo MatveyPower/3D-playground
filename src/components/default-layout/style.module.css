@@ -8,6 +8,8 @@
   /* padding: 36px 64px; */
   background-color: #272528;
   min-height: 100vh;
+
+  background-image: url('../../static/img/BG1.png');
 }
 
 .container {
@@ -28,5 +30,6 @@
 }
 
 .footerText {
+  font-family: Montserrat;
   color: rgba(255, 255, 255, 0.81);
 }
