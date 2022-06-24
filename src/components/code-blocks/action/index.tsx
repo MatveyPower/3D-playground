@@ -70,7 +70,11 @@ export class ActionBlock extends CodeBlock {
             type="text"
             onInput={(value: any) => {
               if (value.data) {
-                this.whenChangeInput?.(value.data)
+                this.whenChangeInput?.(this.inputValue + value.data)
+              } else {
+                this.whenChangeInput?.(
+                  this.inputValue.slice(0, this.inputValue.length - 1)
+                )
               }
             }}
           />
