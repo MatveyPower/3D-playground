@@ -11,6 +11,11 @@
 
   font-family: Montserrat Medium;
   font-size: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .disabled.disabled {

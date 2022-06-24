@@ -42,24 +42,26 @@ export function createCar(scene, world) {
     side: THREE.DoubleSide,
   })
 
+  const visibleSensors = false
+
   const sensor_F_Mesh = new THREE.Mesh(sensorGeometry1, sensorMaterial)
   sensor_F_Mesh.position.z = 5
-  sensor_F_Mesh.visible = true
+  sensor_F_Mesh.visible = visibleSensors
   vehicleMesh.add(sensor_F_Mesh)
 
   const sensor_B_Mesh = new THREE.Mesh(sensorGeometry1, sensorMaterial)
   sensor_B_Mesh.position.z = -5
-  sensor_B_Mesh.visible = true
+  sensor_B_Mesh.visible = visibleSensors
   vehicleMesh.add(sensor_B_Mesh)
 
   const sensor_R_Mesh = new THREE.Mesh(sensorGeometry2, sensorMaterial)
   sensor_R_Mesh.position.x = -5
-  sensor_R_Mesh.visible = true
+  sensor_R_Mesh.visible = visibleSensors
   vehicleMesh.add(sensor_R_Mesh)
 
   const sensor_L_Mesh = new THREE.Mesh(sensorGeometry2, sensorMaterial)
   sensor_L_Mesh.position.x = 5
-  sensor_L_Mesh.visible = true
+  sensor_L_Mesh.visible = visibleSensors
   vehicleMesh.add(sensor_L_Mesh)
 
   vehicleMesh.castShadow = true

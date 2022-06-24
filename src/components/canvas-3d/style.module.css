@@ -29,6 +29,14 @@
   top: 32px;
 
   cursor: pointer;
+
+  fill: rgb(194, 194, 194);
+
+  transition: 0.2s;
+}
+
+.fullScreenBtn:hover {
+  fill: #fff;
 }
 
 .blackBlock {
