@@ -1,0 +1,22 @@
+.root {
+  height: 30px;
+  box-sizing: border-box;
+  padding: 6px 12px;
+
+  border-radius: 8px;
+
+  font-family: Montserrat Medium;
+  font-size: 14px;
+}
+
+.nativeInput {
+  all: unset;
+  border: none;
+}
+
+.disabled.disabled {
+  background-color: #49474a;
+  color: #7c7b7c;
+
+  cursor: not-allowed;
+}
