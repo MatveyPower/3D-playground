@@ -64,33 +64,18 @@ export class DraggableWrapper extends Vue {
 
   store = this.root?.game
 
-  @Watch('store.play')
+  @Watch('codeBlocks', { immediate: true, deep: true })
   pushBlocsInStore() {
-    if (this.store?.play) {
-      this.store?.setCodeBlocks(this.normalize(this.codeBlocks))
-    }
-    console.log(this.store?.programBlocks)
+    this.store?.setCodeBlocks(this.normalize(this.codeBlocks))
   }
 
-  codeBlocks: CodeBlockType[] = [
-    {
-      name: 'Если',
-      id: uuidv4(),
-      type: DraggableItemEnum.if,
-    },
-    { name: 'Ехать', id: uuidv4(), type: DraggableItemEnum.action },
-    { name: 'Если', id: uuidv4(), type: DraggableItemEnum.if },
-    { name: 'Ехать', id: uuidv4(), type: DraggableItemEnum.action },
-    { name: 'Конец условия', id: uuidv4(), type: DraggableItemEnum.ifEnd },
-    { name: 'Конец условия', id: uuidv4(), type: DraggableItemEnum.ifEnd },
-  ]
+  codeBlocks: CodeBlockType[] = []
 
   codeBlocks1: CodeBlockType[] = [
     {
       name: 'Если',
       id: uuidv4(),
       type: DraggableItemEnum.if,
-      // action: Action.back,
     },
     { name: 'Ехать', id: uuidv4(), type: DraggableItemEnum.action },
   ]
@@ -156,7 +141,7 @@ export class DraggableWrapper extends Vue {
       if (block.id === item.id) {
         return (block = {
           ...block,
-          duration: +value,
+          duration: value,
         })
       }
       return block
@@ -222,6 +207,10 @@ export class DraggableWrapper extends Vue {
                     this.codeBlocks.push({
                       ...item,
                       id: uuidv4(),
+                      position: Position.front,
+                      action: Action.forward,
+                      duration:
+                        item.type === DraggableItemEnum.action ? 1 : undefined,
                     })
 
                     if (item.type === DraggableItemEnum.if) {
