@@ -35,30 +35,30 @@ export function createCar(scene, world) {
 
   // SENSORS
 
-  const sensorGeometry1 = new THREE.BoxGeometry(2, 2, 2) // double chasis shape
-  const sensorGeometry2 = new THREE.BoxGeometry(2, 2, 2) // double chasis shape
+  const sensorGeometry1 = new THREE.BoxGeometry(2, 2, 7) // double chasis shape
+  const sensorGeometry2 = new THREE.BoxGeometry(7, 2, 2) // double chasis shape
   const sensorMaterial = new THREE.MeshBasicMaterial({
     color: 0xffff00,
     side: THREE.DoubleSide,
   })
 
   const sensor_F_Mesh = new THREE.Mesh(sensorGeometry1, sensorMaterial)
-  sensor_F_Mesh.position.z = 10
+  sensor_F_Mesh.position.z = 5
   sensor_F_Mesh.visible = true
   vehicleMesh.add(sensor_F_Mesh)
 
   const sensor_B_Mesh = new THREE.Mesh(sensorGeometry1, sensorMaterial)
-  sensor_B_Mesh.position.z = -10
+  sensor_B_Mesh.position.z = -5
   sensor_B_Mesh.visible = true
   vehicleMesh.add(sensor_B_Mesh)
 
   const sensor_R_Mesh = new THREE.Mesh(sensorGeometry2, sensorMaterial)
-  sensor_R_Mesh.position.x = -10
+  sensor_R_Mesh.position.x = -5
   sensor_R_Mesh.visible = true
   vehicleMesh.add(sensor_R_Mesh)
 
   const sensor_L_Mesh = new THREE.Mesh(sensorGeometry2, sensorMaterial)
-  sensor_L_Mesh.position.x = 10
+  sensor_L_Mesh.position.x = 5
   sensor_L_Mesh.visible = true
   vehicleMesh.add(sensor_L_Mesh)
 
@@ -99,12 +99,12 @@ export function createCar(scene, world) {
   options.chassisConnectionPointLocal.set(-axlewidth - 0.4, top, -1.7)
   vehicle.addWheel(options)
 
-  // options.chassisConnectionPointLocal.set(axlewidth, top, 1.4)
-  options.chassisConnectionPointLocal.set(0, top, 1.4)
+  options.chassisConnectionPointLocal.set(axlewidth, top, 1.4)
+  // options.chassisConnectionPointLocal.set(0, top, 1.4)
   vehicle.addWheel(options)
 
-  // options.chassisConnectionPointLocal.set(-axlewidth - 0.4, top, 1.4)
-  options.chassisConnectionPointLocal.set(0, top, 1.4)
+  options.chassisConnectionPointLocal.set(-axlewidth - 0.4, top, 1.4)
+  // options.chassisConnectionPointLocal.set(0, top, 1.4)
   vehicle.addWheel(options)
 
   vehicle.addToWorld(world)
@@ -179,6 +179,6 @@ export function createCar(scene, world) {
     vehicle,
     vehicleBody,
     vehicleMesh,
-    sensorMesh: sensor_F_Mesh,
+    sensorsMesh: [sensor_F_Mesh, sensor_B_Mesh, sensor_R_Mesh, sensor_L_Mesh],
   }
 }

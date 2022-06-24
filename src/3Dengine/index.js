@@ -34,7 +34,7 @@ export function init3DRenderer(container, store, MAP) {
   // const stats = Stats()
   // container.appendChild(stats.dom)
 
-  const { vehicle, vehicleBody, vehicleMesh, sensorMesh } = createCar(
+  const { vehicle, vehicleBody, vehicleMesh, sensorsMesh } = createCar(
     scene,
     world
   )
@@ -49,7 +49,7 @@ export function init3DRenderer(container, store, MAP) {
     vehicleBody,
     vehicle,
     MAP.endPoint,
-    sensorMesh,
+    sensorsMesh,
     wallsArr,
     store
   )

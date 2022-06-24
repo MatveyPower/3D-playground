@@ -221,7 +221,6 @@ export class DraggableWrapper extends Vue {
                       duration:
                         item.type === DraggableItemEnum.action ? 1 : undefined,
                     })
-
                     if (item.type === DraggableItemEnum.if) {
                       this.codeBlocks.push({
                         name: 'Конец условия',

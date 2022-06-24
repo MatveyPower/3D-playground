@@ -22,6 +22,14 @@ export class PlaygroundPage extends Vue {
 
   selectedMap = this.store.maps.selectedMap.structure
 
+  restart() {
+    this.store.game.removeProgram()
+    this.selectedMap = {
+      ...this.store.maps.selectedMap.structure,
+    }
+    this.store.game.stopRemoveProgram()
+  }
+
   render() {
     return (
       <DefaultLayout>
@@ -30,7 +38,7 @@ export class PlaygroundPage extends Vue {
           <div class={styles.rightBlock}>
             <Canvas-3d map={this.selectedMap} />
             <ControlButtons
-              whenClickRestart={() => console.log('123')}
+              whenClickRestart={this.restart}
               whenClickPlay={this.store.game.startProgram}
               whenClickStop={this.store.game.stopProgram}
             />

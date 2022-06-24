@@ -1,8 +1,8 @@
 import * as THREE from 'three'
 import { DraggableItemEnum } from '@/components/draggable-item'
+import { Position } from '@/components/draggable-wrapper'
 
 let END_GAME = false
-let peresech = false
 
 export function runEngineLoop(
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -34,7 +34,7 @@ export function runEngineLoop(
   endPoint,
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  sensorMesh,
+  sensorsMesh,
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   wallsArr,
@@ -49,11 +49,20 @@ export function runEngineLoop(
   let RIGHT = false
   let LEFT = false
 
+  let SENSOR_FORWARD = false
+  let SENSOR_BACK = false
+  let SENSOR_RIGHT = false
+  let SENSOR_LEFT = false
+
   let TIME = 0
   const TICK_BY_SECOND = 75
 
   let STOP_BLOCK = 0
   let STOP_TURN_BLOCK = 0
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  let PROGRAM = []
 
   animate()
 
@@ -71,7 +80,7 @@ export function runEngineLoop(
       vehicleBody = null
       vehicle = null
       endPoint = null
-      sensorMesh = null
+      sensorsMesh = null
       wallsArr = null
 
       return
@@ -91,11 +100,9 @@ export function runEngineLoop(
     const END_POINT_Z = endPoint?.position?.[2] || -1000
     const VEHICLE_POSITION = vehicle.chassisBody.position
 
-    let PROGRAM = []
     if (PLAY) {
       if (PROGRAM.length === 0) {
         PROGRAM = store.game.programBlocks
-        console.log('programm =', store.game.programBlocks)
       }
       TIME += 1
     }
@@ -121,7 +128,45 @@ export function runEngineLoop(
     //   vehicle.setSteeringValue(0, 3)
     // }
 
+    SENSOR_FORWARD = false
+    SENSOR_BACK = false
+    SENSOR_RIGHT = false
+    SENSOR_LEFT = false
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    wallsArr.forEach((wall) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      sensorsMesh.forEach((sensor, index) => {
+        if (checkTouching(sensor, wall)) {
+          switch (index) {
+            case 0:
+              SENSOR_FORWARD = true
+              break
+
+            case 1:
+              SENSOR_BACK = true
+              break
+
+            case 2:
+              SENSOR_RIGHT = true
+              break
+
+            case 3:
+              SENSOR_LEFT = true
+              break
+
+            default:
+              break
+          }
+        }
+      })
+    })
+
     if (!DOING_NOW && PROGRAM.length > 0 && PLAY) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       const block = PROGRAM.shift()
       console.log('block =', block)
 
@@ -159,6 +204,47 @@ export function runEngineLoop(
           default:
             break
         }
+      } else if (block.type === DraggableItemEnum.if) {
+        switch (block.position) {
+          case Position.front:
+            if (SENSOR_FORWARD) {
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-expect-error
+              PROGRAM = [...block.insertedBlock, ...PROGRAM]
+              DOING_NOW = false
+            }
+            break
+
+          case Position.behind:
+            if (SENSOR_BACK) {
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-expect-error
+              PROGRAM = [...block.insertedBlock, ...PROGRAM]
+              DOING_NOW = false
+            }
+            break
+
+          case Position.right:
+            if (SENSOR_RIGHT) {
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-expect-error
+              PROGRAM = [...block.insertedBlock, ...PROGRAM]
+              DOING_NOW = false
+            }
+            break
+
+          case Position.left:
+            if (SENSOR_LEFT) {
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-expect-error
+              PROGRAM = [...block.insertedBlock, ...PROGRAM]
+              DOING_NOW = false
+            }
+            break
+
+          default:
+            break
+        }
       }
     }
 
@@ -168,7 +254,7 @@ export function runEngineLoop(
       FORWARD = false
       BACK = false
 
-      STOP_BLOCK = 5 + TIME
+      // STOP_BLOCK = 5 + TIME
     }
 
     if (STOP_TURN_BLOCK === TIME) {
@@ -199,14 +285,14 @@ export function runEngineLoop(
     vehicle.setBrake(t, 2)
     vehicle.setBrake(t, 3)
 
-    const speed = 100
+    const speed = 200
     const r = 100
 
     if (FORWARD) {
       let actualSpeed = speed
 
       if (RIGHT || LEFT) {
-        actualSpeed *= 0.1
+        actualSpeed *= 1
       }
 
       vehicle.applyEngineForce(actualSpeed * -1, 2)
@@ -217,7 +303,7 @@ export function runEngineLoop(
       let actualSpeed = speed
 
       if (RIGHT || LEFT) {
-        actualSpeed *= 0.1
+        actualSpeed *= 1
       }
 
       vehicle.applyEngineForce(actualSpeed, 2)
@@ -233,16 +319,6 @@ export function runEngineLoop(
       vehicle.setSteeringValue(r * -1, 2)
       vehicle.setSteeringValue(r * -1, 3)
     }
-
-    peresech = false
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    wallsArr.forEach((wall) => {
-      if (checkTouching(sensorMesh, wall)) {
-        peresech = true
-      }
-    })
 
     //camera
 

@@ -152,4 +152,9 @@ export class GameModule {
   stopRemoveProgram() {
     this.removeCanvas = false
   }
+
+  @Mutation()
+  restartProgram() {
+    this.removeCanvas = true
+  }
 }
