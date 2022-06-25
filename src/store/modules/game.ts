@@ -54,6 +54,9 @@ export class GameModule {
   removeCanvas = false
 
   @State()
+  activeBlock: CodeBlockType | null = null
+
+  @State()
   // programBlocks: Array<ActionBlock | IfBlock> = [
   programBlocks: CodeBlockType[] = [
     // {
@@ -128,9 +131,12 @@ export class GameModule {
 
   @Mutation()
   setCodeBlocks(programBlocks: CodeBlockType[]) {
-    console.log(programBlocks)
-
     this.programBlocks = programBlocks
+  }
+
+  @Mutation()
+  setActiveBlock(block: CodeBlockType) {
+    this.activeBlock = block
   }
 
   @Mutation()

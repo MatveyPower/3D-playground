@@ -11,6 +11,7 @@ import { useModule } from 'vuex-simple'
 
 import styles from './style.module.css'
 import { MapStructure } from '@/store/modules/maps'
+import { Cmd } from '@/components/cmd'
 
 @Component({
   components: {
@@ -42,6 +43,7 @@ export class PlaygroundPage extends Vue {
               whenClickPlay={this.store.game.startProgram}
               whenClickStop={this.store.game.stopProgram}
             />
+            <Cmd />
           </div>
         </div>
       </DefaultLayout>

@@ -12,6 +12,8 @@
 .nativeInput {
   all: unset;
   border: none;
+
+  width: 100%;
 }
 
 .disabled.disabled {

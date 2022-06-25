@@ -168,7 +168,7 @@ export function runEngineLoop(
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
       const block = PROGRAM.shift()
-      console.log('block =', block)
+      store.game.setActiveBlock(block)
 
       DOING_NOW = true
 
