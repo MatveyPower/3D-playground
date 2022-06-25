@@ -32,6 +32,7 @@
   background-color: #383538;
   padding: 48px 16px 32px;
   border-radius: 8px;
+  height: calc(100vh - 200px);
 }
 
 .draggableItemWrapper {
@@ -55,6 +56,13 @@
 }
 
 .addBlocksButton {
+  position: absolute;
   margin: 20px 0 0 52px !important;
   background-color: #fa8e2c !important;
+  bottom: 16px;
+}
+
+.codeBlocksWrapper {
+  overflow-y: auto;
+  height: calc(100vh - 250px);
 }

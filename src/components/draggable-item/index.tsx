@@ -3,8 +3,8 @@ import { Component, Prop } from 'vue-property-decorator'
 import {
   ActionBlock,
   IfBlock,
-  StartBlock,
-  FinishBlock,
+  CircleBlock,
+  CircleEndBlock,
   IfEndBlock,
 } from '@/components'
 
@@ -14,9 +14,9 @@ import { Action, CodeBlockType, Position } from '../draggable-wrapper'
 export enum DraggableItemEnum {
   if = 'if',
   action = 'action',
-  // start = 'start',
-  // finish = 'finish',
-  ifEnd = 'IfEnd',
+  circle = 'circle',
+  circleEnd = 'circleEnd',
+  ifEnd = 'ifEnd',
 }
 
 export type DraggableItemComponentsParts = {
@@ -87,7 +87,7 @@ export class DraggableItem extends Vue {
         />
       ),
 
-      IfEnd: <IfEndBlock item={this.item} />,
+      ifEnd: <IfEndBlock item={this.item} />,
       if: (
         <IfBlock
           selectValue={this.item.position}
@@ -104,6 +104,23 @@ export class DraggableItem extends Vue {
           }}
         />
       ),
+      circle: (
+        <CircleBlock
+          selectValue={this.item.position}
+          whenClick={() => this.whenClick?.(this.item)}
+          whenMouseOver={() => (this.showDescriptionIf = true)}
+          whenMouseOut={() => (this.showDescriptionIf = false)}
+          class={{
+            [styles.chooseCycle]: this.dragIteminChoose,
+          }}
+          item={this.item}
+          showDescription={this.showDescriptionIf && this.dragIteminChoose}
+          whenClickDropdownSelect={(value: any) => {
+            this.whenClickDropdownSelect?.(this.item, value)
+          }}
+        />
+      ),
+      circleEnd: <CircleEndBlock item={this.item} />,
     }
   }
 

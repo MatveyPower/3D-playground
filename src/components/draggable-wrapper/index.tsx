@@ -44,13 +44,21 @@ export type CodeBlockType = {
   id?: string
   type?: DraggableItemEnum
   position?: Position
-  duration?: number
+  duration?: string
   action?: Action
   insertedBlock?: CodeBlockType[]
+  margin?: number
 }
 
 interface DraggableWrapperProps {
   items: DraggableItemComponentsParts[]
+}
+
+export const TextForEnumName: Partial<
+  Record<keyof typeof DraggableItemEnum, string>
+> = {
+  [DraggableItemEnum.ifEnd]: 'Конец условия',
+  [DraggableItemEnum.circleEnd]: 'Конец цикла',
 }
 
 @Component({
@@ -64,9 +72,43 @@ export class DraggableWrapper extends Vue {
 
   store = this.root?.game
 
-  @Watch('codeBlocks', { immediate: true, deep: true })
-  pushBlocsInStore() {
+  mounted() {
+    this.codeBlocks = JSON.parse(localStorage.getItem('structure') || `${[]}`)
     this.store?.setCodeBlocks(this.normalize(this.codeBlocks))
+  }
+
+  // @Watch('codeBlocks', { immediate: true, deep: true })
+  pushBlocsInStore() {
+    localStorage.setItem('structure', JSON.stringify(this.codeBlocks))
+    this.store?.setCodeBlocks(this.normalize(this.codeBlocks))
+    console.log(localStorage.getItem('structure'))
+  }
+
+  get codeBlocks2() {
+    let marginMultipy = 0
+    const newArr: CodeBlockType[] = []
+    this.codeBlocks.forEach((block) => {
+      if (
+        block.type === DraggableItemEnum.ifEnd ||
+        block.type === DraggableItemEnum.circleEnd
+      ) {
+        marginMultipy -= 1
+      }
+      newArr.push({
+        ...block,
+        margin: marginMultipy * 44,
+      })
+      if (
+        block.type === DraggableItemEnum.if ||
+        block.type === DraggableItemEnum.circle
+      ) {
+        marginMultipy += 1
+      }
+    })
+
+    console.log(newArr)
+
+    return newArr
   }
 
   codeBlocks: CodeBlockType[] = []
@@ -78,6 +120,7 @@ export class DraggableWrapper extends Vue {
       type: DraggableItemEnum.if,
     },
     { name: 'Ехать', id: uuidv4(), type: DraggableItemEnum.action },
+    { name: 'Повторить в цикле', id: uuidv4(), type: DraggableItemEnum.circle },
   ]
 
   showDrag = false
@@ -86,37 +129,47 @@ export class DraggableWrapper extends Vue {
     let ifCounter = 0
     let actualIf = {}
     const insertedBlock: CodeBlockType[] = []
-    return arr.reduce((acc: any, item: any) => {
-      const { type } = item
-      if (type === DraggableItemEnum.if) {
-        if (ifCounter === 0) {
-          actualIf = item
-        } else {
-          insertedBlock.push(item)
-        }
-        ifCounter++
-      } else if (type === DraggableItemEnum.ifEnd) {
-        ifCounter--
-        if (ifCounter === 0 && !!actualIf) {
-          const insertedArray: any = [
-            ...acc,
-            {
-              ...actualIf,
-              insertedBlock: this.normalize(insertedBlock),
-            },
-          ]
-          insertedBlock.length = 0
-          actualIf = {}
-          return insertedArray
-        }
-        insertedBlock.push(item)
-      } else if (ifCounter !== 0) {
-        insertedBlock.push(item)
-      } else if (ifCounter === 0) {
-        return [...acc, item]
-      }
-      return acc
-    }, [])
+    return (
+      arr
+        // .map((item) => {
+        //   if (item.type === DraggableItemEnum.circle) {
+        //     return {
+        //       ...item,
+        //     }
+        //   }
+        // })
+        .reduce((acc: any, item: any) => {
+          const { type } = item
+          if (type === DraggableItemEnum.if) {
+            if (ifCounter === 0) {
+              actualIf = item
+            } else {
+              insertedBlock.push(item)
+            }
+            ifCounter++
+          } else if (type === DraggableItemEnum.ifEnd) {
+            ifCounter--
+            if (ifCounter === 0 && !!actualIf) {
+              const insertedArray: any = [
+                ...acc,
+                {
+                  ...actualIf,
+                  insertedBlock: this.normalize(insertedBlock),
+                },
+              ]
+              insertedBlock.length = 0
+              actualIf = {}
+              return insertedArray
+            }
+            insertedBlock.push(item)
+          } else if (ifCounter !== 0) {
+            insertedBlock.push(item)
+          } else if (ifCounter === 0) {
+            return [...acc, item]
+          }
+          return acc
+        }, [])
+    )
   }
 
   whenClick(item1: any) {
@@ -134,6 +187,7 @@ export class DraggableWrapper extends Vue {
       }
       return block
     })
+    this.pushBlocsInStore()
   }
 
   whenChangeInput(item: any, value: any) {
@@ -146,17 +200,33 @@ export class DraggableWrapper extends Vue {
       }
       return block
     })
+    this.pushBlocsInStore()
+  }
+
+  isItemHasEndBlock(block: CodeBlockType) {
+    switch (block.type) {
+      case DraggableItemEnum.circle:
+        return DraggableItemEnum.circleEnd
+      case DraggableItemEnum.if:
+        return DraggableItemEnum.ifEnd
+      default:
+        return undefined
+    }
   }
 
   render() {
     return (
       <div class={styles.draggableWrapper}>
         <draggable
+          class={styles.codeBlocksWrapper}
           list={this.codeBlocks}
           animation={150}
           draggable={'.draggable'}
+          onChange={() => {
+            this.pushBlocsInStore()
+          }}
         >
-          {this.codeBlocks.map((item, index) => {
+          {this.codeBlocks2.map((item, index) => {
             return (
               <div class={['draggable', styles.draggableItemWrapper]}>
                 <div class={styles.draggableItemWrapperContent}>
@@ -165,6 +235,7 @@ export class DraggableWrapper extends Vue {
                     whenClick={this.whenClick}
                     style={{
                       zIndex: this.codeBlocks.length - index,
+                      marginLeft: item.margin + 'px',
                     }}
                     item={item}
                     id={index}
@@ -188,6 +259,7 @@ export class DraggableWrapper extends Vue {
                       ...this.codeBlocks.slice(0, index),
                       ...this.codeBlocks.slice(index + 1),
                     ]
+                    this.pushBlocsInStore()
                   }}
                 />
               </div>
@@ -196,7 +268,9 @@ export class DraggableWrapper extends Vue {
         </draggable>
 
         <Button
-          whenClick={() => (this.showDrag = !this.showDrag)}
+          whenClick={() => {
+            this.showDrag = !this.showDrag
+          }}
           class={styles.addBlocksButton}
           text={this.showDrag ? 'Убрать добавление' : 'Добавить блок'}
         />
@@ -219,15 +293,19 @@ export class DraggableWrapper extends Vue {
                       position: Position.front,
                       action: Action.forward,
                       duration:
-                        item.type === DraggableItemEnum.action ? 1 : undefined,
+                        item.type === DraggableItemEnum.action
+                          ? '1'
+                          : undefined,
                     })
-                    if (item.type === DraggableItemEnum.if) {
+
+                    if (this.isItemHasEndBlock(item)) {
                       this.codeBlocks.push({
-                        name: 'Конец условия',
+                        name: TextForEnumName[this.isItemHasEndBlock(item)!],
                         id: uuidv4(),
-                        type: DraggableItemEnum.ifEnd,
+                        type: this.isItemHasEndBlock(item),
                       })
                     }
+                    this.pushBlocsInStore()
                   }}
                   dragIteminChoose={true}
                   style={{

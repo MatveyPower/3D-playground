@@ -69,6 +69,7 @@ export class ActionBlock extends CodeBlock {
             class={styles.input}
             type="text"
             onInput={(value: any) => {
+              console.log(this.inputValue)
               if (value.data) {
                 this.whenChangeInput?.(this.inputValue + value.data)
               } else {
