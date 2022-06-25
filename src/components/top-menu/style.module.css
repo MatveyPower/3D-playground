@@ -1,4 +1,15 @@
+.root {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .buttonsWrapper {
-    display: flex;
-    column-gap: 36px;
+  display: flex;
+  column-gap: 32px;
+  align-items: center;
+}
+
+.logo {
+  cursor: pointer;
 }
