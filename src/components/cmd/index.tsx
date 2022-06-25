@@ -7,6 +7,7 @@ import { useModule } from 'vuex-simple'
 import styles from './style.module.css'
 import { Action, CodeBlockType } from '../draggable-wrapper'
 import { DraggableItemEnum } from '../draggable-item'
+import { cmdMsg } from '@/store/modules/game'
 
 // interface ControlButtonsProps {
 //   whenClickRestart: () => void
@@ -20,24 +21,56 @@ export class Cmd extends Vue {
   // whenClickRestart: ControlButtonsProps['whenClickRestart']
 
   store = useModule<MyStore>(this.$store)
-  data: CodeBlockType[] = []
+  data: Array<CodeBlockType | cmdMsg> = []
 
   @Watch('store.game.activeBlock', { immediate: true, deep: true })
   updateData() {
     if (this.store?.game.activeBlock) {
-      this.data.shift()
+      // this.data.shift()
       this.data.push(this.store.game.activeBlock)
     }
 
     if (this.$refs.list) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      this.$refs.list.scrollTop = 100000
+      setTimeout(() => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        this.$refs.list.scrollTop = 100000
+      }, 1)
     }
   }
 
-  renderCmdBlocks(block: CodeBlockType) {
-    switch (block.type) {
+  @Watch('store.game.cmdMessage', { immediate: true, deep: true })
+  updateMessage() {
+    if (this.store?.game.cmdMessage) {
+      this.data.push(this.store?.game.cmdMessage)
+      setTimeout(() => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        this.$refs.list.scrollTop = 100000
+      }, 1)
+    }
+  }
+
+  renderSelectOption(block: CodeBlockType) {
+    switch (block.action) {
+      case Action.forward:
+        return 'Вперед ⬆'
+      case Action.back:
+        return 'Назад ⬇'
+      case Action.right:
+        return 'Вправо ➡'
+      case Action.left:
+        return 'Влево ⬅'
+
+      default:
+        break
+    }
+  }
+
+  renderCmdBlocks(block: CodeBlockType | cmdMsg) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    switch (block?.type) {
       case DraggableItemEnum.action:
         return (
           <div class={styles.line}>
@@ -45,7 +78,10 @@ export class Cmd extends Vue {
               Выполнение действия
             </div>
             <div class={styles.duration}>
-              Длительность {block.duration} сек.
+              {this.renderSelectOption(block as CodeBlockType)}
+            </div>
+            <div class={styles.duration}>
+              Длительность {(block as CodeBlockType).duration} сек.
             </div>
           </div>
         )
@@ -59,9 +95,18 @@ export class Cmd extends Vue {
             </div> */}
           </div>
         )
+    }
 
-      default:
-        break
+    if ((block as cmdMsg).status) {
+      return (
+        <div class={styles.line}>
+          <div
+            class={[styles.title, styles[`color-${(block as cmdMsg).status}`]]}
+          >
+            {(block as cmdMsg).message}
+          </div>
+        </div>
+      )
     }
   }
 

@@ -1,14 +1,93 @@
 .playgroundPageContainer {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .dropdownWrapper {
-    width: 536px;
+  width: 536px;
 }
 
 .rightBlock {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.popupRoot {
+  background-color: rgba(0, 0, 0, 0.671);
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 999;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popupBody {
+  width: 500px;
+  height: 260px;
+  background-color: #383538;
+
+  border-radius: 16px;
+
+  color: #fff;
+}
+
+.popupTitle {
+  font-family: Montserrat Black;
+  font-size: 32px;
+  text-align: center;
+  padding: 16px;
+}
+
+.popupMapName {
+  font-family: Montserrat Medium;
+  font-size: 20px;
+  text-align: center;
+}
+
+.ratingStar {
+  fill: #fd7557;
+}
+
+.notRatingStar {
+  fill: #a9a9a9;
+}
+
+.popupRating {
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.popupButtons {
+  display: flex;
+  gap: 16px;
+
+  padding: 32px;
+
+  justify-content: center;
+}
+
+.popupPlusRaiting {
+  font-family: Montserrat Black;
+  font-size: 26px;
+  color: #99e497;
+  padding: 8px;
+  text-align: center;
+}
+
+.popupButtonBack {
+  background-color: #d576e1;
+  color: #000;
+}
+
+.popupButtonMaps {
+  background-color: #09c6fd;
+  color: #000;
 }

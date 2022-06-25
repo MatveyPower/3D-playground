@@ -1,7 +1,7 @@
 .root {
   width: 100%;
 
-  background-color:#383538;
+  background-color: #383538;
 
   padding: 16px 0;
 
@@ -14,9 +14,13 @@
 
 .icon {
   fill: #656366;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 .icon:hover {
   fill: #fff;
+}
+
+.active {
+  fill: rgb(247, 180, 97);
 }

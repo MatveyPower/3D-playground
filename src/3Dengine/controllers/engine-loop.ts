@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import { DraggableItemEnum } from '@/components/draggable-item'
 import { Position } from '@/components/draggable-wrapper'
+import { map } from 'lodash'
 
 let END_GAME = false
 
@@ -60,6 +61,8 @@ export function runEngineLoop(
   let STOP_BLOCK = 0
   let STOP_TURN_BLOCK = 0
 
+  let programmIsStart = false
+
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   let PROGRAM = []
@@ -82,6 +85,10 @@ export function runEngineLoop(
       endPoint = null
       sensorsMesh = null
       wallsArr = null
+      PROGRAM = []
+      END_GAME = false
+
+      store.game.stopProgram()
 
       return
     }
@@ -96,15 +103,44 @@ export function runEngineLoop(
     vehicleMesh.position.copy(vehicleBody.position)
     vehicleMesh.quaternion.copy(vehicleBody.quaternion)
 
-    const END_POINT_X = endPoint?.position?.[0] || -1000
-    const END_POINT_Z = endPoint?.position?.[2] || -1000
+    const END_POINT_X = endPoint?.position?.[0] ?? -1000
+    const END_POINT_Z = endPoint?.position?.[2] ?? -1000
     const VEHICLE_POSITION = vehicle.chassisBody.position
 
     if (PLAY) {
+      const t = 0
+      // if (!programmIsStart) {
+      //   store.game.setCmdMessage({
+      //     status: 'green',
+      //     message: 'Старт программы',
+      //   })
+      // }
+
+      vehicle.setBrake(t, 0)
+      vehicle.setBrake(t, 1)
+      vehicle.setBrake(t, 2)
+      vehicle.setBrake(t, 3)
       if (PROGRAM.length === 0) {
-        PROGRAM = store.game.programBlocks
+        PROGRAM = [...store.game.programBlocks]
       }
       TIME += 1
+      programmIsStart = true
+    } else {
+      vehicle.applyEngineForce(0, 2)
+      vehicle.applyEngineForce(0, 3)
+      const t = 10
+
+      vehicle.setBrake(t, 0)
+      vehicle.setBrake(t, 1)
+      vehicle.setBrake(t, 2)
+      vehicle.setBrake(t, 3)
+      if (programmIsStart) {
+        store.game.setCmdMessage({
+          status: 'red',
+          message: 'Стоп',
+        })
+        programmIsStart = false
+      }
     }
 
     if (
@@ -113,20 +149,9 @@ export function runEngineLoop(
       !END_GAME
     ) {
       END_GAME = true
-      // alert('Карта пройдена!')
+      store.game.setMapPassed()
+      store.game.stopProgram()
     }
-
-    // if (store.game.play) {
-    //   vehicle.applyEngineForce(400, 2)
-    //   vehicle.applyEngineForce(400, 3)
-    //   vehicle.setSteeringValue(200, 2)
-    //   vehicle.setSteeringValue(200, 3)
-    // } else {
-    //   vehicle.applyEngineForce(0, 2)
-    //   vehicle.applyEngineForce(0, 3)
-    //   vehicle.setSteeringValue(0, 2)
-    //   vehicle.setSteeringValue(0, 3)
-    // }
 
     SENSOR_FORWARD = false
     SENSOR_BACK = false
@@ -164,7 +189,7 @@ export function runEngineLoop(
       })
     })
 
-    if (!DOING_NOW && PROGRAM.length > 0 && PLAY) {
+    if (!DOING_NOW && PROGRAM.length > 0 && PLAY && store.game.cmdMessage) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
       const block = PROGRAM.shift()
@@ -248,6 +273,13 @@ export function runEngineLoop(
       }
     }
 
+    const t = 0
+
+    vehicle.setBrake(t, 0)
+    vehicle.setBrake(t, 1)
+    vehicle.setBrake(t, 2)
+    vehicle.setBrake(t, 3)
+
     if (STOP_BLOCK === TIME) {
       DOING_NOW = false
 
@@ -262,10 +294,10 @@ export function runEngineLoop(
       LEFT = false
     }
 
-    if (!FORWARD && !BACK) {
+    if ((!FORWARD && !BACK) || !PLAY) {
       vehicle.applyEngineForce(0, 2)
       vehicle.applyEngineForce(0, 3)
-      const t = 1
+      const t = 10
 
       vehicle.setBrake(t, 0)
       vehicle.setBrake(t, 1)
@@ -273,17 +305,10 @@ export function runEngineLoop(
       vehicle.setBrake(t, 3)
     }
 
-    if (!RIGHT && !LEFT) {
+    if ((!RIGHT && !LEFT) || !PLAY) {
       vehicle.setSteeringValue(0, 2)
       vehicle.setSteeringValue(0, 3)
     }
-
-    const t = 0
-
-    vehicle.setBrake(t, 0)
-    vehicle.setBrake(t, 1)
-    vehicle.setBrake(t, 2)
-    vehicle.setBrake(t, 3)
 
     const speed = 200
     const r = 100

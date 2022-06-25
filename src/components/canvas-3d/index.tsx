@@ -47,6 +47,11 @@ export class Canvas3d extends Vue {
     }, 2010)
   }
 
+  @Watch('store.game.programBlocks', { immediate: true, deep: true })
+  update() {
+    this.updatePlayground()
+  }
+
   mounted() {
     this.container = this.$refs.container as HTMLElement
     console.log(this.container)
