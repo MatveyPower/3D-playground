@@ -2,6 +2,9 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import { Prop } from 'vue-property-decorator'
 
+import { MyStore } from '@/store'
+import { useModule } from 'vuex-simple'
+
 import styles from './style.module.css'
 
 interface ControlButtonsProps {
@@ -21,12 +24,19 @@ export class ControlButtons extends Vue {
   @Prop()
   whenClickStop: ControlButtonsProps['whenClickStop']
 
+  store = useModule<MyStore>(this.$store)
+
+  gamePlay = false
+
   render() {
     return (
       <div class={styles.root}>
         <svg
           class={styles.icon}
-          onclick={this.whenClickRestart}
+          onclick={() => {
+            this.gamePlay = false
+            this.whenClickRestart()
+          }}
           width="25"
           height="24"
           viewBox="0 0 25 24"
@@ -36,8 +46,11 @@ export class ControlButtons extends Vue {
         </svg>
 
         <svg
-          class={styles.icon}
-          onclick={this.whenClickPlay}
+          class={[styles.icon, this.gamePlay && styles.active]}
+          onclick={() => {
+            this.gamePlay = true
+            this.whenClickPlay()
+          }}
           width="25"
           height="24"
           viewBox="0 0 25 24"
@@ -47,8 +60,11 @@ export class ControlButtons extends Vue {
         </svg>
 
         <svg
-          class={styles.icon}
-          onclick={this.whenClickStop}
+          class={[styles.icon, !this.gamePlay && styles.active]}
+          onclick={() => {
+            this.gamePlay = false
+            this.whenClickStop()
+          }}
           width="25"
           height="24"
           viewBox="0 0 25 24"

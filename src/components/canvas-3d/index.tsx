@@ -3,7 +3,6 @@ import { MapStructure } from '@/store/modules/maps'
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import { Prop, Watch } from 'vue-property-decorator'
-import { directive } from 'vue/types/umd'
 import { useModule } from 'vuex-simple'
 //@ts-expect-error  // eslint-disable-next-line
 import { init3DRenderer } from '../../3Dengine'
@@ -46,6 +45,11 @@ export class Canvas3d extends Vue {
     setTimeout(() => {
       this.renderer = init3DRenderer(this.container, this.store, this.map || [])
     }, 2010)
+  }
+
+  @Watch('store.game.programBlocks', { immediate: true, deep: true })
+  update() {
+    this.updatePlayground()
   }
 
   mounted() {

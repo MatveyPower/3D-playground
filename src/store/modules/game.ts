@@ -1,5 +1,6 @@
 import { DraggableItemEnum } from '@/components/draggable-item'
 import { Action, CodeBlockType } from '@/components/draggable-wrapper'
+import { Map } from './maps'
 // import {
 // Action,
 // CodeBlockType,
@@ -46,12 +47,23 @@ import { Mutation, State } from 'vuex-simple'
 //   empty = 'empty', // пустота
 // }
 
+export type cmdMsg = { status: 'green' | 'orange' | 'red'; message: string }
+
 export class GameModule {
   @State()
   play = false
 
   @State()
+  mapPassed = false
+
+  @State()
   removeCanvas = false
+
+  @State()
+  cmdMessage: cmdMsg | null = null
+
+  @State()
+  activeBlock: CodeBlockType | null = null
 
   @State()
   // programBlocks: Array<ActionBlock | IfBlock> = [
@@ -128,9 +140,27 @@ export class GameModule {
 
   @Mutation()
   setCodeBlocks(programBlocks: CodeBlockType[]) {
-    console.log(programBlocks)
-
     this.programBlocks = programBlocks
+  }
+
+  @Mutation()
+  setActiveBlock(block: CodeBlockType) {
+    this.activeBlock = block
+  }
+
+  @Mutation()
+  setMapPassed() {
+    this.mapPassed = true
+  }
+
+  @Mutation()
+  setCmdMessage(message: cmdMsg) {
+    this.cmdMessage = message
+  }
+
+  @Mutation()
+  nullMapPassed() {
+    this.mapPassed = false
   }
 
   @Mutation()
