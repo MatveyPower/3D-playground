@@ -1,0 +1,119 @@
+.title {
+  font-family: Montserrat Black;
+  font-size: 32px;
+
+  color: #fff;
+
+  padding-top: 16px;
+}
+
+.video {
+  background-color: rgb(137, 137, 137);
+  width: 960px;
+  height: 540px;
+}
+
+.pageWrapper {
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.rootWrapper {
+  height: 2000px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pageWrapper .footerText {
+  margin-bottom: 32px;
+}
+
+.tichBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  margin-top: 64px;
+}
+
+.tichTitle {
+  font-family: Montserrat;
+  font-weight: bold;
+  font-size: 26px;
+
+  color: #fa8e2c;
+}
+
+.tichDescription {
+  display: flex;
+  gap: 64px;
+  align-items: center;
+}
+
+.tichNumber {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background-color: #fff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: Montserrat;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.tichText {
+  width: 520px;
+
+  font-family: Montserrat Medium;
+  font-size: 14px;
+
+  color: #fff;
+}
+
+.tichExample {
+  padding: 16px;
+  border: 1px solid #fa8e2c;
+  border-radius: 8px;
+}
+
+.mapCardExample {
+  width: 500px;
+}
+
+.buttonStartMapExample {
+  background-color: #09c6fd;
+  transition: 0.2s;
+}
+
+.buttonStartMapExample:hover {
+  background-color: #03abdf;
+}
+
+.addBlockButtonExample {
+  background-color: #fa8e2c;
+  transition: 0.2s;
+}
+
+.addBlockButtonExample:hover {
+  background-color: #df7614;
+}
+
+.textTitle {
+  margin-bottom: 16px;
+
+  font-family: Montserrat;
+  font-weight: bold;
+  font-size: 18px;
+
+  color: #fff;
+}
+
+.tichNumberEmpty {
+  width: 32px;
+}
