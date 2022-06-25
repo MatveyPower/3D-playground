@@ -3,14 +3,14 @@ import styles from './style.module.css'
 import { CodeBlock } from '../code-block'
 import { DraggableItemComponentsParts } from '@/components/draggable-item'
 
-interface FinishBlockProps {
+interface CircleEndkProps {
   item: DraggableItemComponentsParts
 }
 
 @Component
-export class FinishBlock extends CodeBlock {
+export class CircleEndBlock extends CodeBlock {
   @Prop()
-  item: FinishBlockProps['item']
+  item: CircleEndkProps['item']
 
   blockStyle = {
     block: [styles.block, styles.color],
