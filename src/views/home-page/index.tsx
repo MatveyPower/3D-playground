@@ -19,7 +19,7 @@ export class HomePage extends Vue {
           </div>
           <Button
             class={styles.buttonStart}
-            whenClick={() => this.$router.push('/playground')}
+            whenClick={() => this.$router.push('/education')}
             text={'Пройти обучение'}
           />
         </div>
