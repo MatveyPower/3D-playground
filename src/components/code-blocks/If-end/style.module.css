@@ -1,6 +1,5 @@
 .block {
   width: 241px;
-  height: 38px;
 }
 
 .color {
@@ -11,8 +10,4 @@
   background-color: inherit;
   top: 67%;
   left: 50%;
-}
-
-.ifEndWrapper {
-  padding: 12px 10px;
 }

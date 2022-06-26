@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { Component, Prop } from 'vue-property-decorator'
+import { Component, Prop, Watch } from 'vue-property-decorator'
 
 import styles from './style.module.css'
 
@@ -20,13 +20,11 @@ export class Input extends Vue {
   @Prop()
   whenChange: ButtonProps['whenChange']
 
-  v = ''
-
   whenChangeHandler(e: InputEvent) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
-    this.v = e.target?.value || ''
-    this.whenChange(this.v)
+    const v = e.target?.value || ''
+    this.whenChange(v)
   }
 
   render() {
@@ -36,8 +34,8 @@ export class Input extends Vue {
           type="text"
           class={styles.nativeInput}
           placeholder={this.placeholder}
-          whenChange={this.whenChangeHandler}
-          value={this.v}
+          onChange={this.whenChangeHandler}
+          value={this.value}
         />
       </div>
     )

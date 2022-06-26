@@ -1,8 +1,5 @@
 .block {
   width: 195px;
-  height: 82px;
-  /* margin-right: 0;
-  margin-left: auto; */
 }
 
 .color {
@@ -19,11 +16,11 @@
   border: none;
   outline: none;
   border-radius: 8px;
+  background-color: #fff !important;
 }
 
 .nameActionWrapper {
   display: flex;
-  padding: 12px 10px;
   justify-content: space-between;
 }
 
@@ -33,7 +30,14 @@
   column-gap: 8px;
 }
 
-.dropdownSelect {
-  padding: 0 0 0 12px;
+.descriptionTitle {
+  font-size: 14pt;
+  margin-bottom: 5px;
+  color: #fff;
+}
+
+.description {
+  font-size: 11pt;
+  color: #fff;
 }
 

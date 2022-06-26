@@ -2,6 +2,7 @@ import { Component, Prop } from 'vue-property-decorator'
 import styles from './style.module.css'
 import { CodeBlock } from '../code-block'
 import { DraggableItemComponentsParts } from '@/components/draggable-item'
+import { Input } from '@/components/input'
 
 interface CircleBlockProps {
   item: DraggableItemComponentsParts
@@ -29,22 +30,27 @@ export class CircleBlock extends CodeBlock {
 
   renderContent() {
     return (
-      <div>
+      <div class={styles.content}>
         {this.item.name}
-        <input
-          value={this.inputValue}
+        <Input
           class={styles.input}
-          type="text"
-          onInput={(value: any) => {
-            if (value.data) {
-              this.whenChangeInput?.(this.inputValue + value.data)
-            } else {
-              this.whenChangeInput?.(
-                this.inputValue.slice(0, this.inputValue.length - 1)
-              )
-            }
+          value={this.inputValue}
+          whenChange={(value: any) => {
+            console.log(this.inputValue)
+            this.whenChangeInput?.(value)
           }}
         />
+        раз
+      </div>
+    )
+  }
+
+  renderDescription() {
+    return (
+      <div>
+        <div class={styles.descriptionTitle}>
+          Цикл <span class={styles.description}>повторяет вложенный код</span>
+        </div>
       </div>
     )
   }
