@@ -52,12 +52,17 @@ export class RegistrationPage extends Vue {
           </div>
 
           <div class={styles.buttons}>
-            <Button text="Зарегистрироваться" class={styles.regButton} />
+            <Button
+              text="Зарегистрироваться"
+              class={styles.regButton}
+              whenClick={() => false}
+            />
 
             <Button
               text="Войти через Google"
               imgSrc={'googleLogo'}
               class={styles.googleButton}
+              whenClick={() => false}
             />
           </div>
         </div>

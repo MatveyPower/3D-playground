@@ -149,6 +149,10 @@ export function runEngineLoop(
       !END_GAME
     ) {
       END_GAME = true
+      store.game.setCmdMessage({
+        status: 'yellow',
+        message: '-------------------- КАРТА ПРОЙДЕНА! --------------------',
+      })
       store.game.setMapPassed()
       store.game.stopProgram()
     }
@@ -190,9 +194,20 @@ export function runEngineLoop(
     })
 
     if (!DOING_NOW && PROGRAM.length > 0 && PLAY && store.game.cmdMessage) {
+      if (PROGRAM.length === 0) {
+        store.game.stopProgram()
+        setTimeout(() => {
+          store.game.setCmdMessage({
+            status: 'red',
+            message:
+              '-------------------- Конец программы --------------------',
+          })
+        }, 10)
+      }
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
       const block = PROGRAM.shift()
+
       store.game.setActiveBlock(block)
 
       DOING_NOW = true
