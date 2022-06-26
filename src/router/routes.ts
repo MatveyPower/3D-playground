@@ -1,3 +1,4 @@
+import { EducationPage } from '@/views/education-page'
 import { LoginPage } from '@/views/login-page'
 import { RegistrationPage } from '@/views/registration-page'
 import { RouteConfig } from 'vue-router'
@@ -9,4 +10,5 @@ export const routes: Array<RouteConfig> = [
   { path: '/maps', component: MapsPage },
   { path: '/login', component: LoginPage },
   { path: '/registration', component: RegistrationPage },
+  { path: '/education', component: EducationPage },
 ]

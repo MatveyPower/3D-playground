@@ -55,7 +55,7 @@ export class RegistrationPage extends Vue {
             <Button text="Зарегистрироваться" class={styles.regButton} />
 
             <Button
-              text="Войти через гугл"
+              text="Войти через Google"
               imgSrc={'googleLogo'}
               class={styles.googleButton}
             />
