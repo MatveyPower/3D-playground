@@ -106,7 +106,7 @@ export class DraggableItem extends Vue {
       ),
       circle: (
         <CircleBlock
-          selectValue={this.item.position}
+          inputValue={this.item.duration}
           whenClick={() => this.whenClick?.(this.item)}
           whenMouseOver={() => (this.showDescriptionIf = true)}
           whenMouseOut={() => (this.showDescriptionIf = false)}
@@ -117,6 +117,9 @@ export class DraggableItem extends Vue {
           showDescription={this.showDescriptionIf && this.dragIteminChoose}
           whenClickDropdownSelect={(value: any) => {
             this.whenClickDropdownSelect?.(this.item, value)
+          }}
+          whenChangeInput={(value: any) => {
+            this.whenChangeInput?.(this.item, value)
           }}
         />
       ),
