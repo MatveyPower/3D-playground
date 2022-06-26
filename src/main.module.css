@@ -176,3 +176,7 @@
 ::-webkit-scrollbar-thumb:hover {
   background-color: #636363;
 }
+
+* {
+  font-family: Montserrat;
+}

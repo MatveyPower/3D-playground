@@ -122,9 +122,9 @@ export function runEngineLoop(
       vehicle.setBrake(t, 3)
       if (PROGRAM.length === 0 && !programmIsStart) {
         PROGRAM = [...store.game.programBlocks]
+        programmIsStart = true
       }
       TIME += 1
-      programmIsStart = true
     } else {
       vehicle.applyEngineForce(0, 2)
       vehicle.applyEngineForce(0, 3)
@@ -195,7 +195,6 @@ export function runEngineLoop(
 
     if (!DOING_NOW && PLAY && store.game.cmdMessage) {
       if (PROGRAM.length === 0) {
-        console.log('STOP EnD')
         store.game.stopProgram()
         setTimeout(() => {
           store.game.setCmdMessage({

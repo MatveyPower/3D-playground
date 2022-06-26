@@ -54,9 +54,7 @@ export class Canvas3d extends Vue {
 
   mounted() {
     this.container = this.$refs.container as HTMLElement
-    console.log(this.container)
     this.renderer = init3DRenderer(this.container, this.store, this.map || [])
-    console.log(this.renderer)
   }
   container: HTMLElement = this.$refs.container as HTMLElement
   renderer = null

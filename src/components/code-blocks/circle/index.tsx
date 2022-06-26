@@ -36,7 +36,6 @@ export class CircleBlock extends CodeBlock {
           class={styles.input}
           value={this.inputValue}
           whenChange={(value: any) => {
-            console.log(this.inputValue)
             this.whenChangeInput?.(value)
           }}
         />
