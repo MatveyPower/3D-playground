@@ -48,3 +48,21 @@
 .color-yellow {
   color: #d9ff00;
 }
+.icon {
+  fill: rgb(180, 180, 180);
+}
+
+.emptyCmd {
+  height: calc(100% - 16px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 14px;
+  font-family: Montserrat;
+  font-weight: bold;
+  color: rgb(180, 180, 180);
+
+  border: 1px dashed rgb(180, 180, 180);
+}
