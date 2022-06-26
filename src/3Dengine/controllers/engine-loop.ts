@@ -120,11 +120,11 @@ export function runEngineLoop(
       vehicle.setBrake(t, 1)
       vehicle.setBrake(t, 2)
       vehicle.setBrake(t, 3)
-      if (PROGRAM.length === 0) {
+      if (PROGRAM.length === 0 && !programmIsStart) {
         PROGRAM = [...store.game.programBlocks]
+        programmIsStart = true
       }
       TIME += 1
-      programmIsStart = true
     } else {
       vehicle.applyEngineForce(0, 2)
       vehicle.applyEngineForce(0, 3)
@@ -149,6 +149,10 @@ export function runEngineLoop(
       !END_GAME
     ) {
       END_GAME = true
+      store.game.setCmdMessage({
+        status: 'yellow',
+        message: '-------------------- КАРТА ПРОЙДЕНА! --------------------',
+      })
       store.game.setMapPassed()
       store.game.stopProgram()
     }
@@ -189,10 +193,21 @@ export function runEngineLoop(
       })
     })
 
-    if (!DOING_NOW && PROGRAM.length > 0 && PLAY && store.game.cmdMessage) {
+    if (!DOING_NOW && PLAY && store.game.cmdMessage) {
+      if (PROGRAM.length === 0) {
+        store.game.stopProgram()
+        setTimeout(() => {
+          store.game.setCmdMessage({
+            status: 'red',
+            message:
+              '-------------------- Конец программы --------------------',
+          })
+        }, 10)
+      }
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
       const block = PROGRAM.shift()
+
       store.game.setActiveBlock(block)
 
       DOING_NOW = true
@@ -202,7 +217,7 @@ export function runEngineLoop(
       // right = 'right',
       // left = 'left',
 
-      if (block.type === DraggableItemEnum.action) {
+      if (block?.type === DraggableItemEnum?.action) {
         switch (block.action) {
           case 'forward':
             FORWARD = true

@@ -43,7 +43,11 @@ export class LoginPage extends Vue {
               Регистрация
             </div>
 
-            <Button text="Войти" class={styles.loginButton} />
+            <Button
+              text="Войти"
+              class={styles.loginButton}
+              whenClick={() => false}
+            />
           </div>
         </div>
       </DefaultLayout>

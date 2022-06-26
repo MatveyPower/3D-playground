@@ -114,6 +114,21 @@ export class Cmd extends Vue {
     return (
       <div class={styles.root} ref="list">
         {this.data.map(this.renderCmdBlocks)}
+        {this.data.length === 0 && (
+          <div class={styles.emptyCmd}>
+            Нажмите на
+            <svg
+              class={styles.icon}
+              width="25"
+              height="24"
+              viewBox="0 0 25 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M17.894 13.0455L8.3495 18.5835C7.5395 19.053 6.5 18.4845 6.5 17.538V6.462C6.5 5.517 7.538 4.947 8.3495 5.418L17.894 10.956C18.0783 11.0612 18.2314 11.2132 18.3379 11.3967C18.4445 11.5802 18.5006 11.7886 18.5006 12.0008C18.5006 12.2129 18.4445 12.4213 18.3379 12.6048C18.2314 12.7883 18.0783 12.9403 17.894 13.0455Z" />
+            </svg>
+            для запуска программы
+          </div>
+        )}
       </div>
     )
   }

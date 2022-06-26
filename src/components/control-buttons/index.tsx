@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import { Prop } from 'vue-property-decorator'
+import { Prop, Watch } from 'vue-property-decorator'
 
 import { MyStore } from '@/store'
 import { useModule } from 'vuex-simple'
@@ -26,6 +26,11 @@ export class ControlButtons extends Vue {
 
   store = useModule<MyStore>(this.$store)
 
+  @Watch('store.game.play', { immediate: true, deep: true })
+  update() {
+    this.gamePlay = this.store?.game.play || false
+  }
+
   gamePlay = false
 
   render() {
@@ -34,7 +39,6 @@ export class ControlButtons extends Vue {
         <svg
           class={styles.icon}
           onclick={() => {
-            this.gamePlay = false
             this.whenClickRestart()
           }}
           width="25"
@@ -48,7 +52,6 @@ export class ControlButtons extends Vue {
         <svg
           class={[styles.icon, this.gamePlay && styles.active]}
           onclick={() => {
-            this.gamePlay = true
             this.whenClickPlay()
           }}
           width="25"
@@ -62,7 +65,6 @@ export class ControlButtons extends Vue {
         <svg
           class={[styles.icon, !this.gamePlay && styles.active]}
           onclick={() => {
-            this.gamePlay = false
             this.whenClickStop()
           }}
           width="25"

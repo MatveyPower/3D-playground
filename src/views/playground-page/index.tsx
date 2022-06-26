@@ -121,7 +121,8 @@ export class PlaygroundPage extends Vue {
               whenClickPlay={() => {
                 this.store.game.setCmdMessage({
                   status: 'green',
-                  message: 'Старт программы',
+                  message:
+                    '-------------------- Старт программы --------------------',
                 })
                 this.store.game.startProgram()
               }}
