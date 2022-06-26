@@ -1,6 +1,5 @@
 .block {
   width: 241px;
-  height: 50px;
 }
 
 .color {
@@ -9,4 +8,30 @@
 
 .rhombus {
   background-color: inherit;
+}
+
+.descriptionTitle {
+  font-size: 14pt;
+  margin-bottom: 5px;
+  color: #fff;
+}
+
+.description {
+  font-size: 11pt;
+  color: #fff;
+}
+
+.input {
+  width: 34px;
+  height: 30px;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  background-color: #fff !important;
+}
+
+.content {
+  display: flex;
+  column-gap: 8px;
+  align-items: center;
 }

@@ -1,6 +1,5 @@
 .block {
   width: 241px;
-  height: 82px;
 }
 
 .color {
@@ -13,16 +12,22 @@
 
 .nameActionWrapper {
   display: flex;
-  padding: 12px 10px;
   justify-content: space-between;
-}
-
-.dropdownSelect {
-  padding: 0 12px;
 }
 
 .dropdowSelectInput {
   display: flex;
   align-items: center;
   column-gap: 8px;
+}
+
+.descriptionTitle {
+  font-size: 14pt;
+  margin-bottom: 5px;
+  color: #fff;
+}
+
+.description {
+  font-size: 11pt;
+  color: #fff;
 }

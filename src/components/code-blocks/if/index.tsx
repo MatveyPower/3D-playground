@@ -51,7 +51,6 @@ export class IfBlock extends CodeBlock {
         </div>
         <div class={styles.dropdowSelectInput}>
           <DropdownSelect
-            class={styles.dropdownSelect}
             whenClick={this.whenClickDropdownSelect}
             options={options}
             selected={this.selectValue}
@@ -66,8 +65,8 @@ export class IfBlock extends CodeBlock {
   renderDescription() {
     return (
       <div>
-        <div>Блок условие</div>
-        <div>
+        <div class={styles.descriptionTitle}>Блок условие</div>
+        <div class={styles.description}>
           Дает выполнить вложенные блоки, только если условие выполняется
         </div>
       </div>

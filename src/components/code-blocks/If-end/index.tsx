@@ -19,6 +19,6 @@ export class IfEndBlock extends CodeBlock {
   }
 
   renderContent() {
-    return <div class={styles.ifEndWrapper}>{this.item.name}</div>
+    return <div>{this.item.name}</div>
   }
 }

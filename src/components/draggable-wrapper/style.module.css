@@ -25,24 +25,29 @@
   }
 }
 
+.draggableItemWrapperActive {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
 .draggableWrapper {
   position: relative;
   width: 536px;
   height: fit-content;
   background-color: #383538;
   padding: 48px 16px 32px;
-  border-radius: 8px;
-  height: calc(100vh - 200px);
+  border-radius: 8px 8px 0 0;
+  height: calc(100vh - 300px);
 }
 
 .draggableItemWrapper {
-  padding: 0 16px;
+  margin: 0 4px;
 }
 
 .draggableItemWrapper {
   display: flex;
-  background-color: #383538;
   justify-content: space-between;
+  align-items: center;
 }
 
 .draggableItemWrapperContent {
@@ -53,16 +58,26 @@
 
 .itemIndex {
   color: #fff;
+  width: 10px;
 }
 
 .addBlocksButton {
-  position: absolute;
-  margin: 20px 0 0 52px !important;
+  margin: 0 0 0 52px !important;
   background-color: #fa8e2c !important;
   bottom: 16px;
 }
 
 .codeBlocksWrapper {
   overflow-y: auto;
-  height: calc(100vh - 250px);
+  height: calc(100vh - 350px);
+}
+
+.actionsButtonsWrapper {
+  background-color: #383538;
+  border-radius: 0 0 8px 8px;
+  padding: 16px 0 40px 0;
+}
+
+.iconInAddBlock {
+  margin-left: auto;
 }

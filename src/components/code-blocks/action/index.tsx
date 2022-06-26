@@ -4,6 +4,7 @@ import { CodeBlock } from '../code-block'
 import { DraggableItemComponentsParts } from '@/components/draggable-item'
 import { CodeBlockSettings, DropdownSelect } from '@/components'
 import { Action } from '@/components/draggable-wrapper'
+import { Input } from '@/components/input'
 
 interface ActionBlockProps {
   item: DraggableItemComponentsParts
@@ -58,25 +59,17 @@ export class ActionBlock extends CodeBlock {
         </div>
         <div class={styles.dropdowSelectInput}>
           <DropdownSelect
-            class={styles.dropdownSelect}
             whenClick={this.whenClickDropdownSelect}
             options={options}
             selected={this.selectValue}
             values={optionsRusForAction}
           />
-          <input
-            value={this.inputValue}
+          <Input
             class={styles.input}
-            type="text"
-            onInput={(value: any) => {
+            value={this.inputValue}
+            whenChange={(value: any) => {
               console.log(this.inputValue)
-              if (value.data) {
-                this.whenChangeInput?.(this.inputValue + value.data)
-              } else {
-                this.whenChangeInput?.(
-                  this.inputValue.slice(0, this.inputValue.length - 1)
-                )
-              }
+              this.whenChangeInput?.(value)
             }}
           />
           сек
@@ -88,8 +81,10 @@ export class ActionBlock extends CodeBlock {
   renderDescription() {
     return (
       <div>
-        <div>Блок действие</div>
-        <div>Выполняет действие за указанное время</div>
+        <div class={styles.descriptionTitle}>Блок действие</div>
+        <div class={styles.description}>
+          Выполняет действие за указанное время
+        </div>
       </div>
     )
   }
