@@ -120,7 +120,7 @@ export function runEngineLoop(
       vehicle.setBrake(t, 1)
       vehicle.setBrake(t, 2)
       vehicle.setBrake(t, 3)
-      if (PROGRAM.length === 0) {
+      if (PROGRAM.length === 0 && !programmIsStart) {
         PROGRAM = [...store.game.programBlocks]
       }
       TIME += 1
@@ -193,8 +193,9 @@ export function runEngineLoop(
       })
     })
 
-    if (!DOING_NOW && PROGRAM.length > 0 && PLAY && store.game.cmdMessage) {
+    if (!DOING_NOW && PLAY && store.game.cmdMessage) {
       if (PROGRAM.length === 0) {
+        console.log('STOP EnD')
         store.game.stopProgram()
         setTimeout(() => {
           store.game.setCmdMessage({
@@ -217,7 +218,7 @@ export function runEngineLoop(
       // right = 'right',
       // left = 'left',
 
-      if (block.type === DraggableItemEnum.action) {
+      if (block?.type === DraggableItemEnum?.action) {
         switch (block.action) {
           case 'forward':
             FORWARD = true

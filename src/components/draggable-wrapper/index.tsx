@@ -240,7 +240,7 @@ export class DraggableWrapper extends Vue {
 
   render() {
     return (
-      <div>
+      <div class={styles.root}>
         <div class={styles.draggableWrapper}>
           <draggable
             class={styles.codeBlocksWrapper}
@@ -299,6 +299,20 @@ export class DraggableWrapper extends Vue {
                 </div>
               )
             })}
+            {this.codeBlocks2.length === 0 && (
+              <div class={styles.emptyBlock}>
+                <div>
+                  Добавьте первый блок в программу <br />
+                  Нажмите на кнопку
+                </div>
+
+                <Button
+                  disabled={true}
+                  whenClick={() => false}
+                  text={'Добавить блок'}
+                />
+              </div>
+            )}
           </draggable>
 
           <div class={[styles.drag, { [styles.drag2]: this.showDrag }]}>

@@ -1,3 +1,7 @@
+.root {
+  flex: 1;
+}
+
 .drag {
   display: block;
   visibility: hidden;
@@ -32,7 +36,6 @@
 
 .draggableWrapper {
   position: relative;
-  width: 536px;
   height: fit-content;
   background-color: #383538;
   padding: 48px 16px 32px;
@@ -80,4 +83,23 @@
 
 .iconInAddBlock {
   margin-left: auto;
+}
+
+.emptyBlock {
+  height: calc(100% - 16px);
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+
+  font-size: 14px;
+  font-family: Montserrat;
+  font-weight: bold;
+  color: rgb(180, 180, 180);
+
+  border: 1px dashed rgb(180, 180, 180);
 }
