@@ -66,77 +66,7 @@ export class GameModule {
   activeBlock: CodeBlockType | null = null
 
   @State()
-  // programBlocks: Array<ActionBlock | IfBlock> = [
-  programBlocks: CodeBlockType[] = [
-    // {
-    //   id: String(Number(new Date())),
-    //   type: DraggableItemEnum.action,
-    //   action: Action.back,
-    //   duration: 2,
-    // },
-    // {
-    //   id: String(Number(new Date()) + 1),
-    //   type: DraggableItemEnum.if,
-    //   position: Position.front,
-    //   If: If.barrier,
-    //   insertedBlocks: [
-    //     {
-    //       id: String(Number(new Date())),
-    //       type: DraggableItemEnum.action,
-    //       action: Action.back,
-    //       duration: 3,
-    //     },
-    //   ],
-    // },
-    // {
-    //   id: String(Number(new Date())),
-    //   type: DraggableItemEnum.action,
-    //   action: Action.right,
-    //   duration: 2.6,
-    // },
-    // {
-    //   id: String(Number(new Date())),
-    //   type: DraggableItemEnum.action,
-    //   action: Action.back,
-    //   duration: 2.6,
-    // },
-    // {
-    //   id: String(Number(new Date())),
-    //   type: DraggableItemEnum.action,
-    //   action: Action.forward,
-    //   duration: 6,
-    // },
-    // {
-    //   id: String(Number(new Date())),
-    //   type: DraggableItemEnum.action,
-    //   action: Action.right,
-    //   duration: 1.15,
-    // },
-    // {
-    //   id: String(Number(new Date())),
-    //   type: DraggableItemEnum.action,
-    //   action: Action.forward,
-    //   duration: 3.7,
-    // },
-    // {
-    //   id: String(Number(new Date())),
-    //   type: DraggableItemEnum.action,
-    //   action: Action.right,
-    //   duration: 1,
-    // },
-    // {
-    //   id: String(Number(new Date())),
-    //   type: DraggableItemEnum.action,
-    //   action: Action.forward,
-    //   duration: 2.7,
-    // },
-    // {
-    //   id: String(Number(new Date())),
-    //   type: DraggableItemEnum.action,
-    //   action: Action.forward,
-    //   duration: 1,
-    // },
-  ]
+  programBlocks: CodeBlockType[] = []
 
   @Mutation()
   setCodeBlocks(programBlocks: CodeBlockType[]) {
@@ -145,7 +75,9 @@ export class GameModule {
 
   @Mutation()
   setActiveBlock(block: CodeBlockType) {
-    this.activeBlock = block
+    this.activeBlock = {
+      ...block,
+    }
   }
 
   @Mutation()

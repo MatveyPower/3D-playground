@@ -134,7 +134,6 @@ export class DraggableWrapper extends Vue {
     this.store?.setCodeBlocks(this.normalize(this.codeBlocks))
   }
 
-  // @Watch('codeBlocks', { immediate: true, deep: true })
   pushBlocsInStore() {
     localStorage.setItem('structure', JSON.stringify(this.codeBlocks))
     this.store?.setCodeBlocks(this.normalize(this.codeBlocks))
@@ -207,7 +206,6 @@ export class DraggableWrapper extends Vue {
     return arr.reduce((acc: any, item: any) => {
       const { type } = item
       if (type === DraggableItemEnum.circle) {
-        console.log('обноружен начальный блок')
         if (cycleCounter === 0) {
           actualcycle = item
         } else {
@@ -215,13 +213,12 @@ export class DraggableWrapper extends Vue {
         }
         cycleCounter++
       } else if (type === DraggableItemEnum.circleEnd) {
-        console.log('обноружен конечный блок', item)
         cycleCounter--
         if (cycleCounter === 0 && !!actualcycle) {
           const repeatArr: any = []
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-expect-error
-          repeatArr.length = actualcycle.duration || 0
+          repeatArr.length = +actualcycle.duration || 0
           let insertedArray = [...acc, ...repeatArr.fill([...cycleArr])]
           insertedArray = this.normalizeCycle(insertedArray.flat())
           cycleArr.length = 0
@@ -242,48 +239,39 @@ export class DraggableWrapper extends Vue {
     let ifCounter = 0
     let actualIf = {}
     const insertedBlock: CodeBlockType[] = []
-    console.log(arr, 'normalizeCycle =', this.normalizeCycle(arr))
-    return (
-      arr
-        // .map((item) => {
-        //   if (item.type === DraggableItemEnum.circle) {
-        //     return {
-        //       ...item,
-        //     }
-        //   }
-        // })
-        .reduce((acc: any, item: any) => {
-          const { type } = item
-          if (type === DraggableItemEnum.if) {
-            if (ifCounter === 0) {
-              actualIf = item
-            } else {
-              insertedBlock.push(item)
-            }
-            ifCounter++
-          } else if (type === DraggableItemEnum.ifEnd) {
-            ifCounter--
-            if (ifCounter === 0 && !!actualIf) {
-              const insertedArray: any = [
-                ...acc,
-                {
-                  ...actualIf,
-                  insertedBlock: this.normalize(insertedBlock),
-                },
-              ]
-              insertedBlock.length = 0
-              actualIf = {}
-              return insertedArray
-            }
-            insertedBlock.push(item)
-          } else if (ifCounter !== 0) {
-            insertedBlock.push(item)
-          } else if (ifCounter === 0) {
-            return [...acc, item]
-          }
-          return acc
-        }, [])
-    )
+    const arr2 = this.normalizeCycle(arr)
+
+    return arr2.reduce((acc: any, item: any) => {
+      const { type } = item
+      if (type === DraggableItemEnum.if) {
+        if (ifCounter === 0) {
+          actualIf = item
+        } else {
+          insertedBlock.push(item)
+        }
+        ifCounter++
+      } else if (type === DraggableItemEnum.ifEnd) {
+        ifCounter--
+        if (ifCounter === 0 && !!actualIf) {
+          const insertedArray: any = [
+            ...acc,
+            {
+              ...actualIf,
+              insertedBlock: this.normalize(insertedBlock),
+            },
+          ]
+          insertedBlock.length = 0
+          actualIf = {}
+          return insertedArray
+        }
+        insertedBlock.push(item)
+      } else if (ifCounter !== 0) {
+        insertedBlock.push(item)
+      } else if (ifCounter === 0) {
+        return [...acc, item]
+      }
+      return acc
+    }, [])
   }
 
   whenClickDropdownSelect(item: any, value: any) {
@@ -439,9 +427,7 @@ export class DraggableWrapper extends Vue {
                         position: Position.front,
                         action: Action.forward,
                         duration:
-                          item.type === DraggableItemEnum.action
-                            ? '1'
-                            : undefined,
+                          item.type === DraggableItemEnum.action ? '1' : '2',
                       })
 
                       if (this.isItemHasEndBlock(item)) {
