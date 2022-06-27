@@ -1,6 +1,6 @@
 .form {
   width: 414px;
-  height: 352px;
+  height: 382px;
 
   margin: 150px auto;
 
@@ -41,6 +41,11 @@
 
 .input {
   border: 1px solid #d2c9c9;
+
+  height: 35px;
+
+  display: flex;
+  align-items: center;
 }
 
 .inputsWrapper {
@@ -48,4 +53,12 @@
   flex-direction: column;
   gap: 16px;
   padding: 32px 0;
+}
+
+.errorMes {
+  height: 22px;
+  margin-bottom: 6px;
+  line-height: 20px;
+
+  color: #f85555;
 }
