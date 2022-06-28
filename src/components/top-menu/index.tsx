@@ -6,8 +6,14 @@ import { UserBlock } from '@/components'
 import styles from './style.module.css'
 import { Icon } from '../icon'
 
+import { MyStore } from '@/store'
+
+import { useModule } from 'vuex-simple'
+
 @Component
 export class TopMenu extends Vue {
+  store = useModule<MyStore>(this.$store)
+
   render() {
     return (
       <div class={styles.root}>
@@ -105,10 +111,9 @@ export class TopMenu extends Vue {
         </div>
 
         <UserBlock
-          user={{
-            name: 'Сурин А.',
-          }}
+          user={this.store?.user.user}
           whenClick={() => this.$router.push('/login')}
+          whenOut={() => this.store?.user.setUser(null)}
         />
       </div>
     )

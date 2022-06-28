@@ -7,12 +7,16 @@ interface ButtonProps {
   value: string
   placeholder?: string
   whenChange: (v: string) => void
+  type?: string
 }
 
 @Component
 export class Input extends Vue {
   @Prop()
   value: ButtonProps['value']
+
+  @Prop()
+  type?: ButtonProps['type']
 
   @Prop()
   placeholder?: ButtonProps['placeholder']
@@ -31,10 +35,10 @@ export class Input extends Vue {
     return (
       <div class={styles.root}>
         <input
-          type="text"
+          type={this.type || 'text'}
           class={styles.nativeInput}
           placeholder={this.placeholder}
-          onChange={this.whenChangeHandler}
+          onInput={this.whenChangeHandler}
           value={this.value}
         />
       </div>

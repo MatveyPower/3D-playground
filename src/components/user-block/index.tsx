@@ -8,6 +8,7 @@ import styles from './style.module.css'
 interface userBlockProps {
   imgSrc: string
   whenClick: () => void
+  whenOut: () => void
 }
 
 @Component
@@ -17,6 +18,9 @@ export class UserBlock extends Vue {
 
   @Prop()
   whenClick: userBlockProps['whenClick']
+
+  @Prop()
+  whenOut: userBlockProps['whenOut']
 
   @Prop()
   user?: any
@@ -34,7 +38,7 @@ export class UserBlock extends Vue {
           />
         ) : (
           <div class={styles.user}>
-            {this.user.name}
+            {this.user.login}
             <div class={styles.userImg}>
               <svg
                 width="24"
@@ -115,13 +119,16 @@ export class UserBlock extends Vue {
       <div class={styles.dropdown}>
         <div
           class={styles.dropdownItem}
-          onclick={() => this.$router.push('/cab')}
+          onclick={() => this.$router.push('/profile')}
         >
           Личный кабинет
         </div>
         <div
           class={styles.dropdownItem}
-          onclick={() => this.$router.push('/login')}
+          onclick={() => {
+            this.whenOut()
+            this.$router.push('/')
+          }}
         >
           Выйти
         </div>
