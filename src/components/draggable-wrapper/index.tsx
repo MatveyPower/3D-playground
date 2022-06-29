@@ -6,7 +6,7 @@ import {
   DraggableItemEnum,
 } from '../draggable-item'
 
-import { Button, DraggableItem } from '@/components'
+import { Button, DraggableItem, Popup } from '@/components'
 
 import { MyStore } from '@/store'
 
@@ -16,6 +16,7 @@ import styles from './style.module.css'
 import { useModule } from 'vuex-simple'
 import { CodeBlockSettings } from '../code-block-settings'
 import { Icon } from '../icon'
+import { Input } from '../input'
 
 export enum Action { // первый dropdown
   forward = 'forward',
@@ -84,6 +85,10 @@ export class DraggableWrapper extends Vue {
   }
 
   historyLastBlock: HistoryBlock = this.historyActiveBlock
+
+  showAlgoritmsPopup = false
+  showAlgoritmsSelect = false
+  inputNameAlgoritm = ''
 
   addHistoryBlock(blocks: CodeBlockType[]) {
     this.historyActiveBlock = {
@@ -183,6 +188,12 @@ export class DraggableWrapper extends Vue {
     })
 
     return newArr
+  }
+
+  get isUserHasAlgoritmDoubleName() {
+    return this.root?.user.user.algoritms?.find(
+      (item: any) => item.name === this.inputNameAlgoritm
+    )
   }
 
   codeBlocks: CodeBlockType[] = []
@@ -316,6 +327,76 @@ export class DraggableWrapper extends Vue {
     this.codeBlocks = []
     localStorage.setItem('structure', JSON.stringify(this.codeBlocks))
     this.addHistoryBlock(this.codeBlocks)
+  }
+
+  renderPopupContent() {
+    return (
+      <div class={styles.saveAlgoritmContent}>
+        <div class={styles.saveAlgoritmTitle}>Сохранить алгоритм</div>
+        <Input
+          class={styles.inputSaveAlogritm}
+          value={this.inputNameAlgoritm}
+          whenChange={(v: any) => (this.inputNameAlgoritm = v)}
+        />
+        <div class={styles.doubleNameDescription}>
+          {this.isUserHasAlgoritmDoubleName
+            ? 'Алгоритм с таким имененем' + ' уже существует'
+            : ''}
+        </div>
+        <div class={styles.saveAlgoritmContentButtons}>
+          <Button
+            class={styles.popupButtonBack}
+            whenClick={() => (this.showAlgoritmsPopup = false)}
+            text="Закрыть"
+          />
+          <Button
+            disabled={this.isUserHasAlgoritmDoubleName}
+            whenClick={() => {
+              this.showAlgoritmsPopup = false
+              this.root?.user.setUserAlogritms([
+                {
+                  name: this.inputNameAlgoritm,
+                  algoritm: this.codeBlocks,
+                },
+              ])
+              this.addHistoryBlock(this.codeBlocks)
+              this.inputNameAlgoritm = ''
+            }}
+            class={
+              this.isUserHasAlgoritmDoubleName
+                ? styles.popupButtonDisabled
+                : styles.popupButtonMaps
+            }
+            text="Сохранить"
+          />
+        </div>
+      </div>
+    )
+  }
+
+  renderSaveAlgoritmPopup() {
+    return <Popup content={this.renderPopupContent()} />
+  }
+
+  renderAlgoritmsSelect() {
+    return this.root?.user.user.algoritms.length ? (
+      <div class={styles.algoritmsSelect}>
+        {this.root?.user.user.algoritms.map((algoritm: any) => {
+          return (
+            <div
+              class={styles.selectBlock}
+              onClick={() => {
+                this.codeBlocks = [...algoritm.algoritm]
+                this.showAlgoritmsSelect = false
+                this.root?.game.setCodeBlocks(this.normalize(this.codeBlocks))
+              }}
+            >
+              {algoritm.name}
+            </div>
+          )
+        })}
+      </div>
+    ) : undefined
   }
 
   render() {
@@ -516,10 +597,34 @@ export class DraggableWrapper extends Vue {
                   <path d="M17.4979 7.9946L14.5021 4.99881C14.1806 4.67732 13.7446 4.49671 13.2899 4.4967H3.71429C2.7675 4.4967 2 5.2642 2 6.21099V18.7824C2 19.7292 2.7675 20.4967 3.71429 20.4967H16.2857C17.2325 20.4967 18 19.7292 18 18.7824V9.20678C18 8.75212 17.8194 8.31609 17.4979 7.9946ZM10 18.211C8.73764 18.211 7.71429 17.1876 7.71429 15.9253C7.71429 14.6629 8.73764 13.6396 10 13.6396C11.2624 13.6396 12.2857 14.6629 12.2857 15.9253C12.2857 17.1876 11.2624 18.211 10 18.211ZM13.4286 7.33528V10.9253C13.4286 11.162 13.2367 11.3538 13 11.3538H4.71429C4.47761 11.3538 4.28571 11.162 4.28571 10.9253V7.21099C4.28571 6.97431 4.47761 6.78242 4.71429 6.78242H12.8757C12.9894 6.78242 13.0984 6.82756 13.1788 6.90795L13.303 7.03224C13.3428 7.07203 13.3744 7.11927 13.396 7.17127C13.4175 7.22326 13.4286 7.27899 13.4286 7.33528Z" />
                 </svg>
               }
-              whenClick={() => null}
+              whenClick={() => (this.showAlgoritmsPopup = true)}
+            />
+            <Icon
+              svg={
+                <svg
+                  id="Layer_1"
+                  style="enable-background:new 0 0 512 512;"
+                  version="1.1"
+                  viewBox="0 0 512 512"
+                  xml:space="preserve"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                >
+                  <style type="text/css"></style>
+                  <path
+                    class="st0"
+                    d="M381,236H276V131c0-11-9-20-20-20s-20,9-20,20v105H131c-11,0-20,9-20,20s9,20,20,20h105v105c0,11,9,20,20,20  s20-9,20-20V276h105c11,0,20-9,20-20S392,236,381,236z"
+                  />
+                </svg>
+              }
+              whenClick={() =>
+                (this.showAlgoritmsSelect = !this.showAlgoritmsSelect)
+              }
             />
           </div>
+          {this.showAlgoritmsSelect && this.renderAlgoritmsSelect()}
         </div>
+        {this.showAlgoritmsPopup && this.renderSaveAlgoritmPopup()}
       </div>
     )
   }

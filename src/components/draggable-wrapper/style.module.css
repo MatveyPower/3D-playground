@@ -82,6 +82,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .actionIcons {
@@ -112,4 +113,77 @@
   color: rgb(180, 180, 180);
 
   border: 1px dashed rgb(180, 180, 180);
+}
+
+.saveAlgoritmContent {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  padding: 40px 60px;
+}
+
+.inputSaveAlogritm {
+  margin: 0 auto;
+  width: 300px;
+  background-color: #fff;
+  color: #383538;
+}
+
+.saveAlgoritmContentButtons {
+  display: flex;
+  justify-content: center;
+  column-gap: 8px;
+  margin-top: 10px;
+}
+
+.saveAlgoritmTitle {
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+
+.popupButtonBack {
+  background-color: #d576e1 !important;
+  color: #000 !important;
+}
+
+.popupButtonMaps {
+  background-color: #09c6fd !important;
+  color: #000 !important;
+}
+
+.doubleNameDescription {
+  margin: 10px 0;
+  text-align: center;
+  max-width: 300px;
+}
+
+.popupButtonDisabled {
+  background-color: #49474a !important;
+  color: #7c7b7c !important;
+}
+.algoritmsSelect {
+  position: absolute;
+  right: 10px;
+  width: 200px;
+  bottom: 50px;
+  background-color: #454246;
+  border-radius: 8px;
+  padding: 4px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+}
+
+.selectBlock:hover {
+  background-color: #635e64;
+}
+
+.selectBlock {
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 4px;
 }

@@ -41,6 +41,21 @@ export class UserModule {
   }
 
   @Mutation()
+  setUserAlogritms(algoritm: any) {
+    this.user = {
+      ...this.user,
+      algoritms: this.user?.algoritms?.length
+        ? [...this.user.algoritms, ...algoritm]
+        : [...algoritm],
+    }
+    //очищает алгоритмы
+
+    // this.user = {
+    //   ...this.user,
+    //   algoritms: [],
+    // }
+    localStorage.setItem(USER_LOCALSTORAGE_KEY, JSON.stringify(this.user))
+  }
   updateUser(newUser: any) {
     const id = newUser.id
     if (this.user.id === id) {

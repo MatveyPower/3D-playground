@@ -6,6 +6,7 @@ import {
   DraggableWrapper,
   ControlButtons,
   Button,
+  Popup,
 } from '../../components'
 import { MyStore } from '@/store'
 import { useModule } from 'vuex-simple'
@@ -97,11 +98,10 @@ export class PlaygroundPage extends Vue {
     return renderArr
   }
 
-  renderPassedWindow() {
+  renderContentPopup() {
     const map = this.store.maps.selectedMap
-
     return (
-      <div class={styles.popupRoot}>
+      <div class={styles.contentWrapper}>
         {this.passedMessage === '' ? (
           <div class={styles.popupBody}>
             <div class={styles.popupTitle}>Карта пройдена!</div>
@@ -157,6 +157,10 @@ export class PlaygroundPage extends Vue {
         )}
       </div>
     )
+  }
+
+  renderPassedWindow() {
+    return <Popup content={this.renderContentPopup()} />
   }
 
   render() {
