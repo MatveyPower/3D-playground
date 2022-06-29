@@ -1,0 +1,51 @@
+.title {
+  font-family: Montserrat Black;
+  font-size: 32px;
+
+  color: #fff;
+
+  padding: 16px 0;
+}
+
+/* table styles */
+
+.table {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+}
+
+.tableRow {
+  display: flex;
+  background-color: rgb(46, 46, 46);
+}
+
+.tableCell {
+  width: 200px;
+  padding: 8px 16px;
+  flex: 1;
+
+  border: 1px solid rgb(92, 92, 92);
+
+  font-family: Montserrat;
+  font-size: 16px;
+  color: #fff;
+}
+
+.tableHeadRow {
+  background-color: #000;
+  font-family: Montserrat;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.actionButton {
+  background-color: #fd7557;
+  color: #000;
+  transition: 0.2s;
+}
+
+.actionButton:hover {
+  background-color: #d45e44;
+}

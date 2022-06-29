@@ -1,7 +1,7 @@
 import { DraggableItemEnum } from '@/components/draggable-item'
 import { Map } from './maps'
 
-import { Mutation, State, Action } from 'vuex-simple'
+import { Mutation, State, Action, Getter } from 'vuex-simple'
 
 export type cmdMsg = { status: 'green' | 'orange' | 'red'; message: string }
 const USERS_LOCALSTORAGE_KEY = 'users'
@@ -14,7 +14,9 @@ export class UserModule {
     : null
 
   @State()
-  users = []
+  users = localStorage.getItem(USERS_LOCALSTORAGE_KEY)
+    ? JSON.parse(localStorage.getItem(USERS_LOCALSTORAGE_KEY) || '')
+    : []
 
   @Action()
   getAllUsers() {
@@ -27,8 +29,6 @@ export class UserModule {
     await this.getAllUsers()
     const users = this.users
     console.log('USERS', users)
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
     users.push(user)
     this.updateUsers(users)
     this.setUser(user)
