@@ -48,27 +48,25 @@ export class UserModule {
         ? [...this.user.algoritms, ...algoritm]
         : [...algoritm],
     }
-    //очищает алгоритмы
-
-    // this.user = {
-    //   ...this.user,
-    //   algoritms: [],
-    // }
     localStorage.setItem(USER_LOCALSTORAGE_KEY, JSON.stringify(this.user))
+    this.updateUser(this.user)
   }
+
   updateUser(newUser: any) {
     const id = newUser.id
     if (this.user.id === id) {
       this.setUser(newUser)
     }
-    this.users.map((user: { id: number }) => {
+    const newUsers = this.users.map((user: { id: number }) => {
       if (user.id === id) {
+        console.log('122')
         return newUser
       } else {
         return user
       }
     })
-    this.updateUsers(this.users)
+    this.users = [...newUsers]
+    this.updateUsers(newUsers)
   }
 
   @Mutation()

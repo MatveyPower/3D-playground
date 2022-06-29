@@ -49,3 +49,16 @@
 .actionButton:hover {
   background-color: #d45e44;
 }
+
+.emptyPassedMaps {
+  padding: 32px;
+
+  font-family: Montserrat;
+  font-size: 16px;
+  color: rgb(182, 182, 182);
+}
+
+.backButton {
+  width: 200px;
+  margin: 16px auto;
+}

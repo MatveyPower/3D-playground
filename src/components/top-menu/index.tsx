@@ -109,7 +109,7 @@ export class TopMenu extends Vue {
             whenClick={() => this.$router.push('/info')}
           />
 
-          {this.store?.user.user.type === 'teacher' && (
+          {this.store?.user?.user?.type === 'teacher' && (
             <Icon
               svg={
                 <svg

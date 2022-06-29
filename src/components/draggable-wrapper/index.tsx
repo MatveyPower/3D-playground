@@ -134,7 +134,10 @@ export class DraggableWrapper extends Vue {
   }
 
   mounted() {
-    this.codeBlocks = JSON.parse(localStorage.getItem('structure') || `${[]}`)
+    this.codeBlocks =
+      this.store?.programBlocks.length && this.store?.programBlocks.length > 0
+        ? this.store?.programBlocks
+        : JSON.parse(localStorage.getItem('structure') || `${[]}`)
     this.addHistoryBlock(this.codeBlocks)
     this.store?.setCodeBlocks(this.normalize(this.codeBlocks))
   }

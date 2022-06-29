@@ -40,7 +40,7 @@ export class PlaygroundPage extends Vue {
       if (user.passedMaps.every((map: any) => map.map !== this.map.name)) {
         const passedMap = {
           map: this.map.name,
-          codeBlocks: JSON.parse(localStorage.getItem('structure') || '{[]}'),
+          codeBlocks: this.store.game.programBlocks,
         }
         const newUser = {
           ...user,
