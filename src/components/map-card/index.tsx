@@ -1,3 +1,4 @@
+import { divide } from 'lodash'
 import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
 
@@ -7,6 +8,7 @@ interface ButtonProps {
   name: string
   desciption: string
   rating: number
+  passed?: boolean
 }
 
 @Component
@@ -19,6 +21,8 @@ export class MapCard extends Vue {
 
   @Prop()
   rating: ButtonProps['rating']
+  @Prop()
+  passed: ButtonProps['passed']
 
   renderRating() {
     const renderArr = []
@@ -56,7 +60,23 @@ export class MapCard extends Vue {
   render() {
     return (
       <div class={styles.root}>
-        <div class={styles.name}>{this.name}</div>
+        <div class={styles.name}>
+          <div class={styles.text}>{this.name}</div>
+          {this.passed && (
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8 0C3.58173 0 0 3.58173 0 8C0 12.4183 3.58173 16 8 16C12.4183 16 16 12.4183 16 8C16 3.58173 12.4183 0 8 0ZM8 1.73828C11.4583 1.73828 14.2607 4.54261 14.2607 8C14.2607 11.4574 11.4583 14.2607 8 14.2607C4.54173 14.2607 1.73925 11.4574 1.73925 8C1.73927 4.54261 4.54173 1.73828 8 1.73828ZM11.0654 4.20117L6.42871 8.83887L4.9248 7.33496L3.44921 8.80957L4.95312 10.3135L6.43847 11.7988L7.91309 10.3232L12.5508 5.68652L11.0654 4.20117V4.20117Z"
+                fill="#4ECB71"
+              />
+            </svg>
+          )}
+        </div>
         <div class={styles.desciption}>{this.desciption}</div>
         <div class={styles.rating}>{this.renderRating()}</div>
       </div>

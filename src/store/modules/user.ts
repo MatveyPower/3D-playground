@@ -30,7 +30,7 @@ export class UserModule {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     users.push(user)
-    localStorage.setItem(USERS_LOCALSTORAGE_KEY, JSON.stringify(users))
+    this.updateUsers(users)
     this.setUser(user)
   }
 
@@ -55,5 +55,24 @@ export class UserModule {
     //   algoritms: [],
     // }
     localStorage.setItem(USER_LOCALSTORAGE_KEY, JSON.stringify(this.user))
+  }
+  updateUser(newUser: any) {
+    const id = newUser.id
+    if (this.user.id === id) {
+      this.setUser(newUser)
+    }
+    this.users.map((user: { id: number }) => {
+      if (user.id === id) {
+        return newUser
+      } else {
+        return user
+      }
+    })
+    this.updateUsers(this.users)
+  }
+
+  @Mutation()
+  updateUsers(users: any) {
+    localStorage.setItem(USERS_LOCALSTORAGE_KEY, JSON.stringify(users))
   }
 }

@@ -75,12 +75,17 @@
   justify-content: center;
 }
 
-.popupPlusRaiting {
+.popupPlusRaiting,
+.popupErrorText {
   font-family: Montserrat Black;
   font-size: 26px;
   color: #99e497;
   padding: 8px;
   text-align: center;
+}
+
+.popupErrorText {
+  color: #f49090;
 }
 
 .popupButtonBack {
