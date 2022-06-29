@@ -386,8 +386,9 @@ export class DraggableWrapper extends Vue {
             <div
               class={styles.selectBlock}
               onClick={() => {
-                this.codeBlocks = algoritm.algoritm
+                this.codeBlocks = [...algoritm.algoritm]
                 this.showAlgoritmsSelect = false
+                this.root?.game.setCodeBlocks(this.normalize(this.codeBlocks))
               }}
             >
               {algoritm.name}
