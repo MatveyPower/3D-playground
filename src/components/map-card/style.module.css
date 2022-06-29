@@ -20,6 +20,12 @@
 }
 
 .name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.text {
   font-family: Montserrat ExtraBold;
   font-size: 16px;
 }
@@ -44,4 +50,11 @@
 .rating {
   display: flex;
   gap: 8px;
+}
+
+.passedIcon {
+  width: 16px;
+  height: 16px;
+
+  background-color: #56fe7a;
 }

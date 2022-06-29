@@ -9,12 +9,16 @@ import styles from './style.module.css'
 
 interface ButtonProps {
   selectedMap: Map
+  passed?: boolean
 }
 
 @Component
 export class SelectedMap extends Vue {
   @Prop()
   selectedMap: ButtonProps['selectedMap']
+
+  @Prop()
+  passed: ButtonProps['passed']
 
   render() {
     return (
@@ -25,6 +29,7 @@ export class SelectedMap extends Vue {
           class={styles.playgroundWrapper}
         />
         <MapCard
+          passed={this.passed}
           class={styles.mapCard}
           name={this.selectedMap.name}
           desciption={this.selectedMap.desciption}
