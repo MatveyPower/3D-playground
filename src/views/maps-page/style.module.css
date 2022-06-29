@@ -44,6 +44,36 @@
 
 .mapsList {
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: 16px;
+}
+
+.searchInput {
+  /* width: 397px; */
+  background-color: #383538;
+  padding: 6px 8px;
+
+  color: #fff;
+}
+
+.activeMap {
+  outline: 2px solid #4ed5fe;
+}
+
+.filterButton {
+  background-color: #383538;
+  width: 300px;
+  padding: 4px 0;
+  color: #7c7b7c;
+}
+
+.filterButtonActive {
+  background-color: #e3e3e3;
+  color: #313131;
+}
+
+.filters {
+  display: flex;
+  justify-content: space-between;
 }

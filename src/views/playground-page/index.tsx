@@ -22,13 +22,37 @@ import { Cmd } from '@/components/cmd'
 export class PlaygroundPage extends Vue {
   store = useModule<MyStore>(this.$store) as MyStore
 
+  map = this.store.maps.selectedMap
   selectedMap = this.store.maps.selectedMap.structure
   rating = this.store.maps.selectedMap.rating
 
   isShowMapPassedWindow = false
 
+  passedMessage = ''
+
   @Watch('store.game.mapPassed', { immediate: true, deep: true })
   showMapPassedWindow() {
+    this.passedMessage = ''
+    if (this.store.game.mapPassed) {
+      const user = this.store.user.user
+
+      if (user.passedMaps.every((map: any) => map.map !== this.map.name)) {
+        const passedMap = {
+          map: this.map.name,
+          codeBlocks: JSON.parse(localStorage.getItem('structure') || '{[]}'),
+        }
+        const newUser = {
+          ...user,
+          passedMaps: [...user.passedMaps, passedMap],
+          rating: user.rating + this.rating * 10,
+        }
+
+        this.store.user.updateUser(newUser)
+      } else {
+        this.passedMessage =
+          'Вы уже проходили эту карту. Рейтинг не был добавлен.'
+      }
+    }
     this.isShowMapPassedWindow = this.store.game.mapPassed
   }
 
@@ -78,33 +102,59 @@ export class PlaygroundPage extends Vue {
 
     return (
       <div class={styles.popupRoot}>
-        <div class={styles.popupBody}>
-          <div class={styles.popupTitle}>Карта пройдена!</div>
-          <div class={styles.popupMapName}>{map.name}</div>
-          <div class={styles.popupPlusRaiting}>
-            {' '}
-            + {this.rating * 10} к рейтингу!
+        {this.passedMessage === '' ? (
+          <div class={styles.popupBody}>
+            <div class={styles.popupTitle}>Карта пройдена!</div>
+            <div class={styles.popupMapName}>{map.name}</div>
+            <div class={styles.popupPlusRaiting}>
+              {' '}
+              + {this.rating * 10} к рейтингу!
+            </div>
+            <div class={styles.popupRating}>{this.renderRating()}</div>
+            <div class={styles.popupButtons}>
+              <Button
+                text={'Назад'}
+                class={styles.popupButtonBack}
+                whenClick={() => {
+                  this.isShowMapPassedWindow = false
+                  this.store.game.nullMapPassed()
+                }}
+              />
+              <Button
+                text={'К списку карт'}
+                class={styles.popupButtonMaps}
+                whenClick={() => {
+                  this.store.game.nullMapPassed()
+                  this.$router.push('/maps')
+                }}
+              />
+            </div>
           </div>
-          <div class={styles.popupRating}>{this.renderRating()}</div>
-          <div class={styles.popupButtons}>
-            <Button
-              text={'Назад'}
-              class={styles.popupButtonBack}
-              whenClick={() => {
-                this.isShowMapPassedWindow = false
-                this.store.game.nullMapPassed()
-              }}
-            />
-            <Button
-              text={'К списку карт'}
-              class={styles.popupButtonMaps}
-              whenClick={() => {
-                this.store.game.nullMapPassed()
-                this.$router.push('/maps')
-              }}
-            />
+        ) : (
+          <div class={styles.popupBody}>
+            <div class={styles.popupTitle}>Карта пройдена!</div>
+            <div class={styles.popupMapName}>{map.name}</div>
+            <div class={styles.popupErrorText}>{this.passedMessage}</div>
+            <div class={styles.popupButtons}>
+              <Button
+                text={'Назад'}
+                class={styles.popupButtonBack}
+                whenClick={() => {
+                  this.isShowMapPassedWindow = false
+                  this.store.game.nullMapPassed()
+                }}
+              />
+              <Button
+                text={'К списку карт'}
+                class={styles.popupButtonMaps}
+                whenClick={() => {
+                  this.store.game.nullMapPassed()
+                  this.$router.push('/maps')
+                }}
+              />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     )
   }
