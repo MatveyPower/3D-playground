@@ -70,6 +70,7 @@ export class GameModule {
 
   @Mutation()
   setCodeBlocks(programBlocks: CodeBlockType[]) {
+    console.log('setCodeBlocks', programBlocks)
     this.programBlocks = programBlocks
   }
 

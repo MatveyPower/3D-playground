@@ -1,7 +1,7 @@
 import { DraggableItemEnum } from '@/components/draggable-item'
 import { Map } from './maps'
 
-import { Mutation, State, Action } from 'vuex-simple'
+import { Mutation, State, Action, Getter } from 'vuex-simple'
 
 export type cmdMsg = { status: 'green' | 'orange' | 'red'; message: string }
 const USERS_LOCALSTORAGE_KEY = 'users'
@@ -14,7 +14,9 @@ export class UserModule {
     : null
 
   @State()
-  users = []
+  users = localStorage.getItem(USERS_LOCALSTORAGE_KEY)
+    ? JSON.parse(localStorage.getItem(USERS_LOCALSTORAGE_KEY) || '')
+    : []
 
   @Action()
   getAllUsers() {
@@ -27,8 +29,6 @@ export class UserModule {
     await this.getAllUsers()
     const users = this.users
     console.log('USERS', users)
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
     users.push(user)
     this.updateUsers(users)
     this.setUser(user)
@@ -48,27 +48,25 @@ export class UserModule {
         ? [...this.user.algoritms, ...algoritm]
         : [...algoritm],
     }
-    //очищает алгоритмы
-
-    // this.user = {
-    //   ...this.user,
-    //   algoritms: [],
-    // }
     localStorage.setItem(USER_LOCALSTORAGE_KEY, JSON.stringify(this.user))
+    this.updateUser(this.user)
   }
+
   updateUser(newUser: any) {
     const id = newUser.id
     if (this.user.id === id) {
       this.setUser(newUser)
     }
-    this.users.map((user: { id: number }) => {
+    const newUsers = this.users.map((user: { id: number }) => {
       if (user.id === id) {
+        console.log('122')
         return newUser
       } else {
         return user
       }
     })
-    this.updateUsers(this.users)
+    this.users = [...newUsers]
+    this.updateUsers(newUsers)
   }
 
   @Mutation()
