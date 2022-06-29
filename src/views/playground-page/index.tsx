@@ -6,6 +6,7 @@ import {
   DraggableWrapper,
   ControlButtons,
   Button,
+  Popup,
 } from '../../components'
 import { MyStore } from '@/store'
 import { useModule } from 'vuex-simple'
@@ -73,40 +74,41 @@ export class PlaygroundPage extends Vue {
     return renderArr
   }
 
-  renderPassedWindow() {
+  renderContentPopup() {
     const map = this.store.maps.selectedMap
-
     return (
-      <div class={styles.popupRoot}>
-        <div class={styles.popupBody}>
-          <div class={styles.popupTitle}>Карта пройдена!</div>
-          <div class={styles.popupMapName}>{map.name}</div>
-          <div class={styles.popupPlusRaiting}>
-            {' '}
-            + {this.rating * 10} к рейтингу!
-          </div>
-          <div class={styles.popupRating}>{this.renderRating()}</div>
-          <div class={styles.popupButtons}>
-            <Button
-              text={'Назад'}
-              class={styles.popupButtonBack}
-              whenClick={() => {
-                this.isShowMapPassedWindow = false
-                this.store.game.nullMapPassed()
-              }}
-            />
-            <Button
-              text={'К списку карт'}
-              class={styles.popupButtonMaps}
-              whenClick={() => {
-                this.store.game.nullMapPassed()
-                this.$router.push('/maps')
-              }}
-            />
-          </div>
+      <div class={styles.contentWrapper}>
+        <div class={styles.popupTitle}>Карта пройдена!</div>
+        <div class={styles.popupMapName}>{map.name}</div>
+        <div class={styles.popupPlusRaiting}>
+          {' '}
+          + {this.rating * 10} к рейтингу!
+        </div>
+        <div class={styles.popupRating}>{this.renderRating()}</div>
+        <div class={styles.popupButtons}>
+          <Button
+            text={'Назад'}
+            class={styles.popupButtonBack}
+            whenClick={() => {
+              this.isShowMapPassedWindow = false
+              this.store.game.nullMapPassed()
+            }}
+          />
+          <Button
+            text={'К списку карт'}
+            class={styles.popupButtonMaps}
+            whenClick={() => {
+              this.store.game.nullMapPassed()
+              this.$router.push('/maps')
+            }}
+          />
         </div>
       </div>
     )
+  }
+
+  renderPassedWindow() {
+    return <Popup content={this.renderContentPopup()} />
   }
 
   render() {

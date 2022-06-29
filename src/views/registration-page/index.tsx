@@ -69,7 +69,7 @@ export class RegistrationPage extends Vue {
         login: this.login,
         password: this.password,
         passedMaps: [],
-        algorithms: [],
+        algoritms: [],
         rating: 0,
         type: 'user',
       })

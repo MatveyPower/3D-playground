@@ -39,4 +39,21 @@ export class UserModule {
     this.user = user
     localStorage.setItem(USER_LOCALSTORAGE_KEY, JSON.stringify(user))
   }
+
+  @Mutation()
+  setUserAlogritms(algoritm: any) {
+    this.user = {
+      ...this.user,
+      algoritms: this.user?.algoritms?.length
+        ? [...this.user.algoritms, ...algoritm]
+        : [...algoritm],
+    }
+    //очищает алгоритмы
+
+    // this.user = {
+    //   ...this.user,
+    //   algoritms: [],
+    // }
+    localStorage.setItem(USER_LOCALSTORAGE_KEY, JSON.stringify(this.user))
+  }
 }
