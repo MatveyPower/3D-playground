@@ -62,3 +62,8 @@
   width: 200px;
   margin: 16px auto;
 }
+
+.adminButtons {
+  display: flex;
+  gap: 8px;
+}

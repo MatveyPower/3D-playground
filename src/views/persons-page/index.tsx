@@ -67,7 +67,7 @@ export class PersonsPage extends Vue {
                 <div class={styles.tableCell}>{user.rating}</div>
                 <div class={styles.tableCell}>
                   {this.isAdmin ? (
-                    <div>
+                    <div class={styles.adminButtons}>
                       <Button
                         class={styles.actionButton}
                         text={'Сделать учителем'}
