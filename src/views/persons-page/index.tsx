@@ -15,6 +15,10 @@ import { useModule } from 'vuex-simple'
 export class PersonsPage extends Vue {
   store = useModule<MyStore>(this.$store)
 
+  get isAdmin() {
+    return this.store?.user.user.type === 'admin'
+  }
+
   get isTeacher() {
     return this.store?.user.user.type === 'teacher'
   }
@@ -24,7 +28,20 @@ export class PersonsPage extends Vue {
   }
 
   get usersArr() {
-    return this.allUsers.filter((user: any) => user.type === 'user')
+    return this.isTeacher
+      ? this.allUsers.filter((user: any) => user.type === 'user')
+      : this.allUsers.filter((user: any) => user.type !== 'admin')
+  }
+
+  makeTeacher(user: any) {
+    this.store?.user.updateUser({
+      ...user,
+      type: 'teacher',
+    })
+  }
+
+  deleteUser(user: any) {
+    this.store?.user.deleteUser(user)
   }
 
   activePassedMaps = null
@@ -43,15 +60,34 @@ export class PersonsPage extends Vue {
             </div>
             {this.usersArr.map((user: any) => (
               <div class={styles.tableRow}>
-                <div class={styles.tableCell}>{user.name}</div>
+                <div class={styles.tableCell}>
+                  {user.name} {user.type === 'teacher' ? '(Учитель)' : ''}
+                </div>
                 <div class={styles.tableCell}>{user.login}</div>
                 <div class={styles.tableCell}>{user.rating}</div>
                 <div class={styles.tableCell}>
-                  <Button
-                    class={styles.actionButton}
-                    text={'Посмотреть результаты'}
-                    whenClick={() => (this.activePassedMaps = user.passedMaps)}
-                  />
+                  {this.isAdmin ? (
+                    <div>
+                      <Button
+                        class={styles.actionButton}
+                        text={'Сделать учителем'}
+                        whenClick={() => this.makeTeacher(user)}
+                      />
+                      <Button
+                        class={styles.actionButton}
+                        text={'Удалить'}
+                        whenClick={() => this.deleteUser(user)}
+                      />
+                    </div>
+                  ) : (
+                    <Button
+                      class={styles.actionButton}
+                      text={'Посмотреть результаты'}
+                      whenClick={() =>
+                        (this.activePassedMaps = user.passedMaps)
+                      }
+                    />
+                  )}
                 </div>
               </div>
             ))}
