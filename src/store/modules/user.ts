@@ -28,7 +28,6 @@ export class UserModule {
   async registration(user: any) {
     await this.getAllUsers()
     const users = this.users
-    console.log('USERS', users)
     users.push(user)
     this.updateUsers(users)
     this.setUser(user)
@@ -59,7 +58,6 @@ export class UserModule {
     }
     const newUsers = this.users.map((user: { id: number }) => {
       if (user.id === id) {
-        console.log('122')
         return newUser
       } else {
         return user
@@ -72,5 +70,13 @@ export class UserModule {
   @Mutation()
   updateUsers(users: any) {
     localStorage.setItem(USERS_LOCALSTORAGE_KEY, JSON.stringify(users))
+  }
+
+  deleteUser(user: any) {
+    const users = JSON.parse(localStorage.getItem(USERS_LOCALSTORAGE_KEY)!)
+    const userId = users.findIndex((item: any) => item.login === user.login)
+    const newUsers = [...users.slice(0, userId), ...users.slice(userId + 1)]
+    this.users = [...newUsers]
+    this.updateUsers(newUsers)
   }
 }
